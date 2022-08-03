@@ -1,0 +1,29 @@
+#ifndef MYSCHEME_TOKEN_H
+#define MYSCHEME_TOKEN_H
+
+#include <string>
+#include <utility>
+#include <iostream>
+
+// for Tokens, every single word in Scheme can be a token, which means. it can be every single element it has, so token can represent for its type, value in string
+class Token {
+public:
+    Token(char t): type(t) {}
+    Token(char t, std::string v): type(t), value(std::move(v)) {}
+    char type;
+    std::string value;
+};
+
+// for Token_stream, our compiler will load Scheme code as istream, I gonna wrap it and refer this as the wrapper of istream, which means, it will have buffer, and istream inside of it
+class Token_stream {
+public:
+    Token_stream(std::istream& i): is(i), full(false), buffer(0) {}
+    Token get();
+    std::istream& get_istream();
+private:
+    bool full;
+    Token buffer;
+    std::istream& is;
+};
+
+#endif //MYSCHEME_TOKEN_H
