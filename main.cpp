@@ -32,14 +32,15 @@ Token Token_stream::get() {
     char ch;
     cin >> ch;
     switch (ch) {
-        case '(': case ')':
-            return {ch};
         case ';':
             return {quit};
+        case '(': case ')':
         default: {
             string s;
             s += ch;
-            while(cin >> ch && (isalpha(ch) || isdigit(ch) || ch == '_')) s += ch;
+            while(cin >> ch && !(isspace(ch) || ch == ';')){
+                s += ch;
+            }
             return {'a', s};
         }
     }
