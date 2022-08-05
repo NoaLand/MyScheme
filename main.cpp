@@ -37,7 +37,7 @@ list handle_list(Token_stream ts) {
     while(true) {
         const Token &atom = ts.get();
         if(atom.type == 'A') {
-            l.list.push_back(atom);
+            l.push_back(atom);
         } else if(atom.type == ')') {
             break;
         } else {

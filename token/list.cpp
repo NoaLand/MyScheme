@@ -1,12 +1,20 @@
 #include "list.h"
 
-
-std::ostream &operator<<(std::ostream &os, const list &sl) {
-    os << "( ";
-    for (auto atom : sl.list) {
-        os << atom.value << " ";
+std::string list::get_value() {
+    std::string res = "( ";
+    for (const auto& atom : list) {
+        res += atom.value;
+        res += " ";
     }
-    os << ")";
+    res += ")";
 
-    return os;
+    return res;
+}
+
+void list::push_back(Token token) {
+    list.push_back(token);
+}
+
+std::ostream &operator<<(std::ostream &os, list sl) {
+    return os << sl.get_value();
 }
