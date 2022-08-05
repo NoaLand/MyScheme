@@ -8,4 +8,5 @@ So we can just start from the begining of this book.
 
 ## Term
 - atom: a string of characters
+- list: a list contains multiple atoms -- ( atom, atom, ... )
 
