@@ -16,6 +16,8 @@ int main() {
                 std::cout << "atom: " << a.value << std::endl;
                 continue;
             case '(': {
+                // actually, not only list will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
+                // 1. list
                 scheme_list l = handle_list(ts);
                 std::cout << "list: " << l << std::endl;
                 continue;
