@@ -21,6 +21,7 @@ int main() {
             case '(': {
                 // actually, not only list will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
                 // 1. list
+                ts.put_back(token);
                 list l = handle_list(ts);
                 std::cout << l << std::endl;
                 continue;
@@ -33,6 +34,7 @@ int main() {
 }
 
 list handle_list(Token_stream ts) {
+    ts.get();
     list l;
     while(true) {
         const Token &atom = ts.get();
