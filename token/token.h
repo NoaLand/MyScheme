@@ -20,6 +20,7 @@ public:
     Token_stream(std::istream& i): is(i), full(false), buffer(0) {}
     Token get();
     std::istream& get_istream();
+    void put_back(Token);
 private:
     bool full;
     Token buffer;

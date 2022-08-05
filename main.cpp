@@ -1,4 +1,5 @@
 #include "token/token.h"
+#include "token/atom.h"
 #include "token/scheme_list.h"
 
 std::istream& is{std::cin};
@@ -10,11 +11,13 @@ int main() {
     std::cout << "Let's start!" << std::endl;
 
     while(ts.get_istream()) {
-        Token a = ts.get();
-        switch (a.type) {
-            case 'A':
-                std::cout << "atom: " << a.value << std::endl;
+        Token token = ts.get();
+        switch (token.type) {
+            case 'A': {
+                atom a{token.value};
+                std::cout << a << std::endl;
                 continue;
+            }
             case '(': {
                 // actually, not only list will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
                 // 1. list
@@ -23,7 +26,7 @@ int main() {
                 continue;
             }
             default:
-                std::cout << "others: " << a.value << std::endl;
+                std::cout << "others: " << token.value << std::endl;
                 continue;
         }
     }

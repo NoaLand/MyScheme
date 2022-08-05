@@ -1,5 +1,7 @@
 #include "token.h"
 
+#include <utility>
+
 const char separator = 'S';
 
 Token Token_stream::get() {
@@ -35,4 +37,13 @@ Token Token_stream::get() {
 
 std::istream& Token_stream::get_istream() {
     return is;
+}
+
+void Token_stream::put_back(Token t) {
+    if(full) {
+        throw std::runtime_error("buffer is full!!!");
+    }
+
+    full = true;
+    buffer = std::move(t);
 }
