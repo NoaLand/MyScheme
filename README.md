@@ -18,5 +18,5 @@ list:
     (list, list, ...)
     (list, atom, ...)
 atom:
-    string
+    a string of characters
 ```
