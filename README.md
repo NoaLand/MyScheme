@@ -10,3 +10,13 @@ So we can just start from the begining of this book.
 - atom: a string of characters
 - list: a list contains multiple atoms -- ( atom, atom, ... )
 
+## Grammar
+```
+list:
+    # let's say these items can be in any order
+    (atom, atom, ...)
+    (list, list, ...)
+    (list, atom, ...)
+atom:
+    string
+```
