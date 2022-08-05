@@ -1,7 +1,7 @@
-#include "scheme_list.h"
+#include "list.h"
 
 
-std::ostream &operator<<(std::ostream &os, const scheme_list &sl) {
+std::ostream &operator<<(std::ostream &os, const list &sl) {
     os << "( ";
     for (auto atom : sl.list) {
         os << atom.value << " ";

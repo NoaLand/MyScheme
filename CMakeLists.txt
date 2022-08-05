@@ -3,4 +3,4 @@ project(MyScheme)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(MyScheme main.cpp token/token.cpp token/scheme_list.cpp token/atom.cpp)
+add_executable(MyScheme main.cpp token/token.cpp token/list.cpp token/atom.cpp)
