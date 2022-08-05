@@ -16,5 +16,5 @@ void list::push_back(Token token) {
 }
 
 std::ostream &operator<<(std::ostream &os, list sl) {
-    return os << sl.get_value();
+    return os << "list: " << sl.get_value();
 }

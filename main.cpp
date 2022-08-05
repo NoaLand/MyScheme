@@ -22,7 +22,7 @@ int main() {
                 // actually, not only list will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
                 // 1. list
                 list l = handle_list(ts);
-                std::cout << "list: " << l << std::endl;
+                std::cout << l << std::endl;
                 continue;
             }
             default:
