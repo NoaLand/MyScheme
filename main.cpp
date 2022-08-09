@@ -19,8 +19,8 @@ int main() {
                 continue;
             }
             case '(': {
-                // actually, not only list will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
-                // 1. list
+                // actually, not only l will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
+                // 1. l
                 ts.put_back(token);
                 list l = handle_list(ts);
                 std::cout << l << std::endl;
@@ -37,13 +37,14 @@ list handle_list(Token_stream ts) {
     ts.get();
     list l;
     while(true) {
-        const Token &atom = ts.get();
-        if(atom.type == 'A') {
-            l.push_back(atom);
-        } else if(atom.type == ')') {
+        Token token = ts.get();
+        if(token.type == 'A') {
+            atom* a = new atom(token.value);
+            l.push_back(a);
+        } else if(token.type == ')') {
             break;
         } else {
-            throw std::runtime_error("wrong syntax: " + atom.value);
+            throw std::runtime_error("wrong syntax: " + token.value);
         }
     }
 

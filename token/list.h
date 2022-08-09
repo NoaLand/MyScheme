@@ -6,15 +6,15 @@
 #include "token.h"
 #include "s_expression.h"
 
-class list: public virtual s_expression{
+class list: public s_expression{
 public:
     std::string get_value();
-    void push_back(Token token);
+    void push_back(s_expression* s_exp);
 private:
-    std::string indicator;
-    std::vector<Token> list;
+    std::string indicator{"list"};
+    std::vector<s_expression*> l{};
 };
 
-std::ostream& operator<<(std::ostream& os, list sl);
+std::ostream& operator<<(std::ostream& os, list l);
 
 #endif //MYSCHEME_LIST_H

@@ -2,8 +2,8 @@
 
 std::string list::get_value() {
     std::string res = "( ";
-    for (const auto& atom : list) {
-        res += atom.value;
+    for (auto atom : l) {
+        res += atom->get_value();
         res += " ";
     }
     res += ")";
@@ -11,10 +11,10 @@ std::string list::get_value() {
     return res;
 }
 
-void list::push_back(Token token) {
-    list.push_back(token);
+void list::push_back(s_expression* s_exp) {
+    l.push_back(s_exp);
 }
 
-std::ostream &operator<<(std::ostream &os, list sl) {
-    return os << "list: " << sl.get_value();
+std::ostream &operator<<(std::ostream &os, list l) {
+    return os << "list: " << l.get_value();
 }

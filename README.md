@@ -8,15 +8,15 @@ So we can just start from the begining of this book.
 
 ## Term
 - atom: a string of characters
-- list: a list contains multiple atoms -- ( atom, atom, ... )
+- l: a l contains multiple atoms -- ( atom, atom, ... )
 
 ## Grammar
 ```
-list:
+l:
     # let's say these items can be in any order
     (atom, atom, ...)
-    (list, list, ...)
-    (list, atom, ...)
+    (l, l, ...)
+    (l, atom, ...)
 atom:
     a string of characters
 ```
