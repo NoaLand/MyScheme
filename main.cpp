@@ -20,7 +20,8 @@ int main() {
             }
             case 'C': {
                 list l = handle_list(ts);
-                std::cout << "car of l: " << l.car() << std::endl;
+                const std::string &car = l.car();
+                std::cout << "car of l: " << car << std::endl;
                 continue;
             }
             case '(': {

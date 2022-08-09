@@ -12,6 +12,9 @@ std::string list::get_value() {
 }
 
 std::string list::car() {
+    if(l.empty()) {
+        throw std::runtime_error("you cannot ask for the *car* of the empty list");
+    }
     return l.at(0)->get_value();
 }
 
