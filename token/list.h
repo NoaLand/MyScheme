@@ -8,7 +8,7 @@
 
 class list: public s_expression{
 public:
-    std::string get_value();
+    std::string get_value() override;
     void push_back(s_expression* s_exp);
 private:
     std::string indicator{"list"};

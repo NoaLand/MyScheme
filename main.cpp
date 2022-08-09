@@ -5,7 +5,7 @@
 std::istream& is{std::cin};
 Token_stream ts{is};
 
-list handle_list(Token_stream ts);
+list handle_list(Token_stream& ts);
 
 int main() {
     std::cout << "Let's start!" << std::endl;
@@ -33,7 +33,7 @@ int main() {
     }
 }
 
-list handle_list(Token_stream ts) {
+list handle_list(Token_stream& ts) {
     ts.get();
     list l;
     while(true) {
