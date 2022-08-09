@@ -18,13 +18,17 @@ int main() {
                 std::cout << a << std::endl;
                 continue;
             }
+            case 'C': {
+                list l = handle_list(ts);
+                std::cout << "car of l: " << l.car() << std::endl;
+                continue;
+            }
             case '(': {
                 // actually, not only l will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
                 // 1. l
                 ts.put_back(token);
                 list l = handle_list(ts);
                 std::cout << l << std::endl;
-                std::cout << "car of l: " << l.car() << std::endl;
                 continue;
             }
             default:
@@ -35,7 +39,11 @@ int main() {
 }
 
 list handle_list(Token_stream& ts) {
-    ts.get();
+    const Token &left = ts.get();
+    if(left.type != '(') {
+        throw std::runtime_error("wrong syntax: " + left.value);
+    }
+
     list l;
     while(true) {
         Token token = ts.get();

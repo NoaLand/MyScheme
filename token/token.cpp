@@ -22,6 +22,9 @@ Token Token_stream::get() {
             std::string s;
             s += ch;
             while(is.get(ch)) {
+                if(s == "car") {
+                    return {'C', s};
+                }
                 if (ch == ')') {
                     is.putback(ch);
                     return {'A', s};
