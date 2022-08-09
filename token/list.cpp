@@ -11,6 +11,10 @@ std::string list::get_value() {
     return res;
 }
 
+std::string list::car() {
+    return l.at(0)->get_value();
+}
+
 void list::push_back(s_expression* s_exp) {
     l.push_back(s_exp);
 }

@@ -24,6 +24,7 @@ int main() {
                 ts.put_back(token);
                 list l = handle_list(ts);
                 std::cout << l << std::endl;
+                std::cout << "car of l: " << l.car() << std::endl;
                 continue;
             }
             default:
