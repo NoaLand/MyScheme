@@ -43,7 +43,11 @@ list handle_list(Token_stream& ts) {
             l.push_back(a);
         } else if(token.type == ')') {
             break;
-        } else {
+        } else if(token.type == '(') {
+            ts.put_back(token);
+            list* pList = new list(handle_list(ts));
+            l.push_back(pList);
+        }  else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
     }

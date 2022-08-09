@@ -8,6 +8,8 @@
 
 class list: public s_expression{
 public:
+    list() = default;
+    list(list const &copy) { l = copy.l; }
     std::string get_value() override;
     void push_back(s_expression* s_exp);
 private:
