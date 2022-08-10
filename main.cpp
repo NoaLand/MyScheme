@@ -22,12 +22,15 @@ void scheme(Token_stream& ts) {
                 a.print(std::cout);
                 continue;
             }
-//            case 'F': {
-//                list l = handle_list(ts);
-//                const std::string &car = l.car();
-//                std::cout << "car of l: " << car << std::endl;
-//                continue;
-//            }
+            case 'F': {
+                s_expression* l = handle_list(ts);
+                if(l->get_indicator() != "list") {
+                    throw std::runtime_error("wrong syntax, car can only get list.");
+                }
+                const std::string &car = ((list*)l)->car();
+                std::cout << "car of l: " << car << std::endl;
+                continue;
+            }
             case '(': {
                 // actually, not only s_exp will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
                 // 1. s_exp
