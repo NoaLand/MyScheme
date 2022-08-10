@@ -1,18 +1,18 @@
 #include "s_expression_family.h"
 
-atom* is_atom::execute() {
+boolean* is_atom::execute() {
     if(s_exp->get_indicator() == "atom") {
-        return new atom{"#t"};
+        return new boolean{true};
     } else {
-        return new atom{"#f"};
+        return new boolean{false};
     }
 }
 
-atom *is_eq::execute() {
+boolean *is_eq::execute() {
     if(left->get_indicator() == right->get_indicator()
         && left->get_value() == right->get_value()) {
-        return new atom{"#t"};
+        return new boolean{true};
     } else {
-        return new atom{"#f"};
+        return new boolean{false};
     }
 }

@@ -42,11 +42,11 @@ s_expression* cons::execute() {
     return res;
 }
 
-s_expression* is_null::execute() {
+boolean* is_null::execute() {
     list *pList = (list *) s_exp;
     if(pList->empty()) {
-        return new atom{"#t"};
+        return new boolean{true};
     } else {
-        return new atom{"#f"};
+        return new boolean{false};
     }
 }

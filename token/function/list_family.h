@@ -2,6 +2,7 @@
 #define MYSCHEME_LIST_FAMILY_H
 
 #include "function.h"
+#include "../s_expression/atom.h"
 
 class car: public function {
 public:
@@ -39,7 +40,7 @@ public:
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
     }
-    s_expression* execute() override;
+    boolean* execute() override;
 private:
     s_expression* s_exp;
 };

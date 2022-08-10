@@ -7,7 +7,7 @@
 class is_atom: public function {
 public:
     is_atom(s_expression* exp): s_exp(exp) {}
-    atom* execute() override;
+    boolean* execute() override;
 private:
     s_expression* s_exp;
 };
@@ -15,7 +15,7 @@ private:
 class is_eq: public function {
 public:
     is_eq(s_expression* l, s_expression* r): left(l), right(r) {}
-    atom* execute() override;
+    boolean* execute() override;
 private:
     s_expression* left;
     s_expression* right;

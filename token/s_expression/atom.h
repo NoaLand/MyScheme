@@ -16,4 +16,18 @@ private:
     std::string indicator{"atom"};
     std::string value;
 };
+
+class boolean: public s_expression {
+public:
+    boolean(bool b) {
+        value = b ? "#t" : "#f";
+    }
+    std::string get_value() override;
+    std::string get_indicator() override { return indicator; }
+    void print(std::ostream& os) override;
+    bool val();
+private:
+    std::string indicator{"bool"};
+    std::string value;
+};
 #endif //MYSCHEME_ATOM_H
