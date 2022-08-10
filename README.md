@@ -15,8 +15,11 @@ So we can just start from the begining of this book.
 expression:
     # expression can be enclosed with () or not, they are the same
     - car class:
-        car list -> list
-        (car list) -> list
+        car list -> s_expression
+        (car list) -> s_expression
+s_expression:
+    list
+    atom
 list:
     # let's say these items can be in any order
     (atom, atom, ...)
