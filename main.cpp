@@ -29,11 +29,11 @@ void scheme(Token_stream& ts) {
 //                continue;
 //            }
             case '(': {
-                // actually, not only l will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
-                // 1. l
+                // actually, not only s_exp will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
+                // 1. s_exp
                 ts.put_back(token);
-                list* l = (list*)handle_list(ts);
-                l->print(std::cout);
+                s_expression* s_exp = handle_list(ts);
+                s_exp->print(std::cout);
                 continue;
                 // 2. other expression, so this version of code cannot run code like: car (car ((a))), since it will take (car ((a))) as list, but find `car` inside it
             }
