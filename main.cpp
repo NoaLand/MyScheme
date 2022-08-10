@@ -5,7 +5,7 @@
 std::istream& is{std::cin};
 Token_stream ts{is};
 
-list handle_list(Token_stream& ts);
+s_expression* handle_list(Token_stream& ts);
 
 int main() {
     std::cout << "Let's start!" << std::endl;
@@ -18,18 +18,18 @@ int main() {
                 a.print(std::cout);
                 continue;
             }
-            case 'F': {
-                list l = handle_list(ts);
-                const std::string &car = l.car();
-                std::cout << "car of l: " << car << std::endl;
-                continue;
-            }
+//            case 'F': {
+//                list l = handle_list(ts);
+//                const std::string &car = l.car();
+//                std::cout << "car of l: " << car << std::endl;
+//                continue;
+//            }
             case '(': {
                 // actually, not only l will start with (, almost everything in Scheme can be started with it, which means I need to match this with term
                 // 1. l
                 ts.put_back(token);
-                list l = handle_list(ts);
-                l.print(std::cout);
+                list* l = (list*)handle_list(ts);
+                l->print(std::cout);
                 continue;
                 // 2. other expression, so this version of code cannot run code like: car (car ((a))), since it will take (car ((a))) as list, but find `car` inside it
             }
@@ -40,24 +40,24 @@ int main() {
     }
 }
 
-list handle_list(Token_stream& ts) {
+s_expression* handle_list(Token_stream& ts) {
     const Token &left = ts.get();
     if(left.type != '(') {
         throw std::runtime_error("wrong syntax: " + left.value);
     }
 
-    list l;
+    list* l = new list();
     while(true) {
         Token token = ts.get();
         if(token.type == 'A') {
             atom* a = new atom(token.value);
-            l.push_back(a);
+            l->push_back(a);
         } else if(token.type == ')') {
             break;
         } else if(token.type == '(') {
             ts.put_back(token);
-            list* pList = new list(handle_list(ts));
-            l.push_back(pList);
+            list* pList = (list*)handle_list(ts);
+            l->push_back(pList);
         }  else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
