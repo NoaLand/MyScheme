@@ -53,3 +53,9 @@ void Token_stream::put_back(Token t) {
     full = true;
     buffer = std::move(t);
 }
+
+void Token_stream::put_back(std::string r) {
+    for(int index = r.size() - 1; index > 0; --index) {
+        is.putback(r[index]);
+    }
+}

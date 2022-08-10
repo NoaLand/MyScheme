@@ -22,6 +22,7 @@ public:
     Token get();
     std::istream& get_istream();
     void put_back(Token);
+    void put_back(std::string);
 private:
     bool full;
     Token buffer;
