@@ -23,6 +23,8 @@ function:
             (cdr list) -> list
         - cons class:
             cons s_expression list -> list
+        - null class:
+            null? list -> bool
 s_expression:
     list
     atom
