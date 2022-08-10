@@ -12,6 +12,7 @@ public:
     list(list const &copy) { l = copy.l; }
     std::string car();
     std::string get_value() override;
+    std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
     void push_back(s_expression* s_exp);
 private:
