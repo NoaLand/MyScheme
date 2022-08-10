@@ -6,5 +6,6 @@ class s_expression {
 public:
     s_expression() = default;
     virtual std::string get_value() = 0;
+    virtual void print(std::ostream&) = 0;
 };
 #endif //MYSCHEME_S_EXPRESSION_H

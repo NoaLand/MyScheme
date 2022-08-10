@@ -22,6 +22,6 @@ void list::push_back(s_expression* s_exp) {
     l.push_back(s_exp);
 }
 
-std::ostream &operator<<(std::ostream &os, list l) {
-    return os << "list: " << l.get_value();
+void list::print(std::ostream &os) {
+    os << "list: " << get_value() << std::endl;
 }

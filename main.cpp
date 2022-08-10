@@ -15,7 +15,7 @@ int main() {
         switch (token.type) {
             case 'A': {
                 atom a{token.value};
-                std::cout << a << std::endl;
+                a.print(std::cout);
                 continue;
             }
             case 'F': {
@@ -29,7 +29,7 @@ int main() {
                 // 1. l
                 ts.put_back(token);
                 list l = handle_list(ts);
-                std::cout << l << std::endl;
+                l.print(std::cout);
                 continue;
                 // 2. other expression, so this version of code cannot run code like: car (car ((a))), since it will take (car ((a))) as list, but find `car` inside it
             }
