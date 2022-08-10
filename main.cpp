@@ -2,6 +2,7 @@
 #include "token/s_expression/atom.h"
 #include "token/s_expression/list.h"
 #include "token/function/list_family.h"
+#include "token/function/atom_family.h"
 
 std::istream& is{std::cin};
 Token_stream ts{is};
@@ -73,9 +74,23 @@ s_expression* function(Token_stream& ts) {
         s_expression* s_exp = closure(ts);
         is_null n{s_exp};
         return n.execute();
-    } else {
-        throw std::runtime_error("unknown function: " + f);
     }
+
+    if(f == "atom?") {
+        s_expression* s_exp;
+        const Token &l_token = ts.get();
+        if(l_token.type == 'A') {
+            s_exp = new atom{l_token.value};
+        } else {
+            ts.put_back(l_token);
+            s_exp = closure(ts);
+        }
+
+        is_atom a{s_exp};
+        return a.execute();
+    }
+
+    throw std::runtime_error("unknown function: " + f);
 }
 
 s_expression* closure(Token_stream& ts) {

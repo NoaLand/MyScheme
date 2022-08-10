@@ -11,4 +11,4 @@ add_executable(MyScheme
         token/function/function.h
         token/function/list_family.cpp
         token/function/list_family.h
-        )
+        token/function/atom_family.cpp token/function/atom_family.h)

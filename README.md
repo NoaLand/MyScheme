@@ -14,7 +14,10 @@ So we can just start from the begining of this book.
 ```
 function:
     # function can be enclosed with () or not, they are the same
-    - list famly:
+    - atom family:
+        - is_atom class:
+            atom? s_expression -> atom(#t/#f)
+    - list family:
         - car class:
             car list -> s_expression
             (car list) -> s_expression
@@ -23,8 +26,8 @@ function:
             (cdr list) -> list
         - cons class:
             cons s_expression list -> list
-        - null class:
-            null? list -> bool
+        - is_null class:
+            null? list -> atom(#t/#f)
 s_expression:
     list
     atom
