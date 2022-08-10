@@ -73,6 +73,11 @@ s_expression* function(Token_stream& ts) {
         s_expression* s_exp = construct_from_token(ts);
         is_atom a{s_exp};
         return a.execute();
+    } else if(f == "eq?") {
+        s_expression* left = construct_from_token(ts);
+        s_expression* right = construct_from_token(ts);
+        is_eq e{left, right};
+        return e.execute();
     }
 
     throw std::runtime_error("unknown function: " + f);

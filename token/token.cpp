@@ -25,7 +25,7 @@ Token Token_stream::get() {
                 if(s == "car" || s == "cdr" || s == "cons" || s == "null?") {
                     return {'F', s};
                 }
-                if(s == "atom?") {
+                if(s == "atom?" || s == "eq?") {
                     return {'F', s};
                 }
                 if (ch == ')') {
