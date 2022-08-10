@@ -18,7 +18,7 @@ int main() {
                 std::cout << a << std::endl;
                 continue;
             }
-            case 'C': {
+            case 'F': {
                 list l = handle_list(ts);
                 const std::string &car = l.car();
                 std::cout << "car of l: " << car << std::endl;

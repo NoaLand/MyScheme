@@ -23,7 +23,7 @@ Token Token_stream::get() {
             s += ch;
             while(is.get(ch)) {
                 if(s == "car") {
-                    return {'C', s};
+                    return {'F', s};
                 }
                 if (ch == ')') {
                     is.putback(ch);
