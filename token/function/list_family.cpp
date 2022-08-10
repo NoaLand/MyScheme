@@ -29,3 +29,14 @@ s_expression* cdr::execute() {
 
     return res;
 }
+
+s_expression *cons::execute() {
+    list* r = (list*)right;
+    list* res = new list();
+    res->push_back(left);
+    for(int index = 0; index < r->size_of(); ++index) {
+        res->push_back(r->get(index));
+    }
+
+    return res;
+}

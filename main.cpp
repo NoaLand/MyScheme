@@ -56,6 +56,19 @@ s_expression* function(Token_stream& ts) {
         s_expression* s_exp = closure(ts);
         cdr c{s_exp};
         return c.execute();
+    } else if(f == "cons") {
+        s_expression* left;
+        const Token &l_token = ts.get();
+        if(l_token.type == 'A') {
+            left = new atom{l_token.value};
+        } else {
+            ts.put_back(l_token);
+            left = closure(ts);
+        }
+
+        s_expression* right = closure(ts);
+        cons c{left, right};
+        return c.execute();
     } else {
         throw std::runtime_error("unknown function: " + f);
     }
