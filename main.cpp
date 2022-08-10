@@ -6,6 +6,7 @@ std::istream& is{std::cin};
 Token_stream ts{is};
 
 void scheme(Token_stream& ts);
+void function(Token_stream& ts);
 s_expression* handle_list(Token_stream& ts);
 
 int main() {
@@ -23,13 +24,8 @@ void scheme(Token_stream& ts) {
                 continue;
             }
             case 'F': {
-                s_expression* l = handle_list(ts);
-                if(l->get_indicator() != "list") {
-                    throw std::runtime_error("wrong syntax, car can only get list.");
-                }
-                s_expression* res = ((list*)l)->car();
-                std::cout << "car of l is a/an ";
-                res->print(std::cout);
+                ts.put_back(token);
+                function(ts);
                 continue;
             }
             case '(': {
@@ -45,6 +41,22 @@ void scheme(Token_stream& ts) {
                 std::cout << "others: " << token.value << std::endl;
                 continue;
         }
+    }
+}
+
+void function(Token_stream& ts) {
+    Token func = ts.get();
+    std::string &f = func.value;
+    if(f == "car") {
+        s_expression* l = handle_list(ts);
+        if(l->get_indicator() != "list") {
+            throw std::runtime_error("wrong syntax, car can only get list.");
+        }
+        s_expression* res = ((list*)l)->car();
+        std::cout << "car of l is a/an ";
+        res->print(std::cout);
+    } else {
+        throw std::runtime_error("unknown function: " + f);
     }
 }
 
