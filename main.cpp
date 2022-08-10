@@ -31,6 +31,7 @@ int main() {
                 list l = handle_list(ts);
                 std::cout << l << std::endl;
                 continue;
+                // 2. other expression, so this version of code cannot run code like: car (car ((a))), since it will take (car ((a))) as list, but find `car` inside it
             }
             default:
                 std::cout << "others: " << token.value << std::endl;
