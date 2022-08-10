@@ -21,6 +21,8 @@ function:
         - cdr class:
             cdr list -> list
             (cdr list) -> list
+        - cons class:
+            cons s_expression list -> list
 s_expression:
     list
     atom
