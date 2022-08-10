@@ -52,6 +52,10 @@ s_expression* function(Token_stream& ts) {
         s_expression* s_exp = closure(ts);
         car c{s_exp};
         return c.execute();
+    } else if(f == "cdr") {
+        s_expression* s_exp = closure(ts);
+        cdr c{s_exp};
+        return c.execute();
     } else {
         throw std::runtime_error("unknown function: " + f);
     }

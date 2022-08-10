@@ -22,7 +22,7 @@ Token Token_stream::get() {
             std::string s;
             s += ch;
             while(is.get(ch)) {
-                if(s == "car") {
+                if(s == "car" || s == "cdr") {
                     return {'F', s};
                 }
                 if (ch == ')') {
