@@ -1,5 +1,5 @@
-#ifndef MYSCHEME_CAR_H
-#define MYSCHEME_CAR_H
+#ifndef MYSCHEME_LIST_FUNC_H
+#define MYSCHEME_LIST_FUNC_H
 
 #include "function.h"
 
@@ -12,4 +12,4 @@ private:
 };
 
 
-#endif //MYSCHEME_CAR_H
+#endif //MYSCHEME_LIST_FUNC_H

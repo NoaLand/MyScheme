@@ -1,7 +1,7 @@
 #include "token/token.h"
 #include "token/s_expression/atom.h"
 #include "token/s_expression/list.h"
-#include "token/function/car.h"
+#include "token/function/list_func.h"
 
 std::istream& is{std::cin};
 Token_stream ts{is};
@@ -49,8 +49,8 @@ s_expression* function(Token_stream& ts) {
     Token func = ts.get();
     std::string &f = func.value;
     if(f == "car") {
-        s_expression* l = closure(ts);
-        car c{l};
+        s_expression* s_exp = closure(ts);
+        car c{s_exp};
         return c.execute();
     } else {
         throw std::runtime_error("unknown function: " + f);
