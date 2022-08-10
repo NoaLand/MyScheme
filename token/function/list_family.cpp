@@ -1,7 +1,8 @@
 #include "list_family.h"
 #include "../s_expression/list.h"
+#include "../s_expression/atom.h"
 
- s_expression* car::execute() {
+s_expression* car::execute() {
     if(s_exp->get_indicator() != "list") {
         throw std::runtime_error("wrong syntax, car can only get list.");
     }
@@ -30,7 +31,7 @@ s_expression* cdr::execute() {
     return res;
 }
 
-s_expression *cons::execute() {
+s_expression* cons::execute() {
     list* r = (list*)right;
     list* res = new list();
     res->push_back(left);
@@ -39,4 +40,13 @@ s_expression *cons::execute() {
     }
 
     return res;
+}
+
+s_expression* is_null::execute() {
+    list *pList = (list *) s_exp;
+    if(pList->empty()) {
+        return new atom{"#t"};
+    } else {
+        return new atom{"#f"};
+    }
 }

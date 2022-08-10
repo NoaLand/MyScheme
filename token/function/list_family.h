@@ -32,4 +32,15 @@ private:
     s_expression* right;
 };
 
+class is_null: public function {
+public:
+    is_null(s_expression* exp): s_exp(exp) {
+        if(exp->get_indicator() != "list") {
+            throw std::runtime_error("wrong syntax, null? is defined only for lists.");
+        }
+    }
+    s_expression* execute() override;
+private:
+    s_expression* s_exp;
+};
 #endif //MYSCHEME_LIST_FAMILY_H

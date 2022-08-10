@@ -69,6 +69,10 @@ s_expression* function(Token_stream& ts) {
         s_expression* right = closure(ts);
         cons c{left, right};
         return c.execute();
+    } else if(f == "null?") {
+        s_expression* s_exp = closure(ts);
+        is_null n{s_exp};
+        return n.execute();
     } else {
         throw std::runtime_error("unknown function: " + f);
     }
