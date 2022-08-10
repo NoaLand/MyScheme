@@ -15,6 +15,7 @@ So we can just start from the begining of this book.
 function:
     # function can be enclosed with () or not, they are the same
     - assertion: every function return atom(#t/#f)
+        - assertion s_expression -> bool(#t/#f)
     - s_expression family:
         - is_atom class:
             atom? s_expression -> bool(#t/#f)
@@ -33,12 +34,14 @@ function:
             null? list -> bool(#t/#f)
     - condition family:
         - cond class:
-            (cond
-                (assertion s_expression)
-                (assertion s_expression)
-                (assertion s_expression)
-                ...
-                (else s_expression)
+            (lambda (s_expression)
+                (cond
+                    (assertion s_expression)
+                    (assertion s_expression)
+                    (assertion s_expression)
+                    ...
+                    (else s_expression)
+                )
             )
 s_expression:
     list
