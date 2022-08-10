@@ -50,37 +50,43 @@ void scheme(Token_stream& ts) {
 s_expression* function(Token_stream& ts) {
     Token func = ts.get();
     std::string &f = func.value;
+    s_expression* res;
     if(f == "car") {
         s_expression* s_exp = closure(ts);
         car c{s_exp};
-        return c.execute();
+        res = c.execute();
     } else if(f == "cdr") {
         s_expression* s_exp = closure(ts);
         cdr c{s_exp};
-        return c.execute();
+        res = c.execute();
     } else if(f == "cons") {
         s_expression* left = construct_from_token(ts);
         s_expression* right = closure(ts);
         cons c{left, right};
-        return c.execute();
+        res = c.execute();
     } else if(f == "null?") {
         s_expression* s_exp = closure(ts);
         is_null n{s_exp};
-        return n.execute();
-    }
-
-    if(f == "atom?") {
+        res = n.execute();
+    } else if(f == "atom?") {
         s_expression* s_exp = construct_from_token(ts);
         is_atom a{s_exp};
-        return a.execute();
+        res = a.execute();
     } else if(f == "eq?") {
         s_expression* left = construct_from_token(ts);
         s_expression* right = construct_from_token(ts);
         is_eq e{left, right};
-        return e.execute();
+        res = e.execute();
+    } else {
+        throw std::runtime_error("unknown function: " + f);
     }
 
-    throw std::runtime_error("unknown function: " + f);
+    const Token end = ts.get();
+    if(end.type != ')') {
+        throw std::runtime_error("wrong syntax: " + end.value);
+    }
+
+    return res;
 }
 
 s_expression* closure(Token_stream& ts) {
@@ -103,12 +109,7 @@ s_expression* closure(Token_stream& ts) {
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
-            s_expression* res = function(ts);
-            const Token end = ts.get();
-            if(end.type != ')') {
-                throw std::runtime_error("wrong syntax: " + token.value);
-            }
-            return res;
+            return function(ts);
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
