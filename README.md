@@ -14,7 +14,7 @@ So we can just start from the begining of this book.
 ```
 function:
     # function can be enclosed with () or not, they are the same
-    - atom family:
+    - s_expression family:
         - is_atom class:
             atom? s_expression -> atom(#t/#f)
     - list family:

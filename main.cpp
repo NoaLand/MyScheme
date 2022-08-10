@@ -2,7 +2,7 @@
 #include "token/s_expression/atom.h"
 #include "token/s_expression/list.h"
 #include "token/function/list_family.h"
-#include "token/function/atom_family.h"
+#include "token/function/s_expression_family.h"
 
 std::istream& is{std::cin};
 Token_stream ts{is};

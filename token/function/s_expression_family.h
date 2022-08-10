@@ -1,5 +1,5 @@
-#ifndef MYSCHEME_ATOM_FAMILY_H
-#define MYSCHEME_ATOM_FAMILY_H
+#ifndef MYSCHEME_S_EXPRESSION_FAMILY_H
+#define MYSCHEME_S_EXPRESSION_FAMILY_H
 
 #include "function.h"
 
@@ -11,4 +11,4 @@ private:
     s_expression* s_exp;
 };
 
-#endif //MYSCHEME_ATOM_FAMILY_H
+#endif //MYSCHEME_S_EXPRESSION_FAMILY_H
