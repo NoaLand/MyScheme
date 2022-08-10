@@ -17,6 +17,8 @@ function:
     - s_expression family:
         - is_atom class:
             atom? s_expression -> atom(#t/#f)
+        - is_eq class:    
+            eq? s_expression s_expression -> atom(#t/#f)
     - list family:
         - car class:
             car list -> s_expression
