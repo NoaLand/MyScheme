@@ -104,6 +104,10 @@ s_expression* closure(Token_stream& ts) {
         } else if(token.type == 'F') {
             ts.put_back(token);
             s_expression* res = function(ts);
+            const Token end = ts.get();
+            if(end.type != ')') {
+                throw std::runtime_error("wrong syntax: " + token.value);
+            }
             return res;
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
