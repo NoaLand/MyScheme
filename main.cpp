@@ -8,6 +8,7 @@ std::istream& is{std::cin};
 Token_stream ts{is};
 
 void scheme(Token_stream& ts);
+s_expression* construct_from_token(Token_stream& ts);
 s_expression* function(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
 
@@ -58,15 +59,7 @@ s_expression* function(Token_stream& ts) {
         cdr c{s_exp};
         return c.execute();
     } else if(f == "cons") {
-        s_expression* left;
-        const Token &l_token = ts.get();
-        if(l_token.type == 'A') {
-            left = new atom{l_token.value};
-        } else {
-            ts.put_back(l_token);
-            left = closure(ts);
-        }
-
+        s_expression* left = construct_from_token(ts);
         s_expression* right = closure(ts);
         cons c{left, right};
         return c.execute();
@@ -77,15 +70,7 @@ s_expression* function(Token_stream& ts) {
     }
 
     if(f == "atom?") {
-        s_expression* s_exp;
-        const Token &l_token = ts.get();
-        if(l_token.type == 'A') {
-            s_exp = new atom{l_token.value};
-        } else {
-            ts.put_back(l_token);
-            s_exp = closure(ts);
-        }
-
+        s_expression* s_exp = construct_from_token(ts);
         is_atom a{s_exp};
         return a.execute();
     }
@@ -121,4 +106,17 @@ s_expression* closure(Token_stream& ts) {
     }
 
     return l;
+}
+
+s_expression* construct_from_token(Token_stream& ts) {
+    Token token = ts.get();
+    s_expression* s_exp;
+    if(token.type == 'A') {
+        s_exp = new atom{token.value};
+    } else {
+        ts.put_back(token);
+        s_exp = closure(ts);
+    }
+
+    return s_exp;
 }
