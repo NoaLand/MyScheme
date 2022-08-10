@@ -5,11 +5,15 @@
 std::istream& is{std::cin};
 Token_stream ts{is};
 
+void scheme(Token_stream& ts);
 s_expression* handle_list(Token_stream& ts);
 
 int main() {
     std::cout << "Let's start!" << std::endl;
+    scheme(ts);
+}
 
+void scheme(Token_stream& ts) {
     while(ts.get_istream()) {
         Token token = ts.get();
         switch (token.type) {
