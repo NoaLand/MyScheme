@@ -9,6 +9,6 @@ add_executable(MyScheme
         token/s_expression/list.cpp
         token/s_expression/atom.cpp
         token/function/function.h
-        token/function/list_func.cpp
-        token/function/list_func.h
+        token/function/list_family.cpp
+        token/function/list_family.h
         )

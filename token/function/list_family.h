@@ -1,5 +1,5 @@
-#ifndef MYSCHEME_LIST_FUNC_H
-#define MYSCHEME_LIST_FUNC_H
+#ifndef MYSCHEME_LIST_FAMILY_H
+#define MYSCHEME_LIST_FAMILY_H
 
 #include "function.h"
 
@@ -20,4 +20,4 @@ private:
 };
 
 
-#endif //MYSCHEME_LIST_FUNC_H
+#endif //MYSCHEME_LIST_FAMILY_H
