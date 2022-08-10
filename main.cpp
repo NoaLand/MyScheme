@@ -1,6 +1,7 @@
 #include "token/token.h"
-#include "token/atom.h"
-#include "token/list.h"
+#include "token/s_expression/atom.h"
+#include "token/s_expression/list.h"
+#include "token/function/car.h"
 
 std::istream& is{std::cin};
 Token_stream ts{is};
@@ -49,11 +50,8 @@ s_expression* function(Token_stream& ts) {
     std::string &f = func.value;
     if(f == "car") {
         s_expression* l = closure(ts);
-        if(l->get_indicator() != "list") {
-            throw std::runtime_error("wrong syntax, car can only get list.");
-        }
-        s_expression* res = ((list*)l)->car();
-        return res;
+        car c{l};
+        return c.execute();
     } else {
         throw std::runtime_error("unknown function: " + f);
     }

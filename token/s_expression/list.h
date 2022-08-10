@@ -3,14 +3,15 @@
 
 #include <vector>
 
-#include "token.h"
+#include "../token.h"
 #include "s_expression.h"
 
 class list: public s_expression{
 public:
     list() = default;
     list(list const &copy) { l = copy.l; }
-    s_expression * car();
+    s_expression* get(int index);
+    bool empty() { return l.empty(); }
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
