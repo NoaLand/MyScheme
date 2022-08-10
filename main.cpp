@@ -6,7 +6,7 @@ std::istream& is{std::cin};
 Token_stream ts{is};
 
 void scheme(Token_stream& ts);
-void function(Token_stream& ts);
+s_expression * function(Token_stream& ts);
 s_expression* handle_list(Token_stream& ts);
 
 int main() {
@@ -25,7 +25,8 @@ void scheme(Token_stream& ts) {
             }
             case 'F': {
                 ts.put_back(token);
-                function(ts);
+                s_expression* res = function(ts);
+                res->print(std::cout);
                 continue;
             }
             case '(': {
@@ -37,6 +38,8 @@ void scheme(Token_stream& ts) {
                 continue;
                 // 2. other expression, so this version of code cannot run code like: car (car ((a))), since it will take (car ((a))) as list, but find `car` inside it
             }
+            case ')':
+                continue;
             default:
                 std::cout << "others: " << token.value << std::endl;
                 continue;
@@ -44,7 +47,7 @@ void scheme(Token_stream& ts) {
     }
 }
 
-void function(Token_stream& ts) {
+s_expression* function(Token_stream& ts) {
     Token func = ts.get();
     std::string &f = func.value;
     if(f == "car") {
@@ -53,8 +56,7 @@ void function(Token_stream& ts) {
             throw std::runtime_error("wrong syntax, car can only get list.");
         }
         s_expression* res = ((list*)l)->car();
-        std::cout << "car of l is a/an ";
-        res->print(std::cout);
+        return res;
     } else {
         throw std::runtime_error("unknown function: " + f);
     }
@@ -78,7 +80,11 @@ s_expression* handle_list(Token_stream& ts) {
             ts.put_back(token);
             list* pList = (list*)handle_list(ts);
             l->push_back(pList);
-        }  else {
+        } else if(token.type == 'F') {
+            ts.put_back(token);
+            s_expression* res = function(ts);
+            return res;
+        } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
     }
