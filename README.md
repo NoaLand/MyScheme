@@ -17,9 +17,9 @@ function:
     - assertion: every function return atom(#t/#f)
     - s_expression family:
         - is_atom class:
-            atom? s_expression -> atom(#t/#f)
+            atom? s_expression -> bool(#t/#f)
         - is_eq class:    
-            eq? s_expression s_expression -> atom(#t/#f)
+            eq? s_expression s_expression -> bool(#t/#f)
     - list family:
         - car class:
             car list -> s_expression
@@ -30,7 +30,7 @@ function:
         - cons class:
             cons s_expression list -> list
         - is_null class:
-            null? list -> atom(#t/#f)
+            null? list -> bool(#t/#f)
     - condition family:
         - cond class:
             (cond
@@ -43,6 +43,7 @@ function:
 s_expression:
     list
     atom
+    bool
 list:
     # let's say these items can be in any order
     (atom, atom, ...)
@@ -50,4 +51,7 @@ list:
     (list, atom, ...)
 atom:
     a string of characters
+bool:
+    #t
+    #f
 ```
