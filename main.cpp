@@ -27,8 +27,9 @@ void scheme(Token_stream& ts) {
                 if(l->get_indicator() != "list") {
                     throw std::runtime_error("wrong syntax, car can only get list.");
                 }
-                const std::string &car = ((list*)l)->car();
-                std::cout << "car of l: " << car << std::endl;
+                s_expression* res = ((list*)l)->car();
+                std::cout << "car of l is a/an ";
+                res->print(std::cout);
                 continue;
             }
             case '(': {

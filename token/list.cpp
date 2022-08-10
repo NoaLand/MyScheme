@@ -11,11 +11,11 @@ std::string list::get_value() {
     return res;
 }
 
-std::string list::car() {
+s_expression* list::car() {
     if(l.empty()) {
         throw std::runtime_error("you cannot ask for the *car* of the empty list");
     }
-    return l.at(0)->get_value();
+    return l.at(0);
 }
 
 void list::push_back(s_expression* s_exp) {

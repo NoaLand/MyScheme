@@ -10,7 +10,7 @@ class list: public s_expression{
 public:
     list() = default;
     list(list const &copy) { l = copy.l; }
-    std::string car();
+    s_expression * car();
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
