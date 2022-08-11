@@ -17,6 +17,8 @@ s_expression* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
 s_expression* get_input_param(Token_stream& ts);
 
+void ignore_else(Token_stream& ts);
+
 int main() {
     std::cout << "Let's start!" << std::endl;
     scheme(ts);
@@ -82,49 +84,27 @@ s_expression* func(Token_stream& ts) {
         s_expression* right = construct_from_token(ts);
         f = new is_eq{left, right};
     } else if(function_key == "cond") {
-        int brackets = 1;
         while(true) {
             Token condition_start = ts.get();
-            ++brackets;
+            if(condition_start.type == ')') {
+                ts.get();
+            }
             s_expression* assertion = construct_from_token(ts);
-            if(assertion->get_indicator() != "bool" || assertion->get_value() == "else") {
+            if(assertion->get_indicator() != "bool" && assertion->get_value() != "else") {
                 throw std::runtime_error("wrong syntax! assertion need to return bool!");
             }
             if(((boolean*)assertion)->val() || assertion->get_value() == "else") {
                 s_expression* res = construct_from_token(ts);
                 ts.get();
-                while(true) {
-                    const Token &token = ts.get();
-                    if(token.type == '(') {
-                        ++brackets;
-                    } else if(token.type == ')') {
-                        --brackets;
-                    }
-
-                    if(brackets == 0) {
-                        break;
-                    }
-                }
+                ignore_else(ts);
                 return res;
             } else {
-                while(true) {
-                    const Token &token = ts.get();
-                    if(token.type == '(') {
-                        ++brackets;
-                    } else if(token.type == ')') {
-                        --brackets;
-                    }
-
-                    if(brackets == 1) {
-                        break;
-                    }
-                }
+                ignore_else(ts);
             }
         }
     } else if(context.is_in(function_key)) {
         auto params = get_input_param(ts);
         std::string body = context.instantiate(params);
-        std::cout << "body: " << body << std::endl;
         ts.put_back(body);
         return closure(ts);
     } else {
@@ -293,4 +273,20 @@ std::string get_func_body(Token_stream& ts) {
     }
 
     return body;
+}
+
+void ignore_else(Token_stream& ts) {
+    int brackets = 1;
+    while(true) {
+        const Token &token = ts.get();
+        if(token.type == '(') {
+            ++brackets;
+        } else if(token.type == ')') {
+            --brackets;
+        }
+
+        if(brackets <= 0) {
+            break;
+        }
+    }
 }
