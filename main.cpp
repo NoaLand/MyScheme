@@ -13,7 +13,7 @@ Token_stream ts{is, &context};
 void scheme(Token_stream& ts);
 function_declaration* function_define(Token_stream& ts);
 s_expression* construct_from_token(Token_stream& ts);
-function* func(Token_stream& ts);
+s_expression* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
 
 int main() {
@@ -51,7 +51,7 @@ void scheme(Token_stream& ts) {
     }
 }
 
-function* func(Token_stream& ts) {
+s_expression* func(Token_stream& ts) {
     Token func = ts.get();
     std::string &function_key = func.value;
     function* f;
@@ -76,8 +76,12 @@ function* func(Token_stream& ts) {
         s_expression* right = construct_from_token(ts);
         f = new is_eq{left, right};
     } else if(context.is_in(function_key)) {
-        function_declaration *pDeclaration = context.get();
-        std::cout << "call func: " << pDeclaration->get_name() << std::endl;
+        const auto p = construct_from_token(ts);
+        list* params = new list();
+        params->push_back(p);
+        std::string body = context.instantiate(params);
+        ts.put_back(body);
+        return closure(ts);
     } else {
         throw std::runtime_error("unknown function: " + function_key);
     }
@@ -87,7 +91,8 @@ function* func(Token_stream& ts) {
         throw std::runtime_error("wrong syntax: " + end.value);
     }
 
-    return f;
+    std::cout << "-> " << f->name() << " return type: " << f->return_type() << std::endl;
+    return f->execute();
 }
 
 s_expression* closure(Token_stream& ts) {
@@ -110,9 +115,7 @@ s_expression* closure(Token_stream& ts) {
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
-            function* pFunction = func(ts);
-            std::cout << "-> " << pFunction->name() << " return type: " << pFunction->return_type() << std::endl;
-            return pFunction->execute();
+            return func(ts);
         } else if(token.type == 'D') {
             ts.put_back(token);
             return function_define(ts);
@@ -196,6 +199,7 @@ std::string get_func_body(Token_stream& ts) {
     int brackets = 1;
 
     std::string body;
+    body += left_bracket.type;
 
     while(true) {
         Token token = ts.get();
