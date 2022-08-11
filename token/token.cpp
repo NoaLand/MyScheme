@@ -28,6 +28,9 @@ Token Token_stream::get() {
                 if(s == "atom?" || s == "eq?") {
                     return {'F', s};
                 }
+                if(s == "define") {
+                    return {'D'};
+                }
                 if (ch == ')') {
                     is.putback(ch);
                     return {'A', s};

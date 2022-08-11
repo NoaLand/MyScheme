@@ -37,6 +37,9 @@ void scheme(Token_stream& ts) {
             case 'F': {
                 throw std::runtime_error("function **" + token.value + "** can only call in closure!");
             }
+            case 'D': {
+                throw std::runtime_error("function definition can only inside closure!");
+            }
             default:
                 std::cout << "others: " << token.value << std::endl;
                 continue;
@@ -103,6 +106,7 @@ s_expression* closure(Token_stream& ts) {
             function* pFunction = func(ts);
             std::cout << "-> " << pFunction->name() << " return type: " << pFunction->return_type() << std::endl;
             return pFunction->execute();
+        } else if(token.type == 'D') {
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
