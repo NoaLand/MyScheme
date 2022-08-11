@@ -50,30 +50,30 @@ s_expression* func(Token_stream& ts) {
     s_expression* res;
     if(f == "car") {
         s_expression* s_exp = closure(ts);
-        car c{s_exp};
-        res = c.execute();
+        car* c = new car{s_exp};
+        res = c->execute();
     } else if(f == "cdr") {
         s_expression* s_exp = closure(ts);
-        cdr c{s_exp};
-        res = c.execute();
+        cdr* c = new cdr{s_exp};
+        res = c->execute();
     } else if(f == "cons") {
         s_expression* left = construct_from_token(ts);
         s_expression* right = closure(ts);
-        cons c{left, right};
-        res = c.execute();
+        cons* c = new cons{left, right};
+        res = c->execute();
     } else if(f == "null?") {
         s_expression* s_exp = closure(ts);
-        is_null n{s_exp};
-        res = n.execute();
+        is_null* n = new is_null{s_exp};
+        res = n->execute();
     } else if(f == "atom?") {
         s_expression* s_exp = construct_from_token(ts);
-        is_atom a{s_exp};
-        res = a.execute();
+        is_atom* a = new is_atom{s_exp};
+        res = a->execute();
     } else if(f == "eq?") {
         s_expression* left = construct_from_token(ts);
         s_expression* right = construct_from_token(ts);
-        is_eq e{left, right};
-        res = e.execute();
+        is_eq* e = new is_eq{left, right};
+        res = e->execute();
     } else {
         throw std::runtime_error("unknown function: " + f);
     }
