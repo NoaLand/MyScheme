@@ -26,12 +26,6 @@ void scheme(Token_stream& ts) {
                 a.print(std::cout);
                 continue;
             }
-            case 'F': {
-                ts.put_back(token);
-                s_expression* res = func(ts);
-                res->print(std::cout);
-                continue;
-            }
             case '(': {
                 ts.put_back(token);
                 s_expression* s_exp = closure(ts);
@@ -40,6 +34,9 @@ void scheme(Token_stream& ts) {
             }
             case ')':
                 continue;
+            case 'F': {
+                throw std::runtime_error("function **" + token.value + "** can only call in closure!");
+            }
             default:
                 std::cout << "others: " << token.value << std::endl;
                 continue;
