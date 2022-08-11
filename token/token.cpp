@@ -31,6 +31,9 @@ Token Token_stream::get() {
                 if(s == "define") {
                     return {'D'};
                 }
+                if(s == "lambda") {
+                    return {'L'};
+                }
                 if (ch == ')') {
                     is.putback(ch);
                     return {'A', s};

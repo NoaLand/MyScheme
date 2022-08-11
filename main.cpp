@@ -8,6 +8,7 @@ std::istream& is{std::cin};
 Token_stream ts{is};
 
 void scheme(Token_stream& ts);
+void function_define(Token_stream& ts);
 s_expression* construct_from_token(Token_stream& ts);
 function* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
@@ -107,6 +108,8 @@ s_expression* closure(Token_stream& ts) {
             std::cout << "-> " << pFunction->name() << " return type: " << pFunction->return_type() << std::endl;
             return pFunction->execute();
         } else if(token.type == 'D') {
+            ts.put_back(token);
+            function_define(ts);
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
@@ -126,4 +129,22 @@ s_expression* construct_from_token(Token_stream& ts) {
     }
 
     return s_exp;
+}
+
+void function_define(Token_stream& ts) {
+    Token define_keyword = ts.get();
+    Token func_name = ts.get();
+    if(func_name.type != 'A') {
+        throw std::runtime_error("illegal func name!");
+    }
+    Token left_brackets = ts.get();
+    Token lambda = ts.get();
+    if(lambda.type != 'L') {
+        throw std::runtime_error("wrong syntax in function define!");
+    }
+
+    s_expression* params = closure(ts);
+    if(params->get_indicator() != "list") {
+        throw std::runtime_error("wrong syntax in function define!");
+    }
 }
