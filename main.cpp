@@ -9,7 +9,7 @@ Token_stream ts{is};
 
 void scheme(Token_stream& ts);
 s_expression* construct_from_token(Token_stream& ts);
-s_expression* func(Token_stream& ts);
+function* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
 
 int main() {
@@ -44,38 +44,32 @@ void scheme(Token_stream& ts) {
     }
 }
 
-s_expression* func(Token_stream& ts) {
+function* func(Token_stream& ts) {
     Token func = ts.get();
-    std::string &f = func.value;
-    s_expression* res;
-    if(f == "car") {
+    std::string &function_key = func.value;
+    function* f;
+    if(function_key == "car") {
         s_expression* s_exp = closure(ts);
-        car* c = new car{s_exp};
-        res = c->execute();
-    } else if(f == "cdr") {
+        f = new car{s_exp};
+    } else if(function_key == "cdr") {
         s_expression* s_exp = closure(ts);
-        cdr* c = new cdr{s_exp};
-        res = c->execute();
-    } else if(f == "cons") {
+        f = new cdr{s_exp};
+    } else if(function_key == "cons") {
         s_expression* left = construct_from_token(ts);
         s_expression* right = closure(ts);
-        cons* c = new cons{left, right};
-        res = c->execute();
-    } else if(f == "null?") {
+        f = new cons{left, right};
+    } else if(function_key == "null?") {
         s_expression* s_exp = closure(ts);
-        is_null* n = new is_null{s_exp};
-        res = n->execute();
-    } else if(f == "atom?") {
+        f = new is_null{s_exp};
+    } else if(function_key == "atom?") {
         s_expression* s_exp = construct_from_token(ts);
-        is_atom* a = new is_atom{s_exp};
-        res = a->execute();
-    } else if(f == "eq?") {
+        f = new is_atom{s_exp};
+    } else if(function_key == "eq?") {
         s_expression* left = construct_from_token(ts);
         s_expression* right = construct_from_token(ts);
-        is_eq* e = new is_eq{left, right};
-        res = e->execute();
+        f = new is_eq{left, right};
     } else {
-        throw std::runtime_error("unknown function: " + f);
+        throw std::runtime_error("unknown function: " + function_key);
     }
 
     const Token end = ts.get();
@@ -83,7 +77,7 @@ s_expression* func(Token_stream& ts) {
         throw std::runtime_error("wrong syntax: " + end.value);
     }
 
-    return res;
+    return f;
 }
 
 s_expression* closure(Token_stream& ts) {
@@ -106,7 +100,7 @@ s_expression* closure(Token_stream& ts) {
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
-            return func(ts);
+            return func(ts)->execute();
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
