@@ -8,6 +8,8 @@ class car: public function {
 public:
     car(s_expression* exp): s_exp(exp) {}
     s_expression* execute() override;
+    std::string return_type() override { return "s_expression"; }
+    std::string name() override { return "car"; }
 private:
     s_expression* s_exp;
 };
@@ -16,6 +18,8 @@ class cdr: public function {
 public:
     cdr(s_expression* exp): s_exp(exp) {}
     s_expression* execute() override;
+    std::string return_type() override { return "list"; }
+    std::string name() override { return "cdr"; }
 private:
     s_expression* s_exp;
 };
@@ -28,6 +32,8 @@ public:
         }
     }
     s_expression* execute() override;
+    std::string return_type() override { return "list"; }
+    std::string name() override { return "cons"; }
 private:
     s_expression* left;
     s_expression* right;
@@ -41,6 +47,8 @@ public:
         }
     }
     boolean* execute() override;
+    std::string return_type() override { return "bool"; }
+    std::string name() override { return "null?"; }
 private:
     s_expression* s_exp;
 };

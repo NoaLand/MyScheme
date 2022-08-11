@@ -8,6 +8,8 @@ class is_atom: public function {
 public:
     is_atom(s_expression* exp): s_exp(exp) {}
     boolean* execute() override;
+    std::string return_type() override { return "bool"; }
+    std::string name() override { return "atom?"; }
 private:
     s_expression* s_exp;
 };
@@ -16,6 +18,8 @@ class is_eq: public function {
 public:
     is_eq(s_expression* l, s_expression* r): left(l), right(r) {}
     boolean* execute() override;
+    std::string return_type() override { return "bool"; }
+    std::string name() override { return "eq?"; }
 private:
     s_expression* left;
     s_expression* right;

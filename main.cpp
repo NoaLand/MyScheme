@@ -100,7 +100,9 @@ s_expression* closure(Token_stream& ts) {
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
-            return func(ts)->execute();
+            function* pFunction = func(ts);
+            std::cout << "-> " << pFunction->name() << " return type: " << pFunction->return_type() << std::endl;
+            return pFunction->execute();
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
