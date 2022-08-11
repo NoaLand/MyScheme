@@ -9,7 +9,7 @@ Token_stream ts{is};
 
 void scheme(Token_stream& ts);
 s_expression* construct_from_token(Token_stream& ts);
-s_expression* function(Token_stream& ts);
+s_expression* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
 
 int main() {
@@ -28,7 +28,7 @@ void scheme(Token_stream& ts) {
             }
             case 'F': {
                 ts.put_back(token);
-                s_expression* res = function(ts);
+                s_expression* res = func(ts);
                 res->print(std::cout);
                 continue;
             }
@@ -47,7 +47,7 @@ void scheme(Token_stream& ts) {
     }
 }
 
-s_expression* function(Token_stream& ts) {
+s_expression* func(Token_stream& ts) {
     Token func = ts.get();
     std::string &f = func.value;
     s_expression* res;
@@ -109,7 +109,7 @@ s_expression* closure(Token_stream& ts) {
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
-            return function(ts);
+            return func(ts);
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
