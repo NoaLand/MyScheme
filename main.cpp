@@ -3,6 +3,7 @@
 #include "token/s_expression/list.h"
 #include "token/function/list_family.h"
 #include "token/function/s_expression_family.h"
+#include "token/s_expression/params.h"
 
 std::istream& is{std::cin};
 Token_stream ts{is};
@@ -131,20 +132,50 @@ s_expression* construct_from_token(Token_stream& ts) {
     return s_exp;
 }
 
+s_expression* collect_params(Token_stream& ts);
+
 void function_define(Token_stream& ts) {
     Token define_keyword = ts.get();
     Token func_name = ts.get();
     if(func_name.type != 'A') {
         throw std::runtime_error("illegal func name!");
     }
+
     Token left_brackets = ts.get();
+
     Token lambda = ts.get();
     if(lambda.type != 'L') {
         throw std::runtime_error("wrong syntax in function define!");
     }
 
-    s_expression* params = closure(ts);
+    s_expression* params = collect_params(ts);
     if(params->get_indicator() != "list") {
         throw std::runtime_error("wrong syntax in function define!");
     }
+
+    std::cout << "func name: " << func_name.value << std::endl;
+    std::cout << "params ";
+    params->print(std::cout);
+}
+
+s_expression* collect_params(Token_stream& ts) {
+    const Token& left_bracket = ts.get();
+    if(left_bracket.type != '(') {
+        throw std::runtime_error("wrong syntax when declare parameters");
+    }
+
+    list* l = new list();
+    while(true) {
+        Token token = ts.get();
+        if(token.type == 'A') {
+            param* p = new param(token.value);
+            l->push_back(p);
+        } else if(token.type == ')') {
+            break;
+        } else {
+            throw std::runtime_error("wrong syntax when declare parameters");
+        }
+    }
+
+    return l;
 }

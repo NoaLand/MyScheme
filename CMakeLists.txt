@@ -11,4 +11,4 @@ add_executable(MyScheme
         token/function/function.h
         token/function/list_family.cpp
         token/function/list_family.h
-        token/function/s_expression_family.cpp token/function/s_expression_family.h)
+        token/function/s_expression_family.cpp token/function/s_expression_family.h token/s_expression/params.cpp token/s_expression/params.h)
