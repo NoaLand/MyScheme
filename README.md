@@ -61,3 +61,55 @@ bool:
     #t
     #f
 ```
+
+Now you can define any lambda like below:
+```lisp
+(define lat? (lambda (l) (cond ((null? l) #t) ((atom? (car l)) (lat? (cdr l))) (else #f))))
+```
+
+And you'll get result like this:
+```
+---- func ----
+-> name: lat?
+-> var: ( l )
+-> body: (cond ( ( null? l ) #t ) ( ( atom? ( car l ) ) ( lat? ( cdr l ) ) ) ( else #f ) ) 
+```
+
+Then you can call this lambda with parameters:
+```
+(lat? (Jack Sprat could eat no chicken fat))
+```
+
+And you'll get the process of calculation and result:
+```
+-> null? return type: bool, with value: #f
+-> car return type: s_expression, with value: Jack
+-> atom? return type: bool, with value: #t
+-> cdr return type: list, with value: ( Sprat could eat no chicken fat )
+-> null? return type: bool, with value: #f
+-> car return type: s_expression, with value: Sprat
+-> atom? return type: bool, with value: #t
+-> cdr return type: list, with value: ( could eat no chicken fat )
+-> null? return type: bool, with value: #f
+-> car return type: s_expression, with value: could
+-> atom? return type: bool, with value: #t
+-> cdr return type: list, with value: ( eat no chicken fat )
+-> null? return type: bool, with value: #f
+-> car return type: s_expression, with value: eat
+-> atom? return type: bool, with value: #t
+-> cdr return type: list, with value: ( no chicken fat )
+-> null? return type: bool, with value: #f
+-> car return type: s_expression, with value: no
+-> atom? return type: bool, with value: #t
+-> cdr return type: list, with value: ( chicken fat )
+-> null? return type: bool, with value: #f
+-> car return type: s_expression, with value: chicken
+-> atom? return type: bool, with value: #t
+-> cdr return type: list, with value: ( fat )
+-> null? return type: bool, with value: #f
+-> car return type: s_expression, with value: fat
+-> atom? return type: bool, with value: #t
+-> cdr return type: list, with value: ( )
+-> null? return type: bool, with value: #t
+bool: #t
+```
