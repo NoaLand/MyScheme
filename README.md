@@ -6,10 +6,6 @@ Basically, I'll define term according to 'The Little Schemer'.
 
 So we can just start from the begining of this book.
 
-## Term
-- atom: a string of characters
-- l: a l contains multiple atoms -- ( atom, atom, ... )
-
 ## Grammar
 ```
 function:
