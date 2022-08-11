@@ -111,6 +111,7 @@ s_expression* closure(Token_stream& ts) {
         } else if(token.type == 'D') {
             ts.put_back(token);
             function_define(ts);
+            return l;
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
@@ -133,6 +134,7 @@ s_expression* construct_from_token(Token_stream& ts) {
 }
 
 s_expression* collect_params(Token_stream& ts);
+std::string get_func_body(Token_stream& ts);
 
 void function_define(Token_stream& ts) {
     Token define_keyword = ts.get();
@@ -153,9 +155,12 @@ void function_define(Token_stream& ts) {
         throw std::runtime_error("wrong syntax in function define!");
     }
 
+    std::string body = get_func_body(ts);
+
     std::cout << "func name: " << func_name.value << std::endl;
     std::cout << "params ";
     params->print(std::cout);
+    std::cout << "body: " << body << std::endl;
 }
 
 s_expression* collect_params(Token_stream& ts) {
@@ -178,4 +183,40 @@ s_expression* collect_params(Token_stream& ts) {
     }
 
     return l;
+}
+
+std::string get_func_body(Token_stream& ts) {
+    const Token& left_bracket = ts.get();
+    if(left_bracket.type != '(') {
+        throw std::runtime_error("wrong syntax when declare function body");
+    }
+    int brackets = 1;
+
+    std::string body;
+
+    while(true) {
+        Token token = ts.get();
+        body += token.value;
+
+        if(token.type == '(') {
+            body.push_back(token.type);
+            ++brackets;
+        } else if(token.type == ')') {
+            body.push_back(token.type);
+            --brackets;
+        }
+
+        body += " ";
+
+        if(brackets == 0) {
+            break;
+        }
+    }
+
+    const Token& right_bracket = ts.get();
+    if(right_bracket.type != ')') {
+        throw std::runtime_error("wrong syntax when declare function body");
+    }
+
+    return body;
 }
