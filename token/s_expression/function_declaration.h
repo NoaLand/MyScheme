@@ -26,9 +26,11 @@ private:
 class function_context {
 public:
     void store(function_declaration* func);
-    bool is_in(std::string name);
+    bool is_in(const std::string& name);
+    function_declaration* get() { return buffer; }
 private:
     std::vector<function_declaration*> func_list{};
+    function_declaration* buffer;
 };
 
 #endif //MYSCHEME_FUNCTION_DECLARATION_H

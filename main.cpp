@@ -75,6 +75,9 @@ function* func(Token_stream& ts) {
         s_expression* left = construct_from_token(ts);
         s_expression* right = construct_from_token(ts);
         f = new is_eq{left, right};
+    } else if(context.is_in(function_key)) {
+        function_declaration *pDeclaration = context.get();
+        std::cout << "call func: " << pDeclaration->get_name() << std::endl;
     } else {
         throw std::runtime_error("unknown function: " + function_key);
     }
