@@ -23,3 +23,13 @@ void function_context::store(function_declaration* func) {
 
     func_list.push_back(func);
 }
+
+bool function_context::is_in(std::string name) {
+    for(const auto& f: func_list) {
+        if(f->get_name() == name) {
+            return true;
+        }
+    }
+
+    return false;
+}

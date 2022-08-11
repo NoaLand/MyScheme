@@ -26,6 +26,7 @@ private:
 class function_context {
 public:
     void store(function_declaration* func);
+    bool is_in(std::string name);
 private:
     std::vector<function_declaration*> func_list{};
 };

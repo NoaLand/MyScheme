@@ -7,8 +7,8 @@
 #include "token/s_expression/function_declaration.h"
 
 std::istream& is{std::cin};
-Token_stream ts{is};
 function_context context;
+Token_stream ts{is, &context};
 
 void scheme(Token_stream& ts);
 function_declaration* function_define(Token_stream& ts);
