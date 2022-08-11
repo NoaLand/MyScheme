@@ -8,6 +8,7 @@
 
 std::istream& is{std::cin};
 Token_stream ts{is};
+function_context context;
 
 void scheme(Token_stream& ts);
 function_declaration* function_define(Token_stream& ts);
@@ -157,7 +158,9 @@ function_declaration* function_define(Token_stream& ts) {
 
     std::string body = get_func_body(ts);
 
-    return new function_declaration{name.value, params, body};
+    auto* func = new function_declaration{name.value, params, body};
+    context.store(func);
+    return func;
 }
 
 s_expression* collect_params(Token_stream& ts) {
