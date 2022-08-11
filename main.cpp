@@ -27,8 +27,13 @@ void scheme(Token_stream& ts) {
         Token token = ts.get();
         switch (token.type) {
             case 'A': {
-                atom a{token.value};
-                a.print(std::cout);
+                s_expression* s_exp;
+                if(token.value == "#t" || token.value == "#f") {
+                    s_exp = new boolean{token.value == "#t"};
+                } else {
+                    s_exp = new atom{token.value};
+                }
+                s_exp->print(std::cout);
                 continue;
             }
             case '(': {
@@ -76,9 +81,50 @@ s_expression* func(Token_stream& ts) {
         s_expression* left = construct_from_token(ts);
         s_expression* right = construct_from_token(ts);
         f = new is_eq{left, right};
+    } else if(function_key == "cond") {
+        int brackets = 1;
+        while(true) {
+            Token condition_start = ts.get();
+            ++brackets;
+            s_expression* assertion = construct_from_token(ts);
+            if(assertion->get_indicator() != "bool" || assertion->get_value() == "else") {
+                throw std::runtime_error("wrong syntax! assertion need to return bool!");
+            }
+            if(((boolean*)assertion)->val() || assertion->get_value() == "else") {
+                s_expression* res = construct_from_token(ts);
+                ts.get();
+                while(true) {
+                    const Token &token = ts.get();
+                    if(token.type == '(') {
+                        ++brackets;
+                    } else if(token.type == ')') {
+                        --brackets;
+                    }
+
+                    if(brackets == 0) {
+                        break;
+                    }
+                }
+                return res;
+            } else {
+                while(true) {
+                    const Token &token = ts.get();
+                    if(token.type == '(') {
+                        ++brackets;
+                    } else if(token.type == ')') {
+                        --brackets;
+                    }
+
+                    if(brackets == 1) {
+                        break;
+                    }
+                }
+            }
+        }
     } else if(context.is_in(function_key)) {
         auto params = get_input_param(ts);
         std::string body = context.instantiate(params);
+        std::cout << "body: " << body << std::endl;
         ts.put_back(body);
         return closure(ts);
     } else {
@@ -90,8 +136,9 @@ s_expression* func(Token_stream& ts) {
         throw std::runtime_error("wrong syntax: " + end.value);
     }
 
-    std::cout << "-> " << f->name() << " return type: " << f->return_type() << std::endl;
-    return f->execute();
+    s_expression *pExpression = f->execute();
+    std::cout << "-> " << f->name() << " return type: " << f->return_type() << ", with value: " << pExpression->get_value() << std::endl;
+    return pExpression;
 }
 
 s_expression* get_input_param(Token_stream& ts) {
@@ -147,7 +194,11 @@ s_expression* construct_from_token(Token_stream& ts) {
     Token token = ts.get();
     s_expression* s_exp;
     if(token.type == 'A') {
-        s_exp = new atom{token.value};
+        if(token.value == "#t" || token.value == "#f") {
+            s_exp = new boolean{token.value == "#t"};
+        } else {
+            s_exp = new atom{token.value};
+        }
     } else {
         ts.put_back(token);
         s_exp = closure(ts);

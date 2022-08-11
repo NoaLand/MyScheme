@@ -28,6 +28,9 @@ Token Token_stream::get() {
                 if(s == "atom?" || s == "eq?") {
                     return {'F', s};
                 }
+                if(s == "cond") {
+                    return {'F', s};
+                }
                 if(context->is_in(s)) {
                     return {'F', s};
                 }

@@ -1,6 +1,5 @@
 #include "list_family.h"
 #include "../s_expression/list.h"
-#include "../s_expression/atom.h"
 
 s_expression* car::execute() {
     if(s_exp->get_indicator() != "list") {
