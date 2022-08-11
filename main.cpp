@@ -4,12 +4,13 @@
 #include "token/function/list_family.h"
 #include "token/function/s_expression_family.h"
 #include "token/s_expression/params.h"
+#include "token/s_expression/function_declaration.h"
 
 std::istream& is{std::cin};
 Token_stream ts{is};
 
 void scheme(Token_stream& ts);
-void function_define(Token_stream& ts);
+function_declaration* function_define(Token_stream& ts);
 s_expression* construct_from_token(Token_stream& ts);
 function* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
@@ -110,8 +111,7 @@ s_expression* closure(Token_stream& ts) {
             return pFunction->execute();
         } else if(token.type == 'D') {
             ts.put_back(token);
-            function_define(ts);
-            return l;
+            return function_define(ts);
         } else {
             throw std::runtime_error("wrong syntax: " + token.value);
         }
@@ -136,10 +136,10 @@ s_expression* construct_from_token(Token_stream& ts) {
 s_expression* collect_params(Token_stream& ts);
 std::string get_func_body(Token_stream& ts);
 
-void function_define(Token_stream& ts) {
+function_declaration* function_define(Token_stream& ts) {
     Token define_keyword = ts.get();
-    Token func_name = ts.get();
-    if(func_name.type != 'A') {
+    Token name = ts.get();
+    if(name.type != 'A') {
         throw std::runtime_error("illegal func name!");
     }
 
@@ -157,10 +157,7 @@ void function_define(Token_stream& ts) {
 
     std::string body = get_func_body(ts);
 
-    std::cout << "func name: " << func_name.value << std::endl;
-    std::cout << "params ";
-    params->print(std::cout);
-    std::cout << "body: " << body << std::endl;
+    return new function_declaration{name.value, params, body};
 }
 
 s_expression* collect_params(Token_stream& ts) {
