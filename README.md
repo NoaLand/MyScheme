@@ -8,6 +8,13 @@ So we can just start from the begining of this book.
 
 ## Grammar
 ```
+customized function:
+    # I do not care about customized function's return type
+    (define func_name
+        (lambda (var)
+            (function)
+        )
+    )
 function:
     # function can be enclosed with () or not, they are the same
     - assertion: every function return atom(#t/#f)
