@@ -15,6 +15,7 @@ function_declaration* function_define(Token_stream& ts);
 s_expression* construct_from_token(Token_stream& ts);
 s_expression* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
+s_expression* get_input_param(Token_stream& ts);
 
 int main() {
     std::cout << "Let's start!" << std::endl;
@@ -76,9 +77,7 @@ s_expression* func(Token_stream& ts) {
         s_expression* right = construct_from_token(ts);
         f = new is_eq{left, right};
     } else if(context.is_in(function_key)) {
-        const auto p = construct_from_token(ts);
-        list* params = new list();
-        params->push_back(p);
+        auto params = get_input_param(ts);
         std::string body = context.instantiate(params);
         ts.put_back(body);
         return closure(ts);
@@ -93,6 +92,23 @@ s_expression* func(Token_stream& ts) {
 
     std::cout << "-> " << f->name() << " return type: " << f->return_type() << std::endl;
     return f->execute();
+}
+
+s_expression* get_input_param(Token_stream& ts) {
+    list* params = new list();
+
+    while(true) {
+        const Token &token = ts.get();
+        if(token.type != ')') {
+            ts.put_back(token);
+            const auto p = construct_from_token(ts);
+            params->push_back(p);
+        } else {
+            break;
+        }
+    }
+
+    return params;
 }
 
 s_expression* closure(Token_stream& ts) {
