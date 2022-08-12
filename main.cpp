@@ -18,9 +18,43 @@ s_expression* func(Token_stream& ts);
 s_expression* closure(Token_stream& ts);
 s_expression* get_input_param(Token_stream& ts);
 
+void preload_libs();
 void ignore_else(Token_stream& ts);
 
+void preload_libs() {
+    auto lat_params = new list();
+    lat_params->push_back(new param{"l"});
+    auto lat = new function_declaration(
+            "lat?",
+            lat_params,
+            "(cond ( ( null? $l$ ) #t ) ( ( atom? ( car $l$ ) ) ( lat? ( cdr $l$ ) ) ) ( else #f ) )"
+            );
+
+    auto is_member_params = new list();
+    is_member_params->push_back(new param{"a"});
+    is_member_params->push_back(new param{"lat"});
+    auto is_member = new function_declaration(
+            "member?",
+            is_member_params,
+            "(cond ( ( null? $lat$ ) #f ) ( else ( or ( eq? ( car $lat$ ) $a$ ) ( member? $a$ ( cdr $lat$ ) ) ) ) ) "
+            );
+
+    auto rember_params = new list();
+    rember_params->push_back(new param{"a"});
+    rember_params->push_back(new param{"lat"});
+    auto rember = new function_declaration(
+            "rember",
+            rember_params,
+            "(cond ( ( null? $lat$ ) ( ( ) ) ) ( else ( cond ( ( eq? ( car $lat$ ) $a$ ) ( cdr $lat$ ) ) ( else ( cons ( car $lat$ ) ( rember $a$ ( cdr $lat$ ) ) ) ) ) ) ) "
+            );
+
+    context.store(lat);
+    context.store(is_member);
+    context.store(rember);
+}
+
 int main() {
+    preload_libs();
     std::cout << "Let's start!" << std::endl;
     scheme(ts);
 }
