@@ -115,7 +115,7 @@ bool: #t
 ```
 
 ## Functions in Scheme
-1. firsts
+### 1. firsts
 ```scheme
 (define firsts (lambda (l) (cond ((null? l) ()) (else (cons (car (car l)) (firsts (cdr l)))))))
 ```
@@ -135,4 +135,20 @@ bool: #t
 
 (firsts ())
 -> output: ()
+```
+
+### 2. insertR
+```scheme
+(define insertR (lambda (new old lat) (cond ((null? lat) (())) ((eq? old (car lat)) (cons old (cons new (cdr lat)))) (else (cons (car lat) (insertR new old (cdr lat)))))))
+```
+```text
+# test cases
+(insertR topping fudge (ice cream with fudge for dessert))
+-> output: ( ice cream with fudge topping for dessert )
+
+(insertR jalapeno and (tacos tamales and salsa))
+-> output: ( tacos tamales and jalapeno salsa )
+
+(insertR e d (a b c d f g d h))
+-> output: ( a b c d e f g d h )
 ```
