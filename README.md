@@ -82,35 +82,35 @@ Then you can call this lambda with parameters:
 
 And you'll get the process of calculation and result:
 ```text
--> null? return type: bool, with value: #f
--> car return type: s_expression, with value: Jack
--> atom? return type: bool, with value: #t
--> cdr return type: list, with value: ( Sprat could eat no chicken fat )
--> null? return type: bool, with value: #f
--> car return type: s_expression, with value: Sprat
--> atom? return type: bool, with value: #t
--> cdr return type: list, with value: ( could eat no chicken fat )
--> null? return type: bool, with value: #f
--> car return type: s_expression, with value: could
--> atom? return type: bool, with value: #t
--> cdr return type: list, with value: ( eat no chicken fat )
--> null? return type: bool, with value: #f
--> car return type: s_expression, with value: eat
--> atom? return type: bool, with value: #t
--> cdr return type: list, with value: ( no chicken fat )
--> null? return type: bool, with value: #f
--> car return type: s_expression, with value: no
--> atom? return type: bool, with value: #t
--> cdr return type: list, with value: ( chicken fat )
--> null? return type: bool, with value: #f
--> car return type: s_expression, with value: chicken
--> atom? return type: bool, with value: #t
--> cdr return type: list, with value: ( fat )
--> null? return type: bool, with value: #f
--> car return type: s_expression, with value: fat
--> atom? return type: bool, with value: #t
--> cdr return type: list, with value: ( )
--> null? return type: bool, with value: #t
+-> null? -> bool [#f]
+-> car -> s_expression [Jack]
+-> atom? -> bool [#t]
+-> cdr -> list [( Sprat could eat no chicken fat )]
+-> null? -> bool [#f]
+-> car -> s_expression [Sprat]
+-> atom? -> bool [#t]
+-> cdr -> list [( could eat no chicken fat )]
+-> null? -> bool [#f]
+-> car -> s_expression [could]
+-> atom? -> bool [#t]
+-> cdr -> list [( eat no chicken fat )]
+-> null? -> bool [#f]
+-> car -> s_expression [eat]
+-> atom? -> bool [#t]
+-> cdr -> list [( no chicken fat )]
+-> null? -> bool [#f]
+-> car -> s_expression [no]
+-> atom? -> bool [#t]
+-> cdr -> list [( chicken fat )]
+-> null? -> bool [#f]
+-> car -> s_expression [chicken]
+-> atom? -> bool [#t]
+-> cdr -> list [( fat )]
+-> null? -> bool [#f]
+-> car -> s_expression [fat]
+-> atom? -> bool [#t]
+-> cdr -> list [( )]
+-> null? -> bool [#t]
 bool: #t
 ```
 
