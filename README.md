@@ -63,12 +63,12 @@ bool:
 ```
 
 Now you can define any lambda like below:
-```lisp
+```scheme
 (define lat? (lambda (l) (cond ((null? l) #t) ((atom? (car l)) (lat? (cdr l))) (else #f))))
 ```
 
 And you'll get result like this:
-```
+```text
 ---- func ----
 -> name: lat?
 -> var: ( l )
@@ -76,12 +76,12 @@ And you'll get result like this:
 ```
 
 Then you can call this lambda with parameters:
-```
+```scheme
 (lat? (Jack Sprat could eat no chicken fat))
 ```
 
 And you'll get the process of calculation and result:
-```
+```text
 -> null? return type: bool, with value: #f
 -> car return type: s_expression, with value: Jack
 -> atom? return type: bool, with value: #t
@@ -112,4 +112,27 @@ And you'll get the process of calculation and result:
 -> cdr return type: list, with value: ( )
 -> null? return type: bool, with value: #t
 bool: #t
+```
+
+## Functions in Scheme
+1. firsts
+```scheme
+(define firsts (lambda (l) (cond ((null? l) ()) (else (cons (car (car l)) (firsts (cdr l)))))))
+```
+```text
+# test cases
+(firsts ((apple peach pumpkin) (plum pear cherry) (grape raisin pea) (bean carrot eggplant)))
+-> output: (apple plum grape bean)
+
+(firsts ((a b) (c d) (e f)))
+-> output: (a c e)
+
+(firsts ((five plums) (four) (eleven green oranges)))
+-> output: (five four eleven)
+
+(firsts (((five plums) four) (eleven green oranges) ((no) more)))
+-> output: ((five plums) eleven (no))
+
+(firsts ())
+-> output: ()
 ```
