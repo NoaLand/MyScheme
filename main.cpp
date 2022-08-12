@@ -31,11 +31,13 @@ void scheme(Token_stream& ts) {
         switch (token.type) {
             case 'A': {
                 s_expression* s_exp;
-                if(token.value == "#t" || token.value == "#f") {
-                    s_exp = new boolean{token.value == "#t"};
-                } else {
-                    s_exp = new atom{token.value};
-                }
+                s_exp = new atom{token.value};
+                s_exp->print(std::cout);
+                continue;
+            }
+            case 'B': {
+                s_expression* s_exp;
+                s_exp = new boolean{token.value == "#t" || token.value == "else"};
                 s_exp->print(std::cout);
                 continue;
             }
@@ -95,10 +97,10 @@ s_expression* func(Token_stream& ts) {
                 ts.get();
             }
             s_expression* assertion = construct_from_token(ts);
-            if(assertion->get_indicator() != "bool" && assertion->get_value() != "else") {
+            if(assertion->get_indicator() != "bool") {
                 throw std::runtime_error("wrong syntax! assertion need to return bool!");
             }
-            if(((boolean*)assertion)->val() || assertion->get_value() == "else") {
+            if(((boolean*)assertion)->val()) {
                 s_expression* res = construct_from_token(ts);
                 ts.get();
                 ignore_else(ts);
@@ -110,7 +112,6 @@ s_expression* func(Token_stream& ts) {
     } else if(context.is_in(function_key)) {
         auto params = get_input_param(ts);
         std::string body = context.instantiate(params);
-        std::cout << "body: " << body << std::endl;
         ts.put_back(body);
         return closure(ts);
     } else {
@@ -180,11 +181,9 @@ s_expression* construct_from_token(Token_stream& ts) {
     Token token = ts.get();
     s_expression* s_exp;
     if(token.type == 'A') {
-        if(token.value == "#t" || token.value == "#f") {
-            s_exp = new boolean{token.value == "#t"};
-        } else {
-            s_exp = new atom{token.value};
-        }
+        s_exp = new atom{token.value};
+    } else if(token.type == 'B') {
+        s_exp = new boolean{token.value == "#t" || token.value == "else" };
     } else {
         ts.put_back(token);
         s_exp = closure(ts);
