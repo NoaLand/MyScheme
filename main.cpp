@@ -5,6 +5,7 @@
 #include "token/function/s_expression_family.h"
 #include "token/s_expression/params.h"
 #include "token/s_expression/function_declaration.h"
+#include "token/function/nor_logic_family.h"
 
 std::istream& is{std::cin};
 function_context context;
@@ -83,6 +84,10 @@ s_expression* func(Token_stream& ts) {
         s_expression* left = construct_from_token(ts);
         s_expression* right = construct_from_token(ts);
         f = new is_eq{left, right};
+    } else if(function_key == "or") {
+        s_expression* left = construct_from_token(ts);
+        s_expression* right = construct_from_token(ts);
+        f = new or_logic{left, right};
     } else if(function_key == "cond") {
         while(true) {
             Token condition_start = ts.get();
@@ -105,6 +110,7 @@ s_expression* func(Token_stream& ts) {
     } else if(context.is_in(function_key)) {
         auto params = get_input_param(ts);
         std::string body = context.instantiate(params);
+        std::cout << "body: " << body << std::endl;
         ts.put_back(body);
         return closure(ts);
     } else {

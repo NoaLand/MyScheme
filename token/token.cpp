@@ -31,6 +31,9 @@ Token Token_stream::get() {
                 if(s == "cond") {
                     return {'F', s};
                 }
+                if(s == "or") {
+                    return {'F', s};
+                }
                 if(context->is_in(s)) {
                     return {'F', s};
                 }
