@@ -22,42 +22,41 @@ Token Token_stream::get() {
             std::string s;
             s += ch;
             while(is.get(ch)) {
-                if(s == "car" || s == "cdr" || s == "cons" || s == "null?") {
-                    return {'F', s};
-                }
-                if(s == "atom?" || s == "eq?") {
-                    return {'F', s};
-                }
-                if(s == "cond") {
-                    return {'F', s};
-                }
-                if(s == "or") {
-                    return {'F', s};
-                }
-                if(context->is_in(s)) {
-                    return {'F', s};
-                }
-                if(s == "define") {
-                    return {'D'};
-                }
-                if(s == "lambda") {
-                    return {'L'};
-                }
-                if(ch == ')') {
+                if (ch == ' ' || ch == '\n' || ch == ')' || ch == 0) {
+                    if(s == "car" || s == "cdr" || s == "cons" || s == "null?") {
+                        return {'F', s};
+                    }
+                    if(s == "atom?" || s == "eq?") {
+                        return {'F', s};
+                    }
+                    if(s == "cond") {
+                        return {'F', s};
+                    }
+                    if(s == "or") {
+                        return {'F', s};
+                    }
+                    if(context->is_in(s)) {
+                        return {'F', s};
+                    }
+                    if(s == "define") {
+                        return {'D'};
+                    }
+                    if(s == "lambda") {
+                        return {'L'};
+                    }
+                    if(s == "#t" || s == "else") {
+                        return {'B' ,s};
+                    }
+                    if(s == "#f") {
+                        return {'B', s};
+                    }
+
                     is.putback(ch);
                     return {'A', s};
+                } else {
+                    s += ch;
                 }
-                if(s == "#t" || s == "else") {
-                    return {'B' ,s};
-                }
-                if(s == "#f") {
-                    return {'B', s};
-                }
-                if (ch == ' ' || ch == '\n') return {'A', s};
-                s += ch;
             }
-
-            return {'A', s};
         }
     }
 }
