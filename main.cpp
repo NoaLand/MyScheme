@@ -117,7 +117,7 @@ s_expression* func(Token_stream& ts) {
     }
 
     s_expression *pExpression = f->execute();
-    std::cout << "-> " << f->name() << " return type: " << f->return_type() << ", with value: " << pExpression->get_value() << std::endl;
+    std::cout << "-> " << f->name() << " -> " << f->return_type() << " [" << pExpression->get_value() << "]" << std::endl;
     return pExpression;
 }
 
