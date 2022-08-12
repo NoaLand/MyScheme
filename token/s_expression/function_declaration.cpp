@@ -49,7 +49,7 @@ std::string function_context::instantiate(s_expression* p) {
 
     std::string body = buffer->get_body();
     for(int index = 0; index < params->size_of(); ++index) {
-        std::string replace = " " + params->get(index)->get_value() + " ";
+        std::string replace = " $" + params->get(index)->get_value() + "$ ";
         std::string value = " " + input_params->get(index)->get_value() + " ";
 
         while (body.find(replace) != std::string::npos)

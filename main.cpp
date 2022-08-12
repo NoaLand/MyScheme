@@ -193,7 +193,7 @@ s_expression* construct_from_token(Token_stream& ts) {
 }
 
 s_expression* collect_params(Token_stream& ts);
-std::string get_func_body(Token_stream& ts);
+std::string get_func_body(Token_stream& ts, s_expression* params);
 
 function_declaration* function_define(Token_stream& ts) {
     Token define_keyword = ts.get();
@@ -214,7 +214,7 @@ function_declaration* function_define(Token_stream& ts) {
         throw std::runtime_error("wrong syntax in function define!");
     }
 
-    std::string body = get_func_body(ts);
+    std::string body = get_func_body(ts, params);
 
     auto* func = new function_declaration{name.value, params, body};
     context.store(func);
@@ -243,8 +243,9 @@ s_expression* collect_params(Token_stream& ts) {
     return l;
 }
 
-std::string get_func_body(Token_stream& ts) {
+std::string get_func_body(Token_stream& ts, s_expression* params) {
     const Token& left_bracket = ts.get();
+    list* param_list = (list*)params;
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare function body");
     }
@@ -255,7 +256,11 @@ std::string get_func_body(Token_stream& ts) {
 
     while(true) {
         Token token = ts.get();
-        body += token.value;
+        if(param_list->has_value(token.value)) {
+            body += "$" + token.value + "$";
+        } else {
+            body += token.value;
+        }
 
         if(token.type == '(') {
             body.push_back(token.type);

@@ -13,6 +13,7 @@ public:
     s_expression* get(int index);
     size_t size_of() {return l.size(); }
     bool empty() { return l.empty(); }
+    bool has_value(std::string);
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
