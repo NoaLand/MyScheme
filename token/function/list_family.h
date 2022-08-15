@@ -27,7 +27,7 @@ private:
 class cons: public function {
 public:
     cons(s_expression* l, s_expression* r): left(l), right(r) {
-        if(r->get_indicator() != "list") {
+        if(r->get_indicator() != "list" && r->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, the second argument to cons must be a list.");
         }
     }
@@ -42,7 +42,7 @@ private:
 class is_null: public function {
 public:
     is_null(s_expression* exp): s_exp(exp) {
-        if(exp->get_indicator() != "list") {
+        if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
     }
