@@ -19,3 +19,15 @@ void boolean::print(std::ostream &os) {
 bool boolean::val() {
     return get_value() == "#t";
 }
+
+std::string integer::get_value() {
+    return std::to_string(value);
+}
+
+void integer::print(std::ostream &os) {
+    os << "integer: " << get_value() << std::endl;
+}
+
+int integer::val() {
+    return value;
+}

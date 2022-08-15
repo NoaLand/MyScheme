@@ -75,6 +75,12 @@ void scheme(Token_stream& ts) {
                 s_exp->print(std::cout);
                 continue;
             }
+            case 'N': {
+                s_expression* s_exp;
+                s_exp = new integer{token.integer_value};
+                s_exp->print(std::cout);
+                continue;
+            }
             case '(': {
                 ts.put_back(token);
                 s_expression* s_exp = closure(ts);
@@ -191,6 +197,12 @@ s_expression* closure(Token_stream& ts) {
         if(token.type == 'A') {
             atom* a = new atom(token.value);
             l->push_back(a);
+        } else if(token.type == 'B') {
+            auto* b = new boolean(token.value == "#t" || token.value == "else");
+            l->push_back(b);
+        } else if(token.type == 'N') {
+            auto* i = new integer(token.integer_value);
+            l->push_back(i);
         } else if(token.type == ')') {
             break;
         } else if(token.type == '(') {
@@ -218,6 +230,8 @@ s_expression* construct_from_token(Token_stream& ts) {
         s_exp = new atom{token.value};
     } else if(token.type == 'B') {
         s_exp = new boolean{token.value == "#t" || token.value == "else" };
+    } else if(token.type == 'N') {
+        s_exp = new integer{ token.integer_value };
     } else {
         ts.put_back(token);
         s_exp = closure(ts);

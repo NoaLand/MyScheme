@@ -30,4 +30,16 @@ private:
     std::string indicator{"bool"};
     std::string value;
 };
+
+class integer: public s_expression {
+public:
+    integer(int i): value(i) {}
+    std::string get_value() override;
+    std::string get_indicator() override { return indicator; }
+    void print(std::ostream& os) override;
+    int val();
+private:
+    std::string indicator{"integer"};
+    int value;
+};
 #endif //MYSCHEME_ATOM_H

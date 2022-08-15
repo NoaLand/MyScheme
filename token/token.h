@@ -12,8 +12,10 @@ class Token {
 public:
     Token(char t): type(t) {}
     Token(char t, std::string v): type(t), value(std::move(v)) {}
+    Token(char t, int v): type(t), integer_value(v) {}
     char type;
     std::string value;
+    int integer_value;
 };
 
 // for Token_stream, our compiler will load Scheme code as istream, I gonna wrap it and refer this as the wrapper of istream, which means, it will have buffer, and istream inside of it
