@@ -6,7 +6,11 @@
 
 class or_logic: public function {
 public:
-    or_logic(s_expression* l, s_expression* r): left(l), right(r) {}
+    or_logic(s_expression* l, s_expression* r): left(l), right(r) {
+        if(left->get_indicator() != "bool") {
+            throw std::runtime_error("or need take bool as input");
+        }
+    }
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "or?"; }
