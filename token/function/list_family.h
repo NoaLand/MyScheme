@@ -6,7 +6,11 @@
 
 class car: public function {
 public:
-    car(s_expression* exp): s_exp(exp) {}
+    car(s_expression* exp): s_exp(exp) {
+        if(s_exp->get_indicator() != "list" && s_exp->get_indicator() != "tuple") {
+            throw std::runtime_error("wrong syntax, car can only get list.");
+        }
+    }
     s_expression* execute() override;
     std::string return_type() override { return "s_expression"; }
     std::string name() override { return "car"; }
@@ -16,7 +20,11 @@ private:
 
 class cdr: public function {
 public:
-    cdr(s_expression* exp): s_exp(exp) {}
+    cdr(s_expression* exp): s_exp(exp) {
+        if(s_exp->get_indicator() != "list" && s_exp->get_indicator() != "tuple") {
+            throw std::runtime_error("wrong syntax, cdr can only get list.");
+        }
+    }
     s_expression* execute() override;
     std::string return_type() override { return "list"; }
     std::string name() override { return "cdr"; }
