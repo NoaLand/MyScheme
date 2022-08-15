@@ -6,6 +6,7 @@
 #include "token/s_expression/params.h"
 #include "token/s_expression/function_declaration.h"
 #include "token/function/nor_logic_family.h"
+#include "token/function/math_family.h"
 
 std::istream& is{std::cin};
 function_context context;
@@ -149,6 +150,9 @@ s_expression* func(Token_stream& ts) {
                 ignore_else(ts);
             }
         }
+    } else if(function_key == "add1") {
+        s_expression* number = construct_from_token(ts);
+        f = new self_add{number};
     } else if(context.is_in(function_key)) {
         auto params = get_input_param(ts);
         std::string body = context.instantiate(params);
