@@ -39,6 +39,8 @@ function:
             (cons s_expression list) -> list
         - is_null class:
             (null? list) -> bool(#t/#f)
+        - add_tuple class:
+            (addtup tuple) -> integer
     - condition family:
         - cond class:
             (lambda (s_expression)
