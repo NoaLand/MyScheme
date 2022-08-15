@@ -152,3 +152,19 @@ bool: #t
 (insertR e d (a b c d f g d h))
 -> output: ( a b c d e f g d h )
 ```
+
+### 3. insertL
+```scheme
+(define insertL (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons new lat)) (else (cons (car lat) (insertL new old (cdr lat)))))))
+```
+```text
+# test cases
+(insertL topping fudge (ice cream with fudge for dessert))
+-> output: ( ice cream with topping  fudge for dessert )
+
+(insertL jalapeno and (tacos tamales and salsa))
+-> output: ( tacos tamales jalapeno  and salsa )
+
+(insertL e d (a b c d f g d h))
+-> output: ( a b c e d f g d h )
+```
