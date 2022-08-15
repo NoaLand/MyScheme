@@ -9,7 +9,7 @@ public:
     or_logic(s_expression* l, s_expression* r): left(l), right(r) {}
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
-    std::string name() override { return "or"; }
+    std::string name() override { return "or?"; }
 private:
     s_expression* left;
     s_expression* right;
