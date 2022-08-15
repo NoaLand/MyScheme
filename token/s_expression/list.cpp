@@ -16,7 +16,7 @@ void list::push_back(s_expression* s_exp) {
 }
 
 void list::print(std::ostream &os) {
-    os << "list: " << get_value() << std::endl;
+    os << get_indicator() << ": " << get_value() << std::endl;
 }
 
 s_expression *list::get(int index) {
