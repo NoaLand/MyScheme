@@ -17,10 +17,9 @@ customized function:
     )
 function:
     # function must be enclosed with (), they are the same
-    - assertion: every function return atom(#t/#f)
-        - (assertion s_expression) -> bool(#t/#f)
     - math family:
         - integer class:
+            - (zero? integer) -> bool(#t/#f)
             - (add1 integer) -> integer
             - (sub1 integer) -> integer
     - nor logic family:
@@ -51,6 +50,9 @@ function:
                     (else s_expression)
                 )
             )
+    # function basic type
+    - assertion: every function return atom(#t/#f)
+        - (assertion s_expression) -> bool(#t/#f)
 s_expression:
     list
     atom
