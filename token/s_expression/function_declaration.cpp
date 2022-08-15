@@ -37,7 +37,7 @@ bool function_context::is_in(const std::string& name) {
 }
 
 std::string function_context::instantiate(s_expression* p) {
-    if(p->get_indicator() != "list") {
+    if(p->get_indicator() != "list" && p->get_indicator() != "tuple") {
         throw std::runtime_error("wrong params type!");
     }
 

@@ -343,6 +343,10 @@ std::string get_func_body(Token_stream& ts, s_expression* params) {
             body += token.value;
         }
 
+        if(token.type == 'N') {
+            body += std::to_string(token.integer_value);
+        }
+
         if(token.type == '(') {
             body.push_back(token.type);
             ++brackets;
