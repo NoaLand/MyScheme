@@ -184,3 +184,13 @@ bool: #t
 (subst e d (a b c d f g d h))
 -> output: ( a b c e f g d h )
 ```
+
+### 5. subst2
+```scheme
+(define subst2 (lambda (new o1 o2 lat) (cond ((null? lat) (())) ((or (eq? o1 (car lat)) (eq? o2 (car lat))) (cons new (cdr lat))) (else (cons (car lat) (subst new o1 o2 (cdr lat)))))))
+```
+```text
+# text cases
+(subst2 vanilla chocolate banana (banana ice cream with chocolate topping))
+-> output: ( vanilla ice cream with chocolate topping ) 
+```
