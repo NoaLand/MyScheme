@@ -16,25 +16,26 @@ customized function:
         )
     )
 function:
-    # function can be enclosed with () or not, they are the same
+    # function must be enclosed with (), they are the same
     - assertion: every function return atom(#t/#f)
-        - assertion s_expression -> bool(#t/#f)
+        - (assertion s_expression) -> bool(#t/#f)
+    - nor logic family:
+        - or_logic class:
+            (or? s_expression s_expression) -> bool(#t/#f)
     - s_expression family:
         - is_atom class:
-            atom? s_expression -> bool(#t/#f)
+            (atom? s_expression) -> bool(#t/#f)
         - is_eq class:    
-            eq? s_expression s_expression -> bool(#t/#f)
+            (eq? s_expression s_expression) -> bool(#t/#f)
     - list family:
         - car class:
-            car list -> s_expression
             (car list) -> s_expression
         - cdr class:
-            cdr list -> list
             (cdr list) -> list
         - cons class:
-            cons s_expression list -> list
+            (cons s_expression list) -> list
         - is_null class:
-            null? list -> bool(#t/#f)
+            (null? list) -> bool(#t/#f)
     - condition family:
         - cond class:
             (lambda (s_expression)
@@ -187,7 +188,7 @@ bool: #t
 
 ### 5. subst2
 ```scheme
-(define subst2 (lambda (new o1 o2 lat) (cond ((null? lat) (())) ((or (eq? o1 (car lat)) (eq? o2 (car lat))) (cons new (cdr lat))) (else (cons (car lat) (subst new o1 o2 (cdr lat)))))))
+(define subst2 (lambda (new o1 o2 lat) (cond ((null? lat) (())) ((or? (eq? o1 (car lat)) (eq? o2 (car lat))) (cons new (cdr lat))) (else (cons (car lat) (subst new o1 o2 (cdr lat)))))))
 ```
 ```text
 # test cases
