@@ -190,7 +190,17 @@ bool: #t
 (define subst2 (lambda (new o1 o2 lat) (cond ((null? lat) (())) ((or (eq? o1 (car lat)) (eq? o2 (car lat))) (cons new (cdr lat))) (else (cons (car lat) (subst new o1 o2 (cdr lat)))))))
 ```
 ```text
-# text cases
+# test cases
 (subst2 vanilla chocolate banana (banana ice cream with chocolate topping))
 -> output: ( vanilla ice cream with chocolate topping ) 
+```
+
+### 6. multirember
+```scheme
+(define multirember (lambda (a lat) (cond ((null? lat) ()) ((eq? a (car lat)) (multirember a (cdr lat))) (else (cons (car lat) (multirember a (cdr lat)))))))
+```
+```text
+# test cases
+(multirember cup (coffee cup tea cup and hick cup))
+-> output: ( coffee tea and hick )
 ```
