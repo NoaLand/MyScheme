@@ -52,4 +52,18 @@ public:
 private:
     s_expression* s_exp;
 };
+
+class add_tuple: public function {
+public:
+    add_tuple(s_expression* tp): tup_list(tp) {
+        if(tp->get_indicator() != "tuple") {
+            throw std::runtime_error("wrong syntax, null? is defined only for lists.");
+        }
+    }
+    integer* execute() override;
+    std::string return_type() override { return "integer"; }
+    std::string name() override { return "addtup"; }
+private:
+    s_expression* tup_list;
+};
 #endif //MYSCHEME_LIST_FAMILY_H

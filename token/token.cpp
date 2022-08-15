@@ -42,7 +42,7 @@ Token Token_stream::get() {
             while(is.get(ch)) {
                 if (ch == ' ' || ch == '\n' || ch == ')' || ch == '\0') {
                     is.putback(ch);
-                    if(s == "car" || s == "cdr" || s == "cons" || s == "null?") {
+                    if(s == "car" || s == "cdr" || s == "cons" || s == "null?" || s == "addtup") {
                         return {'F', s};
                     }
                     if(s == "atom?" || s == "eq?") {

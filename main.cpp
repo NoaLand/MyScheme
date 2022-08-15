@@ -140,6 +140,9 @@ s_expression* func(Token_stream& ts) {
     } else if(function_key == "null?") {
         s_expression* s_exp = closure(ts);
         f = new is_null{s_exp};
+    } else if(function_key == "addtup") {
+        s_expression* s_exp = construct_from_token(ts);
+        f = new add_tuple{s_exp};
     } else if(function_key == "atom?") {
         s_expression* s_exp = construct_from_token(ts);
         f = new is_atom{s_exp};

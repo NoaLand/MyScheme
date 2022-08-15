@@ -49,3 +49,14 @@ boolean* is_null::execute() {
         return new boolean{false};
     }
 }
+
+integer* add_tuple::execute() {
+    int sum = 0;
+    list* tuple = (list*) tup_list;
+    for(const auto& item : tuple->get_iterator()) {
+        auto v = (integer*)item;
+        sum += v->val();
+    }
+
+    return new integer{sum};
+}

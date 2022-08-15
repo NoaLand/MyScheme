@@ -17,6 +17,7 @@ public:
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
+    std::vector<s_expression*> get_iterator() { return l; }
     void push_back(s_expression* s_exp);
 private:
     std::string indicator{"tuple"};
