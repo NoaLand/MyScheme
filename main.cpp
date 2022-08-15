@@ -150,6 +150,9 @@ s_expression* func(Token_stream& ts) {
                 ignore_else(ts);
             }
         }
+    } else if(function_key == "zero?") {
+        s_expression* number = construct_from_token(ts);
+        f = new is_zero{number};
     } else if(function_key == "add1") {
         s_expression* number = construct_from_token(ts);
         f = new self_add{number};

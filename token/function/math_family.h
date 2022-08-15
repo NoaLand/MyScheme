@@ -23,4 +23,14 @@ public:
 private:
     s_expression* number;
 };
+
+class is_zero: public function {
+public:
+    is_zero(s_expression* n): number(n) {}
+    boolean* execute() override;
+    std::string return_type() override { return "bool"; }
+    std::string name() override { return "is_zero"; }
+private:
+    s_expression* number;
+};
 #endif //MYSCHEME_MATH_FAMILY_H

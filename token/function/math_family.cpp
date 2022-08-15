@@ -17,3 +17,11 @@ integer* self_sub::execute() {
 
     return new integer(original_val - 1);
 }
+
+boolean *is_zero::execute() {
+    if(number->get_indicator() != "integer") {
+        throw std::runtime_error("wrong syntax: sub1 need integer as param!");
+    }
+    int original_val = ((integer*)number)->val();
+    return new boolean{original_val == 0};
+}
