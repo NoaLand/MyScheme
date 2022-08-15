@@ -155,7 +155,7 @@ bool: #t
 
 ### 3. insertL
 ```scheme
-(define insertL (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons new lat)) (else (cons (car lat) (insertL new old (cdr lat)))))))
+(define insertL (lambda (new old lat) (cond ((null? lat) (())) ((eq? old (car lat)) (cons new lat)) (else (cons (car lat) (insertL new old (cdr lat)))))))
 ```
 ```text
 # test cases
