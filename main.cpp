@@ -58,10 +58,19 @@ void preload_libs() {
             "(cond ( ( zero? $m$ ) $n$ ) ( else ( add1 ( + $n$ ( sub1 $m$ ) ) ) ) )"
     );
 
+    auto sub_params = new list();
+    sub_params->push_back(new param{"n"});
+    sub_params->push_back(new param{"m"});
+    auto sub = new function_declaration(
+            "-",
+            sub_params,
+            "(cond ( ( zero? $m$ ) $n$ ) ( else ( sub1 ( - $n$ ( sub1 $m$ ) ) ) ) )"
+    );
     context.store(lat);
     context.store(is_member);
     context.store(rember);
     context.store(add);
+    context.store(sub);
 }
 
 int main() {
