@@ -57,10 +57,10 @@ list:
     (list, list, ...)
     (list, atom, ...)
 atom:
-    a string of characters
-bool:
-    #t
-    #f
+    - a string of characters
+    - bool:
+        - #t
+        - #f
 ```
 
 Now you can define any lambda like below:
