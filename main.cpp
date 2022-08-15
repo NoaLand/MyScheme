@@ -49,9 +49,19 @@ void preload_libs() {
             "(cond ( ( null? $lat$ ) ( ( ) ) ) ( else ( cond ( ( eq? ( car $lat$ ) $a$ ) ( cdr $lat$ ) ) ( else ( cons ( car $lat$ ) ( rember $a$ ( cdr $lat$ ) ) ) ) ) ) ) "
             );
 
+    auto add_params = new list();
+    add_params->push_back(new param{"n"});
+    add_params->push_back(new param{"m"});
+    auto add = new function_declaration(
+            "+",
+            add_params,
+            "(cond ( ( zero? $m$ ) $n$ ) ( else ( add1 ( + $n$ ( sub1 $m$ ) ) ) ) )"
+    );
+
     context.store(lat);
     context.store(is_member);
     context.store(rember);
+    context.store(add);
 }
 
 int main() {
