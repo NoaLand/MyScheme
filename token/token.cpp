@@ -54,7 +54,7 @@ Token Token_stream::get() {
                     if(s == "or?") {
                         return {'F', s};
                     }
-                    if(s == "add1") {
+                    if(s == "add1" || s == "sub1") {
                         return {'F', s};
                     }
                     if(context->is_in(s)) {

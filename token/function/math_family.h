@@ -14,4 +14,13 @@ private:
     s_expression* number;
 };
 
+class self_sub: public function {
+public:
+    self_sub(s_expression* n): number(n) {}
+    integer* execute() override;
+    std::string return_type() override { return "integer"; }
+    std::string name() override { return "sub1"; }
+private:
+    s_expression* number;
+};
 #endif //MYSCHEME_MATH_FAMILY_H

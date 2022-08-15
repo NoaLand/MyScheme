@@ -153,6 +153,9 @@ s_expression* func(Token_stream& ts) {
     } else if(function_key == "add1") {
         s_expression* number = construct_from_token(ts);
         f = new self_add{number};
+    } else if(function_key == "sub1") {
+        s_expression* number = construct_from_token(ts);
+        f = new self_sub{number};
     } else if(context.is_in(function_key)) {
         auto params = get_input_param(ts);
         std::string body = context.instantiate(params);
