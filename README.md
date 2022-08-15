@@ -160,11 +160,27 @@ bool: #t
 ```text
 # test cases
 (insertL topping fudge (ice cream with fudge for dessert))
--> output: ( ice cream with topping  fudge for dessert )
+-> output: ( ice cream with topping fudge for dessert )
 
 (insertL jalapeno and (tacos tamales and salsa))
--> output: ( tacos tamales jalapeno  and salsa )
+-> output: ( tacos tamales jalapeno and salsa )
 
 (insertL e d (a b c d f g d h))
 -> output: ( a b c e d f g d h )
+```
+
+### 4. subst
+```scheme
+(define subst (lambda (new old lat) (cond ((null? lat) (())) ((eq? old (car lat)) (cons new (cdr lat))) (else (cons (car lat) (subst new old (cdr lat)))))))
+```
+```text
+# test cases
+(subst topping fudge (ice cream with fudge for dessert))
+-> output: ( ice cream with topping for dessert )
+
+(subst jalapeno and (tacos tamales and salsa))
+-> output: ( tacos tamales jalapeno salsa )
+
+(subst e d (a b c d f g d h))
+-> output: ( a b c e f g d h )
 ```
