@@ -61,6 +61,7 @@ atom:
     - bool:
         - #t
         - #f
+    - nonnegative integer
 ```
 
 Now you can define any lambda like below:
