@@ -20,8 +20,9 @@ function:
     - assertion: every function return atom(#t/#f)
         - (assertion s_expression) -> bool(#t/#f)
     - math family:
-        - add class:
+        - integer class:
             - (add1 integer) -> integer
+            - (sub1 integer) -> integer
     - nor logic family:
         - or_logic class:
             (or? s_expression s_expression) -> bool(#t/#f)
