@@ -204,3 +204,19 @@ bool: #t
 (multirember cup (coffee cup tea cup and hick cup))
 -> output: ( coffee tea and hick )
 ```
+
+### 7. multiinsertR
+```scheme
+(define multiinsertR (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons old (cons new (multiinsertR new old (cdr lat))))) (else (cons (car lat) (multiinsertR new old (cdr lat)))))))
+```
+```text
+# test cases
+(multiinsertR topping fudge (ice cream with fudge for fudge dessert))
+-> output: ( ice cream with fudge topping for fudge topping dessert )
+
+(multiinsertR jalapeno and (tacos and tamales and salsa))
+-> output: ( tacos and jalapeno tamales and jalapeno salsa )
+
+(multiinsertR e d (a b c d f g d h))
+-> output: ( a b c d e f g d e h )
+```
