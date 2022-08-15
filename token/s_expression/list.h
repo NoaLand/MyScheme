@@ -19,7 +19,7 @@ public:
     void print(std::ostream& os) override;
     void push_back(s_expression* s_exp);
 private:
-    std::string indicator{"list"};
+    std::string indicator{"tuple"};
     std::vector<s_expression*> l{};
 };
 #endif //MYSCHEME_LIST_H

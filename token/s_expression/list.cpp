@@ -12,6 +12,9 @@ std::string list::get_value() {
 }
 
 void list::push_back(s_expression* s_exp) {
+    if(s_exp->get_indicator() != "integer" && indicator == "tuple") {
+        indicator = "list";
+    }
     l.push_back(s_exp);
 }
 
