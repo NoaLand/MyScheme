@@ -220,3 +220,13 @@ bool: #t
 (multiinsertR e d (a b c d f g d h))
 -> output: ( a b c d e f g d e h )
 ```
+
+### 8. multiinsertL
+```scheme
+(define multiinsertL (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons new (cons old (multiinsertL new old (cdr lat))))) (else (cons (car lat) (multiinsertL new old (cdr lat)))))))
+```
+```text
+# test cases
+(multiinsertL fried fish (chips and fish / fish and fried))
+-> output: ( chips and fried fish / fried fish and fried )
+```
