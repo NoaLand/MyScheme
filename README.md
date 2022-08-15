@@ -248,3 +248,41 @@ bool: #t
 (multisubst topping fudge (ice cream with fudge for dessert and fudge tacos))
 -> output: ( ice cream with topping for dessert and topping tacos )
 ```
+
+### 10. +
+```scheme
+(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))
+```
+```text
+# test cases
+(+ 10 2)
+---
+-> output:
+-> is_zero -> bool [#f]
+-> sub1 -> integer [1]
+-> is_zero -> bool [#f]
+-> sub1 -> integer [0]
+-> is_zero -> bool [#t]
+-> add1 -> integer [11]
+-> add1 -> integer [12]
+integer: 12
+```
+
+### 11. -
+```scheme
+(define - (lambda (n m) (cond ((zero? m) n) (else (sub1 (- n (sub1 m)))))))
+```
+```text
+# test cases
+(- 10 2)
+---
+-> output:
+-> is_zero -> bool [#f]
+-> sub1 -> integer [1]
+-> is_zero -> bool [#f]
+-> sub1 -> integer [0]
+-> is_zero -> bool [#t]
+-> sub1 -> integer [9]
+-> sub1 -> integer [8]
+integer: 8
+```
