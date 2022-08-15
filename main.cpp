@@ -81,6 +81,7 @@ int main() {
 
 void scheme(Token_stream& ts) {
     while(ts.get_istream()) {
+        std::cout << "> ";
         Token token = ts.get();
         switch (token.type) {
             case 'A': {
