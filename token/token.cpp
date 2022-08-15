@@ -41,6 +41,7 @@ Token Token_stream::get() {
             s += ch;
             while(is.get(ch)) {
                 if (ch == ' ' || ch == '\n' || ch == ')' || ch == '\0') {
+                    is.putback(ch);
                     if(s == "car" || s == "cdr" || s == "cons" || s == "null?") {
                         return {'F', s};
                     }
@@ -62,7 +63,6 @@ Token Token_stream::get() {
                     if(s == "lambda") {
                         return {'L'};
                     }
-                    is.putback(ch);
                     if(s == "#t" || s == "else") {
                         return {'B' ,s};
                     }
