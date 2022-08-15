@@ -59,9 +59,11 @@ s_expression:
     bool
 list:
     # let's say these items can be in any order
-    (atom, atom, ...)
-    (list, list, ...)
-    (list, atom, ...)
+    (atom atom ...)
+    (list list ...)
+    (list atom ...)
+    - tuple
+        (integer integer ...)
 atom:
     - a string of characters
     - bool:
