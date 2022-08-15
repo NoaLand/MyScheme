@@ -230,3 +230,13 @@ bool: #t
 (multiinsertL fried fish (chips and fish or fish and fried))
 -> output: ( chips and fried fish or fried fish and fried )
 ```
+
+### 9. multisubst
+```scheme
+(define multisubst (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons new (multisubst new old (cdr lat)))) (else (cons (car lat) (multisubst new old (cdr lat)))))))
+```
+```text
+# test cases
+(multisubst topping fudge (ice cream with fudge for dessert and fudge tacos))
+-> output: ( ice cream with topping for dessert and topping tacos )
+```
