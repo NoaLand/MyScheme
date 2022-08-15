@@ -19,6 +19,9 @@ function:
     # function must be enclosed with (), they are the same
     - assertion: every function return atom(#t/#f)
         - (assertion s_expression) -> bool(#t/#f)
+    - math family:
+        - add class:
+            - (add1 integer) -> integer
     - nor logic family:
         - or_logic class:
             (or? s_expression s_expression) -> bool(#t/#f)
