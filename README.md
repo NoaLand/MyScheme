@@ -227,6 +227,6 @@ bool: #t
 ```
 ```text
 # test cases
-(multiinsertL fried fish (chips and fish / fish and fried))
--> output: ( chips and fried fish / fried fish and fried )
+(multiinsertL fried fish (chips and fish or fish and fried))
+-> output: ( chips and fried fish or fried fish and fried )
 ```
