@@ -1,7 +1,8 @@
 #include "s_expression_family.h"
 
 boolean* is_atom::execute() {
-    if(s_exp->get_indicator() == "atom") {
+    const std::string &type_info = s_exp->get_indicator();
+    if(type_info == "atom" || type_info == "bool" || type_info == "integer") {
         return new boolean{true};
     } else {
         return new boolean{false};
