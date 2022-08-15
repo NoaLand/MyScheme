@@ -62,16 +62,13 @@ Token Token_stream::get() {
                     if(s == "lambda") {
                         return {'L'};
                     }
+                    is.putback(ch);
                     if(s == "#t" || s == "else") {
-                        is.putback(ch);
                         return {'B' ,s};
                     }
                     if(s == "#f") {
-                        is.putback(ch);
                         return {'B', s};
                     }
-
-                    is.putback(ch);
                     return {'A', s};
                 } else {
                     s += ch;
