@@ -431,8 +431,13 @@ integer: 8
 ```
 
 ### 20. rempick
+#### v1 -- use (zero? (sub1 n))
 ```scheme
 (define rempick (lambda (n lat) (cond ((zero? (sub1 n)) (cdr lat)) (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
+```
+#### v2 -- use (one? n) directly
+```scheme
+(define rempick (lambda (n lat) (cond ((one? n) (cdr lat)) (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
 ```
 ```text
 # test cases
