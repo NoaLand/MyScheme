@@ -537,3 +537,26 @@ integer: 8
 (rember* sauce (((tomato sauce)) ((bean) sauce) (and ((flying)) sauce)))
 -> output: list: ( ( ( tomato ) ) ( ( bean ) ) ( and ( ( flying ) ) ) )
 ```
+
+### 27. insertR*
+```scheme
+(define insertR*
+    (lambda (new old l)
+        (cond
+            ((null? l) ())
+            ((atom? (car l))
+                (cond
+                    ((eq? (car l) old) (cons old (cons new (insertR* new old (cdr l)))))
+                    (else (cons (car l) (insertR* new old (cdr l))))
+                )
+            )
+            (else (cons (insertR* new old (car l)) (insertR* new old (cdr l))))
+        )
+    )
+)
+```
+```text
+# test cases
+(insertR* roast chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))
+-> output: list: ( ( how much ( wood ) ) could ( ( a ( wood ) chuck roast ) ) ( ( ( chuck roast ) ) ) ( if ( a ) ( ( wood chuck roast ) ) ) could chuck roast wood )
+```
