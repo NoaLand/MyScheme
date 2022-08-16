@@ -66,6 +66,15 @@ void preload_libs() {
             "(cond ( ( zero? ( sub1 $n$ ) ) ( car $lat$ ) ) ( else ( pick ( sub1 $n$ ) ( cdr $lat$ ) ) ) )"
             );
 
+    auto rempick_params = new list();
+    rempick_params->push_back(new param{"n"});
+    rempick_params->push_back(new param{"lat"});
+    auto rempick = new function_declaration(
+            "rempick",
+            rempick_params,
+            "(cond ( ( zero? ( sub1 $n$ ) ) ( cdr $lat$ ) ) ( else ( cons ( car $lat$ ) ( rempick ( sub1 $n$ ) ( cdr $lat$ ) ) ) ) )"
+            );
+
     auto add_params = new list();
     add_params->push_back(new param{"n"});
     add_params->push_back(new param{"m"});
@@ -143,6 +152,7 @@ void preload_libs() {
     context.store(is_member);
     context.store(rember);
     context.store(pick);
+    context.store(rempick);
     context.store(add);
     context.store(sub);
     context.store(multiplication);
