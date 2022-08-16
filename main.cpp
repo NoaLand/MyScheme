@@ -56,7 +56,7 @@ void preload_libs() {
             "+",
             add_params,
             "(cond ( ( zero? $m$ ) $n$ ) ( else ( add1 ( + $n$ ( sub1 $m$ ) ) ) ) )"
-    );
+            );
 
     auto sub_params = new list();
     sub_params->push_back(new param{"n"});
@@ -65,7 +65,7 @@ void preload_libs() {
             "-",
             sub_params,
             "(cond ( ( zero? $m$ ) $n$ ) ( else ( sub1 ( - $n$ ( sub1 $m$ ) ) ) ) )"
-    );
+            );
 
     auto multiplication_params = new list();
     multiplication_params->push_back(new param{"n"});
@@ -74,7 +74,7 @@ void preload_libs() {
             "*",
             multiplication_params,
             "(cond ( ( zero? $m$ ) 0 ) ( else ( + $n$ ( * $n$ ( sub1 $m$ ) ) ) ) )"
-    );
+            );
 
     auto divide_params = new list();
     divide_params->push_back(new param{"n"});
@@ -83,7 +83,7 @@ void preload_libs() {
             "/",
             divide_params,
             "(cond ( ( < $n$ $m$ ) 0 ) ( else ( add1 ( / ( - $n$ $m$ ) $m$ ) ) ) )"
-    );
+            );
 
     auto greater_than_params = new list();
     greater_than_params->push_back(new param{"n"});
@@ -92,7 +92,7 @@ void preload_libs() {
             ">",
             greater_than_params,
             "(cond ( ( zero? $n$ ) #f ) ( ( zero? $m$ ) #t ) ( else ( > ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
-    );
+            );
 
     auto less_than_params = new list();
     less_than_params->push_back(new param{"n"});
@@ -101,7 +101,7 @@ void preload_libs() {
             "<",
             less_than_params,
             "(cond ( ( zero? $m$ ) #f ) ( ( zero? $n$ ) #t ) ( else ( < ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
-    );
+            );
 
     auto equal_params = new list();
     equal_params->push_back(new param{"n"});
@@ -110,7 +110,7 @@ void preload_libs() {
             "=",
             equal_params,
             "(cond ( ( > $n$ $m$ ) #f ) ( ( < $n$ $m$ ) #f ) ( else #t ) )"
-    );
+            );
 
     auto expt_params = new list();
     expt_params->push_back(new param{"n"});
@@ -119,8 +119,7 @@ void preload_libs() {
             "^",
             expt_params,
             "(cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) )"
-    );
-
+            );
 
     context.store(lat);
     context.store(is_member);
