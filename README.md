@@ -449,3 +449,13 @@ integer: 8
 (no-nums (5 pears 6 prunes 9 dates))
 -> output: list: ( pears prunes dates )
 ```
+
+### 22. all-nums
+```scheme
+(define all-nums (lambda (lat) (cond ((null? lat) ()) ((number? (car lat)) (cons (car lat) (all-nums (cdr lat)))) (else (all-nums (cdr lat))))))
+```
+```text
+# test cases
+(all-nums (5 pears 6 prunes 9 dates))
+-> output: tuple: ( 5 6 9 )
+```
