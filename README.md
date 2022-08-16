@@ -560,3 +560,24 @@ integer: 8
 (insertR* roast chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))
 -> output: list: ( ( how much ( wood ) ) could ( ( a ( wood ) chuck roast ) ) ( ( ( chuck roast ) ) ) ( if ( a ) ( ( wood chuck roast ) ) ) could chuck roast wood )
 ```
+
+### 28. occur*
+```scheme
+(define occur*
+    (lambda (a l)
+        (cond
+            ((null? l) 0)
+            ((atom? (car l)) (cond
+                ((eq? a (car l)) (add1 (occur* a (cdr l))))
+                (else (occur* a (cdr l)))
+            ))
+            (else (+ (occur* a (car l)) (occur* a (cdr l))))
+        )
+    )
+)
+```
+```text
+# test cases
+(occur* banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))
+-> output: integer: 5
+```
