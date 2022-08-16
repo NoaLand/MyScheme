@@ -66,11 +66,22 @@ void preload_libs() {
             sub_params,
             "(cond ( ( zero? $m$ ) $n$ ) ( else ( sub1 ( - $n$ ( sub1 $m$ ) ) ) ) )"
     );
+
+    auto multiplication_params = new list();
+    multiplication_params->push_back(new param{"n"});
+    multiplication_params->push_back(new param{"m"});
+    auto multiplication = new function_declaration(
+            "*",
+            multiplication_params,
+            "(cond ( ( zero? $m$ ) 0 ) ( else ( + $n$ ( * $n$ ( sub1 $m$ ) ) ) ) )"
+    );
+
     context.store(lat);
     context.store(is_member);
     context.store(rember);
     context.store(add);
     context.store(sub);
+    context.store(multiplication);
 }
 
 int main() {
