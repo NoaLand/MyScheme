@@ -472,3 +472,19 @@ integer: 8
 (eqan? (2 c) (2 c b d))
 -> output: bool: #f
 ```
+
+### 24. occur
+```scheme
+(define occur (lambda (a lat) (cond ((null? lat) 0) ((eq? a (car lat)) (add1 (occur a (cdr lat)))) (else (occur a (cdr lat))))))
+```
+```text
+# test cases
+(occur bc (abc bc cd cb bc a (bc)))
+-> output: integer: 2
+
+(occur (bc) (abc bc cd cb bc a (bc)))
+-> output: integer: 1
+
+(occur nothing (abc bc c))
+-> output: integer: 0
+```
