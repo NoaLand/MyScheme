@@ -488,3 +488,16 @@ integer: 8
 (occur nothing (abc bc c))
 -> output: integer: 0
 ```
+
+### 25. one?
+```scheme
+(define one?  (lambda (n) (cond (else (= n 1)))))
+```
+```text
+# test cases
+(one? 1)
+-> output: bool: #t
+
+(one? 2)
+-> output: bool: #f
+```
