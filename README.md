@@ -602,3 +602,24 @@ integer: 8
 (subst* orange banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))
 -> output: list: ( ( orange ) ( split ( ( ( ( orange ice ) ) ) ( cream ( orange ) ) sherbet ) ) ( orange ) ( bread ) ( orange brandy ) )
 ```
+
+### 30. insertL*
+```scheme
+(define insertL*
+    (lambda (new old l)
+        (cond
+            ((null? l) ())
+            ((atom? (car l)) (cond
+                ((eq? old (car l)) (cons new (cons old (insertL* new old (cdr l)))))
+                (else (cons (car l) (insertL* new old (cdr l))))
+            ))
+            (else (cons (insertL* new old (car l)) (insertL* new old (cdr l))))
+        )
+    )
+)
+```
+```text
+# test cases
+(insertL* pecker chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))
+-> output: list: ( ( how much ( wood ) ) could ( ( a ( wood ) pecker chuck ) ) ( ( ( pecker chuck ) ) ) ( if ( a ) ( ( wood pecker chuck ) ) ) could pecker chuck wood )
+```
