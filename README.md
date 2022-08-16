@@ -321,3 +321,19 @@ integer: 8
 (tup+ (3 7) (4 6 8 1))
 -> output: tuple: ( 7 13 8 1 )
 ```
+
+### 13. >
+```scheme
+(define > (lambda (n m) (cond ((zero? n) #f) ((zero? m) #t) (else (> (sub1 n) (sub1 m))))))
+```
+```text
+# test cases
+(> 12 133)
+-> output: bool: #f
+
+(> 120 11)
+-> output: bool: #t
+
+(> 10 10)
+-> output: bool: #f
+```
