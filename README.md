@@ -138,19 +138,19 @@ bool: #t
 ```text
 # test cases
 (firsts ((apple peach pumpkin) (plum pear cherry) (grape raisin pea) (bean carrot eggplant)))
--> output: (apple plum grape bean)
+-> list: (apple plum grape bean)
 
 (firsts ((a b) (c d) (e f)))
--> output: (a c e)
+-> list: (a c e)
 
 (firsts ((five plums) (four) (eleven green oranges)))
--> output: (five four eleven)
+-> list: (five four eleven)
 
 (firsts (((five plums) four) (eleven green oranges) ((no) more)))
--> output: ((five plums) eleven (no))
+-> list: ((five plums) eleven (no))
 
 (firsts ())
--> output: ()
+-> list: ()
 ```
 
 ### 2. insertR
@@ -160,13 +160,13 @@ bool: #t
 ```text
 # test cases
 (insertR topping fudge (ice cream with fudge for dessert))
--> output: ( ice cream with fudge topping for dessert )
+-> list: ( ice cream with fudge topping for dessert )
 
 (insertR jalapeno and (tacos tamales and salsa))
--> output: ( tacos tamales and jalapeno salsa )
+-> list: ( tacos tamales and jalapeno salsa )
 
 (insertR e d (a b c d f g d h))
--> output: ( a b c d e f g d h )
+-> list: ( a b c d e f g d h )
 ```
 
 ### 3. insertL
@@ -176,13 +176,13 @@ bool: #t
 ```text
 # test cases
 (insertL topping fudge (ice cream with fudge for dessert))
--> output: ( ice cream with topping fudge for dessert )
+-> list: ( ice cream with topping fudge for dessert )
 
 (insertL jalapeno and (tacos tamales and salsa))
--> output: ( tacos tamales jalapeno and salsa )
+-> list: ( tacos tamales jalapeno and salsa )
 
 (insertL e d (a b c d f g d h))
--> output: ( a b c e d f g d h )
+-> list: ( a b c e d f g d h )
 ```
 
 ### 4. subst
@@ -192,13 +192,13 @@ bool: #t
 ```text
 # test cases
 (subst topping fudge (ice cream with fudge for dessert))
--> output: ( ice cream with topping for dessert )
+-> list: ( ice cream with topping for dessert )
 
 (subst jalapeno and (tacos tamales and salsa))
--> output: ( tacos tamales jalapeno salsa )
+-> list: ( tacos tamales jalapeno salsa )
 
 (subst e d (a b c d f g d h))
--> output: ( a b c e f g d h )
+-> list: ( a b c e f g d h )
 ```
 
 ### 5. subst2
@@ -208,7 +208,7 @@ bool: #t
 ```text
 # test cases
 (subst2 vanilla chocolate banana (banana ice cream with chocolate topping))
--> output: ( vanilla ice cream with chocolate topping ) 
+-> list: ( vanilla ice cream with chocolate topping ) 
 ```
 
 ### 6. multirember
@@ -218,7 +218,7 @@ bool: #t
 ```text
 # test cases
 (multirember cup (coffee cup tea cup and hick cup))
--> output: ( coffee tea and hick )
+-> list: ( coffee tea and hick )
 ```
 
 ### 7. multiinsertR
@@ -228,13 +228,13 @@ bool: #t
 ```text
 # test cases
 (multiinsertR topping fudge (ice cream with fudge for fudge dessert))
--> output: ( ice cream with fudge topping for fudge topping dessert )
+-> list: ( ice cream with fudge topping for fudge topping dessert )
 
 (multiinsertR jalapeno and (tacos and tamales and salsa))
--> output: ( tacos and jalapeno tamales and jalapeno salsa )
+-> list: ( tacos and jalapeno tamales and jalapeno salsa )
 
 (multiinsertR e d (a b c d f g d h))
--> output: ( a b c d e f g d e h )
+-> list: ( a b c d e f g d e h )
 ```
 
 ### 8. multiinsertL
@@ -244,7 +244,7 @@ bool: #t
 ```text
 # test cases
 (multiinsertL fried fish (chips and fish or fish and fried))
--> output: ( chips and fried fish or fried fish and fried )
+-> list: ( chips and fried fish or fried fish and fried )
 ```
 
 ### 9. multisubst
@@ -254,7 +254,7 @@ bool: #t
 ```text
 # test cases
 (multisubst topping fudge (ice cream with fudge for dessert and fudge tacos))
--> output: ( ice cream with topping for dessert and topping tacos )
+-> list: ( ice cream with topping for dessert and topping tacos )
 ```
 
 ### 10. +
@@ -303,16 +303,16 @@ integer: 8
 ```text
 # test cases
 (tup+ (3 6 9 11 4) (8 5 2 0 7))
--> output: tuple: ( 11 11 11 11 11 )
+-> tuple: ( 11 11 11 11 11 )
 
 (tup+ (2 3) (4 6))
--> output: tuple: ( 6 9 )
+-> tuple: ( 6 9 )
 
 (tup+ (3 7) (4 6))
--> output: tuple: ( 7 13 )
+-> tuple: ( 7 13 )
 
 (tup+ (3 7) (4 6 8 1))
--> output: no answer
+-> no answer
 ```
 #### v2 -- support for tuples with diff sizes
 ```scheme
@@ -321,7 +321,7 @@ integer: 8
 ```text
 # test cases
 (tup+ (3 7) (4 6 8 1))
--> output: tuple: ( 7 13 8 1 )
+-> tuple: ( 7 13 8 1 )
 ```
 
 ### 13. >
@@ -331,13 +331,13 @@ integer: 8
 ```text
 # test cases
 (> 12 133)
--> output: bool: #f
+-> bool: #f
 
 (> 120 11)
--> output: bool: #t
+-> bool: #t
 
 (> 10 10)
--> output: bool: #f
+-> bool: #f
 ```
 
 ### 14. <
@@ -347,13 +347,13 @@ integer: 8
 ```text
 # test cases
 (< 4 6)
--> output: bool: #t
+-> bool: #t
 
 (< 8 3)
--> output: bool: #f
+-> bool: #f
 
 (< 6 6)
--> output: bool: #f
+-> bool: #f
 ```
 
 ### 15. =
@@ -369,13 +369,13 @@ integer: 8
 ```text
 # test cases
 (= 10 10)
--> output: bool: #t
+-> bool: #t
 
 (= 9 10)
--> output: bool: #f
+-> bool: #f
 
 (= 10 9)
--> output: bool: #f
+-> bool: #f
 ```
 
 ### 16. ^
@@ -385,13 +385,13 @@ integer: 8
 ```text
 # test cases
 (^ 1 1)
--> output: integer: 1
+-> integer: 1
 
 (^ 2 3)
--> output: integer: 8
+-> integer: 8
 
 (^ 5 3)
--> output: integer: 125
+-> integer: 125
 ```
 
 ### 17. /
@@ -401,7 +401,7 @@ integer: 8
 ```text
 # test cases
 (/ 15 4)
--> output: integer: 3
+-> integer: 3
 ```
 
 ### 18. length
@@ -411,10 +411,10 @@ integer: 8
 ```text
 # test cases
 (length (hotdogs with mustard sauerkraut and pickles))
--> output: integer: 6
+-> integer: 6
 
 (length (ham and cheese on rye))
--> output: integer: 5
+-> integer: 5
 ```
 
 ### 19. pick
@@ -424,10 +424,10 @@ integer: 8
 ```text
 # test cases
 (pick 4 (lasagna spaghetti ravioli macaroni meatball))
--> output: atom: macaroni
+-> atom: macaroni
 
 (pick 0 (lasagna spaghetti ravioli macaroni meatball))
--> output: no answer
+-> no answer
 ```
 
 ### 20. rempick
@@ -442,7 +442,7 @@ integer: 8
 ```text
 # test cases
 (rempick 3 (hotdogs with hot mustard))
--> output: list: ( hotdogs with mustard )
+-> list: ( hotdogs with mustard )
 ```
 
 ### 21. no-nums
@@ -452,7 +452,7 @@ integer: 8
 ```text
 # test cases
 (no-nums (5 pears 6 prunes 9 dates))
--> output: list: ( pears prunes dates )
+-> list: ( pears prunes dates )
 ```
 
 ### 22. all-nums
@@ -462,7 +462,7 @@ integer: 8
 ```text
 # test cases
 (all-nums (5 pears 6 prunes 9 dates))
--> output: tuple: ( 5 6 9 )
+-> tuple: ( 5 6 9 )
 ```
 
 ### 23. eqan?
@@ -472,10 +472,10 @@ integer: 8
 ```text
 # test cases
 (eqan? (1 2 a (b c)) (1 2 a (b c)))
--> output: bool: #t
+-> bool: #t
 
 (eqan? (2 c) (2 c b d))
--> output: bool: #f
+-> bool: #f
 ```
 
 ### 24. occur
@@ -485,13 +485,13 @@ integer: 8
 ```text
 # test cases
 (occur bc (abc bc cd cb bc a (bc)))
--> output: integer: 2
+-> integer: 2
 
 (occur (bc) (abc bc cd cb bc a (bc)))
--> output: integer: 1
+-> integer: 1
 
 (occur nothing (abc bc c))
--> output: integer: 0
+-> integer: 0
 ```
 
 ### 25. one?
@@ -506,10 +506,10 @@ integer: 8
 ```text
 # test cases
 (one? 1)
--> output: bool: #t
+-> bool: #t
 
 (one? 2)
--> output: bool: #f
+-> bool: #f
 ```
 
 ### 26. rember*
@@ -532,10 +532,10 @@ integer: 8
 ```text
 # test cases
 (rember* cup ((coffee) cup ((tea) cup) (and (hick)) cup))
--> output: list: ( ( coffee ) ( ( tea ) ) ( and ( hick ) ) )
+-> list: ( ( coffee ) ( ( tea ) ) ( and ( hick ) ) )
 
 (rember* sauce (((tomato sauce)) ((bean) sauce) (and ((flying)) sauce)))
--> output: list: ( ( ( tomato ) ) ( ( bean ) ) ( and ( ( flying ) ) ) )
+-> list: ( ( ( tomato ) ) ( ( bean ) ) ( and ( ( flying ) ) ) )
 ```
 
 ### 27. insertR*
@@ -558,7 +558,7 @@ integer: 8
 ```text
 # test cases
 (insertR* roast chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))
--> output: list: ( ( how much ( wood ) ) could ( ( a ( wood ) chuck roast ) ) ( ( ( chuck roast ) ) ) ( if ( a ) ( ( wood chuck roast ) ) ) could chuck roast wood )
+-> list: ( ( how much ( wood ) ) could ( ( a ( wood ) chuck roast ) ) ( ( ( chuck roast ) ) ) ( if ( a ) ( ( wood chuck roast ) ) ) could chuck roast wood )
 ```
 
 ### 28. occur*
@@ -579,7 +579,7 @@ integer: 8
 ```text
 # test cases
 (occur* banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))
--> output: integer: 5
+-> integer: 5
 ```
 
 ### 29. subst*
@@ -600,7 +600,7 @@ integer: 8
 ```text
 # test cases
 (subst* orange banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))
--> output: list: ( ( orange ) ( split ( ( ( ( orange ice ) ) ) ( cream ( orange ) ) sherbet ) ) ( orange ) ( bread ) ( orange brandy ) )
+-> list: ( ( orange ) ( split ( ( ( ( orange ice ) ) ) ( cream ( orange ) ) sherbet ) ) ( orange ) ( bread ) ( orange brandy ) )
 ```
 
 ### 30. insertL*
@@ -621,7 +621,7 @@ integer: 8
 ```text
 # test cases
 (insertL* pecker chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))
--> output: list: ( ( how much ( wood ) ) could ( ( a ( wood ) pecker chuck ) ) ( ( ( pecker chuck ) ) ) ( if ( a ) ( ( wood pecker chuck ) ) ) could pecker chuck wood )
+-> list: ( ( how much ( wood ) ) could ( ( a ( wood ) pecker chuck ) ) ( ( ( pecker chuck ) ) ) ( if ( a ) ( ( wood pecker chuck ) ) ) could pecker chuck wood )
 ```
 
 ### 31. member*
@@ -640,10 +640,10 @@ integer: 8
     )
 )
 ```
-```
+```text
 # test cases
 (member* chips ((potato) (chips ((with) fish) (chips))))
--> output: bool: #t
+-> bool: #t
 ```
 #### v2 -- this version will work when a is a list as well
 ```scheme
@@ -673,11 +673,11 @@ integer: 8
 ```text
 # test cases
 (member* (chips) ((potato) (chips ((with) fish) (chips))))
--> output: bool: #t
+-> bool: #t
 
 (member* (chips a b) ((potato) (chips ((with) fish) (chips a b))))
--> output: bool: #t
+-> bool: #t
 
 (member* (chips a b) ((potato) (chips a b ((with) fish) (chips))))
--> output: bool: #f
+-> bool: #f
 ```
