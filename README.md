@@ -459,3 +459,16 @@ integer: 8
 (all-nums (5 pears 6 prunes 9 dates))
 -> output: tuple: ( 5 6 9 )
 ```
+
+### 23. eqan?
+```scheme
+(define eqan?  (lambda (a1 a2) (cond ((and? (number? a1) (number? a2)) (= a1 a2)) ((or? (number? a1) (number? a2)) #f) (else (eq? a1 a2)))))
+```
+```text
+# test cases
+(eqan? (1 2 a (b c)) (1 2 a (b c)))
+-> output: bool: #t
+
+(eqan? (2 c) (2 c b d))
+-> output: bool: #f
+```
