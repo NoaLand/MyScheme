@@ -645,3 +645,39 @@ integer: 8
 (member* chips ((potato) (chips ((with) fish) (chips))))
 -> output: bool: #t
 ```
+#### v2 -- this version will work when a is a list as well
+```scheme
+(define member*
+    (lambda (a l)
+        (cond
+            ((atom? a) (cond
+                ((null? l) #f)
+                ((atom? (car l)) (cond
+                    ((eq? a (car l)) #t)
+                    (else (or? #f (member* a (cdr l))))
+                ))
+                (else (or? (member* a (car l) (member* a (cdr l)))))
+            ))
+            (else (cond
+                ((null? l) #f)
+                ((atom? (car l)) (member* a (cdr l)))
+                (else (cond
+                    ((eq? a (car l)) #t)
+                    (else (or? (member* a (car l)) (member* a (cdr l))))
+                ))
+            ))
+        )
+    )
+)
+```
+```text
+# test cases
+(member* (chips) ((potato) (chips ((with) fish) (chips))))
+-> output: bool: #t
+
+(member* (chips a b) ((potato) (chips ((with) fish) (chips a b))))
+-> output: bool: #t
+
+(member* (chips a b) ((potato) (chips a b ((with) fish) (chips))))
+-> output: bool: #f
+```
