@@ -32,6 +32,8 @@ function:
             (atom? s_expression) -> bool(#t/#f)
         - is_eq class:    
             (eq? s_expression s_expression) -> bool(#t/#f)
+        - is_number class:
+            (number? s_expression) -> bool(#t/#f)
     - list family:
         - car class:
             (car list) -> s_expression
