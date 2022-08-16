@@ -103,6 +103,16 @@ void preload_libs() {
             "(cond ( ( > $n$ $m$ ) #f ) ( ( < $n$ $m$ ) #f ) ( else #t ) )"
     );
 
+    auto expt_params = new list();
+    expt_params->push_back(new param{"n"});
+    expt_params->push_back(new param{"m"});
+    auto expt = new function_declaration(
+            "^",
+            expt_params,
+            "(cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) )"
+    );
+
+
     context.store(lat);
     context.store(is_member);
     context.store(rember);
@@ -112,6 +122,7 @@ void preload_libs() {
     context.store(greater_than);
     context.store(less_than);
     context.store(equal);
+    context.store(expt);
 }
 
 int main() {
