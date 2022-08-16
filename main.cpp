@@ -76,12 +76,22 @@ void preload_libs() {
             "(cond ( ( zero? $m$ ) 0 ) ( else ( + $n$ ( * $n$ ( sub1 $m$ ) ) ) ) )"
     );
 
+    auto greater_than_params = new list();
+    greater_than_params->push_back(new param{"n"});
+    greater_than_params->push_back(new param{"m"});
+    auto greater_than = new function_declaration(
+            ">",
+            greater_than_params,
+            "(cond ( ( zero? $n$ ) #f ) ( ( zero? $m$ ) #t ) ( else ( > ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
+    );
+
     context.store(lat);
     context.store(is_member);
     context.store(rember);
     context.store(add);
     context.store(sub);
     context.store(multiplication);
+    context.store(greater_than);
 }
 
 int main() {
