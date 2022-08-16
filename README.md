@@ -375,3 +375,19 @@ integer: 8
 (= 10 9)
 -> output: bool: #f
 ```
+
+### 16. ^
+```scheme
+(define ^ (lambda (n m) (cond ((zero? m) 1) (else (* n (^ n (sub1 m)))))))
+```
+```text
+# test cases
+(^ 1 1)
+-> output: integer: 1
+
+(^ 2 3)
+-> output: integer: 8
+
+(^ 5 3)
+-> output: integer: 125
+```
