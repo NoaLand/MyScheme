@@ -414,3 +414,16 @@ integer: 8
 (length (ham and cheese on rye))
 -> output: integer: 5
 ```
+
+### 19. pick
+```scheme
+(define pick (lambda (n lat) (cond ((zero? (sub1 n)) (car lat)) (else (pick (sub1 n) (cdr lat))))))
+```
+```text
+# test cases
+(pick 4 (lasagna spaghetti ravioli macaroni meatball))
+-> output: atom: macaroni
+
+(pick 0 (lasagna spaghetti ravioli macaroni meatball))
+-> output: no answer
+```
