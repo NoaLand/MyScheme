@@ -490,8 +490,13 @@ integer: 8
 ```
 
 ### 25. one?
+#### v1 -- with cond
 ```scheme
 (define one?  (lambda (n) (cond (else (= n 1)))))
+```
+#### v2 -- simplify
+```scheme
+(define one?  (lambda (n) (= n 1)))
 ```
 ```text
 # test cases
