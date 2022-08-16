@@ -94,6 +94,15 @@ void preload_libs() {
             "(cond ( ( zero? $m$ ) #f ) ( ( zero? $n$ ) #t ) ( else ( < ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
     );
 
+    auto equal_params = new list();
+    equal_params->push_back(new param{"n"});
+    equal_params->push_back(new param{"m"});
+    auto equal = new function_declaration(
+            "=",
+            equal_params,
+            "(cond ( ( > $n$ $m$ ) #f ) ( ( < $n$ $m$ ) #f ) ( else #t ) )"
+    );
+
     context.store(lat);
     context.store(is_member);
     context.store(rember);
@@ -102,6 +111,7 @@ void preload_libs() {
     context.store(multiplication);
     context.store(greater_than);
     context.store(less_than);
+    context.store(equal);
 }
 
 int main() {
