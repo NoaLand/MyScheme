@@ -581,3 +581,24 @@ integer: 8
 (occur* banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))
 -> output: integer: 5
 ```
+
+### 29. subst*
+```scheme
+(define subst*
+    (lambda (new old l)
+        (cond
+            ((null? l) ())
+            ((atom? (car l)) (cond
+                ((eq? old (car l)) (cons new (subst* new old (cdr l))))
+                (else (cons (car l) (subst* new old (cdr l))))
+            ))
+            (else (cons (subst* new old (car l)) (subst* new old (cdr l))))
+        )
+    )
+)
+```
+```text
+# test cases
+(subst* orange banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))
+-> output: list: ( ( orange ) ( split ( ( ( ( orange ice ) ) ) ( cream ( orange ) ) sherbet ) ) ( orange ) ( bread ) ( orange brandy ) )
+```
