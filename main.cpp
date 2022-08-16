@@ -31,6 +31,14 @@ void preload_libs() {
             "(cond ( ( null? $l$ ) #t ) ( ( atom? ( car $l$ ) ) ( lat? ( cdr $l$ ) ) ) ( else #f ) )"
             );
 
+    auto lat_length_params = new list();
+    lat_length_params->push_back(new param{"lat"});
+    auto lat_length = new function_declaration(
+            "length",
+            lat_length_params,
+            "(cond ( ( null? $lat$ ) 0 ) ( else ( add1 ( length ( cdr $lat$ ) ) ) ) )"
+            );
+
     auto is_member_params = new list();
     is_member_params->push_back(new param{"a"});
     is_member_params->push_back(new param{"lat"});
@@ -122,6 +130,7 @@ void preload_libs() {
             );
 
     context.store(lat);
+    context.store(lat_length);
     context.store(is_member);
     context.store(rember);
     context.store(add);
