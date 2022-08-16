@@ -439,3 +439,13 @@ integer: 8
 (rempick 3 (hotdogs with hot mustard))
 -> output: list: ( hotdogs with mustard )
 ```
+
+### 21. no-nums
+```scheme
+(define no-nums (lambda (lat) (cond ((null? lat) ()) ((number? (car lat)) (no-nums (cdr lat))) (else (cons (car lat) (no-nums (cdr lat)))))))
+```
+```text
+# test cases
+(no-nums (5 pears 6 prunes 9 dates))
+-> output: list: ( pears prunes dates )
+```
