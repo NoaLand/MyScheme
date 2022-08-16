@@ -511,3 +511,29 @@ integer: 8
 (one? 2)
 -> output: bool: #f
 ```
+
+### 26. rember*
+```scheme
+(define rember*
+    (lambda (a l)
+        (cond
+            ((null? l) ())
+            ((atom? (car l))
+                (cond
+                    ((eq? a (car l)) (rember* a (cdr l)))
+                    (else (cons (car l) (rember* a (cdr l))))
+                )
+            )
+            (else (cons (rember* a (car l)) (rember* a (cdr l))))
+        )
+    )
+)
+```
+```text
+# test cases
+(rember* cup ((coffee) cup ((tea) cup) (and (hick)) cup))
+-> output: list: ( ( coffee ) ( ( tea ) ) ( and ( hick ) ) )
+
+(rember* sauce (((tomato sauce)) ((bean) sauce) (and ((flying)) sauce)))
+-> output: list: ( ( ( tomato ) ) ( ( bean ) ) ( and ( ( flying ) ) ) )
+```
