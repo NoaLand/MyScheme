@@ -85,6 +85,15 @@ void preload_libs() {
             "(cond ( ( zero? $n$ ) #f ) ( ( zero? $m$ ) #t ) ( else ( > ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
     );
 
+    auto less_than_params = new list();
+    less_than_params->push_back(new param{"n"});
+    less_than_params->push_back(new param{"m"});
+    auto less_than = new function_declaration(
+            "<",
+            less_than_params,
+            "(cond ( ( zero? $m$ ) #f ) ( ( zero? $n$ ) #t ) ( else ( < ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
+    );
+
     context.store(lat);
     context.store(is_member);
     context.store(rember);
@@ -92,6 +101,7 @@ void preload_libs() {
     context.store(sub);
     context.store(multiplication);
     context.store(greater_than);
+    context.store(less_than);
 }
 
 int main() {
