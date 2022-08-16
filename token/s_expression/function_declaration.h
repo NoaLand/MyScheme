@@ -28,7 +28,7 @@ public:
     void store(function_declaration* func);
     bool is_in(const std::string& name);
     function_declaration* get() { return buffer; }
-    std::string instantiate(s_expression* p);
+    std::string instantiate(std::string func_name, s_expression* p);
 private:
     std::vector<function_declaration*> func_list{};
     function_declaration* buffer;

@@ -184,7 +184,7 @@ s_expression* func(Token_stream& ts) {
         f = new self_sub{number};
     } else if(context.is_in(function_key)) {
         auto params = get_input_param(ts);
-        std::string body = context.instantiate(params);
+        std::string body = context.instantiate(function_key, params);
         ts.put_back(body);
         return closure(ts);
     } else {
