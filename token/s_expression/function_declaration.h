@@ -4,6 +4,7 @@
 #include <utility>
 #include <iostream>
 #include <vector>
+#include <stack>
 
 #include "s_expression.h"
 
@@ -26,12 +27,12 @@ private:
 class function_context {
 public:
     void store(function_declaration* func);
-    bool is_in(const std::string& name);
-    function_declaration* get() { return buffer; }
-    std::string instantiate(std::string func_name, s_expression* p);
+    bool is_in(const std::string& name, bool load_to_buffer = false);
+    function_declaration* get() { return buffer.top(); }
+    std::string instantiate(s_expression* p);
 private:
     std::vector<function_declaration*> func_list{};
-    function_declaration* buffer;
+    std::stack<function_declaration*> buffer;
 };
 
 #endif //MYSCHEME_FUNCTION_DECLARATION_H

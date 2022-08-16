@@ -182,9 +182,9 @@ s_expression* func(Token_stream& ts) {
     } else if(function_key == "sub1") {
         s_expression* number = construct_from_token(ts);
         f = new self_sub{number};
-    } else if(context.is_in(function_key)) {
+    } else if(context.is_in(function_key, true)) {
         auto params = get_input_param(ts);
-        std::string body = context.instantiate(function_key, params);
+        std::string body = context.instantiate(params);
         ts.put_back(body);
         return closure(ts);
     } else {
