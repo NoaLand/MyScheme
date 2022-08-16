@@ -623,3 +623,25 @@ integer: 8
 (insertL* pecker chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))
 -> output: list: ( ( how much ( wood ) ) could ( ( a ( wood ) pecker chuck ) ) ( ( ( pecker chuck ) ) ) ( if ( a ) ( ( wood pecker chuck ) ) ) could pecker chuck wood )
 ```
+
+### 31. member*
+#### v1 -- this version only word when a is an atom
+```scheme
+(define member*
+    (lambda (a l)
+        (cond
+            ((null? l) #f)
+            ((atom? (car l)) (cond
+                ((eq? a (car l)) #t)
+                (else (or? #f (member* a (cdr l))))
+            ))
+            (else (or? (member* a (car l)) (member* a (cdr l))))
+        )
+    )
+)
+```
+```
+# test cases
+(member* chips ((potato) (chips ((with) fish) (chips))))
+-> output: bool: #t
+```

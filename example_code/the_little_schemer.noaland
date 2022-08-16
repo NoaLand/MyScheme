@@ -387,3 +387,18 @@
 (define insertL* (lambda (new old l) (cond ((null? l) ()) ((atom? (car l)) (cond ((eq? old (car l)) (cons new (cons old (insertL* new old (cdr l))))) (else (cons (car l) (insertL* new old (cdr l)))))) (else (cons (insertL* new old (car l)) (insertL* new old (cdr l)))))))
 (insertL* pecker chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))
 (insertL* pecker chuck (chuck))
+
+(define member*
+    (lambda (a l)
+        (cond
+            ((null? l) #f)
+            ((atom? (car l)) (cond
+                ((eq? a (car l)) #t)
+                (else (or? #f (member* a (cdr l))))
+            ))
+            (else (or? (member* a (car l)) (member* a (cdr l))))
+        )
+    )
+)
+(define member* (lambda (a l) (cond ((null? l) #f) ((atom? (car l)) (cond ((eq? a (car l)) #t) (else (or? #f (member* a (cdr l)))))) (else (or? (member* a (car l)) (member* a (cdr l)))))))
+(member* chips ((potato) (chips ((with) fish) (chips))))
