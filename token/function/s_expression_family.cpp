@@ -17,3 +17,12 @@ boolean *is_eq::execute() {
         return new boolean{false};
     }
 }
+
+boolean *is_number::execute() {
+    const std::string &type_info = s_exp->get_indicator();
+    if(type_info == "integer") {
+        return new boolean{true};
+    } else {
+        return new boolean{false};
+    }
+}

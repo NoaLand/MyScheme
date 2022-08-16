@@ -45,7 +45,7 @@ Token Token_stream::get() {
                     if(s == "car" || s == "cdr" || s == "cons" || s == "null?" || s == "addtup") {
                         return {'F', s};
                     }
-                    if(s == "atom?" || s == "eq?") {
+                    if(s == "atom?" || s == "eq?" || s == "number?") {
                         return {'F', s};
                     }
                     if(s == "cond") {

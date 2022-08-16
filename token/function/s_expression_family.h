@@ -25,4 +25,13 @@ private:
     s_expression* right;
 };
 
+class is_number: public function {
+public:
+    is_number(s_expression* exp): s_exp(exp) {}
+    boolean* execute() override;
+    std::string return_type() override { return "bool"; }
+    std::string name() override { return "number?"; }
+private:
+    s_expression* s_exp;
+};
 #endif //MYSCHEME_S_EXPRESSION_FAMILY_H
