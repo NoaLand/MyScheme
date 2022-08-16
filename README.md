@@ -401,3 +401,16 @@ integer: 8
 (/ 15 4)
 -> output: integer: 3
 ```
+
+### 18. length
+```scheme
+(define length (lambda (lat) (cond ((null? lat) 0) (else (add1 (length (cdr lat)))))))
+```
+```text
+# test cases
+(length (hotdogs with mustard sauerkraut and pickles))
+-> output: integer: 6
+
+(length (ham and cheese on rye))
+-> output: integer: 5
+```
