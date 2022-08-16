@@ -76,6 +76,15 @@ void preload_libs() {
             "(cond ( ( zero? $m$ ) 0 ) ( else ( + $n$ ( * $n$ ( sub1 $m$ ) ) ) ) )"
     );
 
+    auto divide_params = new list();
+    divide_params->push_back(new param{"n"});
+    divide_params->push_back(new param{"m"});
+    auto divide = new function_declaration(
+            "/",
+            divide_params,
+            "(cond ( ( < $n$ $m$ ) 0 ) ( else ( add1 ( / ( - $n$ $m$ ) $m$ ) ) ) )"
+    );
+
     auto greater_than_params = new list();
     greater_than_params->push_back(new param{"n"});
     greater_than_params->push_back(new param{"m"});
@@ -119,6 +128,7 @@ void preload_libs() {
     context.store(add);
     context.store(sub);
     context.store(multiplication);
+    context.store(divide);
     context.store(greater_than);
     context.store(less_than);
     context.store(equal);
