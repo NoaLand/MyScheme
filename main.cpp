@@ -165,6 +165,10 @@ s_expression* func(Token_stream& ts) {
         s_expression* left = construct_from_token(ts);
         s_expression* right = construct_from_token(ts);
         f = new or_logic{left, right};
+    } else if(function_key == "and?") {
+        s_expression* left = construct_from_token(ts);
+        s_expression* right = construct_from_token(ts);
+        f = new and_logic{left, right};
     } else if(function_key == "cond") {
         while(true) {
             Token condition_start = ts.get();

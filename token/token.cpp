@@ -51,7 +51,7 @@ Token Token_stream::get() {
                     if(s == "cond") {
                         return {'F', s};
                     }
-                    if(s == "or?") {
+                    if(s == "or?" || s == "and?") {
                         return {'F', s};
                     }
                     if(s == "zero?") {
