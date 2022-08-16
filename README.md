@@ -391,3 +391,13 @@ integer: 8
 (^ 5 3)
 -> output: integer: 125
 ```
+
+### 17. /
+```scheme
+(define / (lambda (n m) (cond ((< n m) 0) (else (add1 (/ (- n m) m))))))
+```
+```text
+# test cases
+(/ 15 4)
+-> output: integer: 3
+```
