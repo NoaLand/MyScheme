@@ -25,6 +25,8 @@ function:
     - nor logic family:
         - or_logic class:
             (or? s_expression s_expression) -> bool(#t/#f)
+        - and_logic class:
+            (and? s_expression s_expression) -> bool(#t/#f)
     - s_expression family:
         - is_atom class:
             (atom? s_expression) -> bool(#t/#f)
