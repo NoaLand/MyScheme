@@ -292,3 +292,32 @@ integer: 12
 -> sub1 -> integer [8]
 integer: 8
 ```
+
+### 12. tup+
+#### v1
+```scheme
+(define tup+ (lambda (tup1 tup2) (cond ((and? (null? tup1) (null? tup2)) ()) (else (cons (+ (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
+```
+```text
+# test cases
+(tup+ (3 6 9 11 4) (8 5 2 0 7))
+-> output: tuple: ( 11 11 11 11 11 )
+
+(tup+ (2 3) (4 6))
+-> output: tuple: ( 6 9 )
+
+(tup+ (3 7) (4 6))
+-> output: tuple: ( 7 13 )
+
+(tup+ (3 7) (4 6 8 1))
+-> output: no answer
+```
+#### v2 -- support for tuples with diff sizes
+```scheme
+(define tup+ (lambda (tup1 tup2) (cond ((null? tup1) tup2) ((null? tup2) tup1) (else (cons (+ (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))
+```
+```text
+# test cases
+(tup+ (3 7) (4 6 8 1))
+-> output: tuple: ( 7 13 8 1 )
+```
