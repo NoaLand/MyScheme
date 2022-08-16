@@ -353,3 +353,25 @@ integer: 8
 (< 6 6)
 -> output: bool: #f
 ```
+
+### 15. =
+#### use zero?, sub1
+```scheme
+(define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m))))))
+```
+#### use >, < function
+```scheme
+(define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m))))))
+```
+
+```text
+# test cases
+(= 10 10)
+-> output: bool: #t
+
+(= 9 10)
+-> output: bool: #f
+
+(= 10 9)
+-> output: bool: #f
+```
