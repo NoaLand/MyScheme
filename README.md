@@ -337,3 +337,19 @@ integer: 8
 (> 10 10)
 -> output: bool: #f
 ```
+
+### 14. <
+```scheme
+(define < (lambda (n m) (cond ((zero? m) #f) ((zero? n) #t) (else (< (sub1 n) (sub1 m))))))
+```
+```text
+# test cases
+(< 4 6)
+-> output: bool: #t
+
+(< 8 3)
+-> output: bool: #f
+
+(< 6 6)
+-> output: bool: #f
+```
