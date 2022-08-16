@@ -427,3 +427,13 @@ integer: 8
 (pick 0 (lasagna spaghetti ravioli macaroni meatball))
 -> output: no answer
 ```
+
+### 20. rempick
+```scheme
+(define rempick (lambda (n lat) (cond ((zero? (sub1 n)) (cdr lat)) (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
+```
+```text
+# test cases
+(rempick 3 (hotdogs with hot mustard))
+-> output: list: ( hotdogs with mustard )
+```
