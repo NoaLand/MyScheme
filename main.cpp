@@ -57,6 +57,15 @@ void preload_libs() {
             "(cond ( ( null? $lat$ ) ( ( ) ) ) ( else ( cond ( ( eq? ( car $lat$ ) $a$ ) ( cdr $lat$ ) ) ( else ( cons ( car $lat$ ) ( rember $a$ ( cdr $lat$ ) ) ) ) ) ) ) "
             );
 
+    auto pick_params = new list();
+    pick_params->push_back(new param{"n"});
+    pick_params->push_back(new param{"lat"});
+    auto pick = new function_declaration(
+            "pick",
+            pick_params,
+            "(cond ( ( zero? ( sub1 $n$ ) ) ( car $lat$ ) ) ( else ( pick ( sub1 $n$ ) ( cdr $lat$ ) ) ) )"
+            );
+
     auto add_params = new list();
     add_params->push_back(new param{"n"});
     add_params->push_back(new param{"m"});
@@ -133,6 +142,7 @@ void preload_libs() {
     context.store(lat_length);
     context.store(is_member);
     context.store(rember);
+    context.store(pick);
     context.store(add);
     context.store(sub);
     context.store(multiplication);
