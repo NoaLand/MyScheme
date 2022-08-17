@@ -396,7 +396,7 @@ function_declaration* function_define(Token_stream& ts) {
     // TODO: this pDeclaration should be refactored into shared_ptr
     auto pDeclaration = new function_declaration{name.value, std::move(std::unique_ptr<s_expression>(params)), body};
     std::shared_ptr<function_declaration> func(pDeclaration);
-    context->store(func);
+    context->store(std::move(func));
     return pDeclaration;
 }
 
