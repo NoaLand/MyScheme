@@ -279,8 +279,8 @@ s_expression* func(Token_stream& ts) {
         s_expression* number = construct_from_token(ts);
         f = new self_sub{number};
     } else if(context->is_in(function_key, true)) {
-        auto params = get_input_param(ts);
-        std::string body = context->instantiate(params);
+        auto params = std::shared_ptr<s_expression>(get_input_param(ts));
+        std::string body = context->instantiate(std::move(params));
         ts.put_back(body);
         return closure(ts);
     } else {

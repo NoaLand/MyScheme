@@ -31,7 +31,7 @@ class function_context {
 public:
     void store(std::shared_ptr<function_declaration> func);
     bool is_in(const std::string& name, bool load_to_buffer = false);
-    std::string instantiate(s_expression* p);
+    std::string instantiate(const std::shared_ptr<s_expression>& p);
 private:
     std::vector<std::shared_ptr<function_declaration>> func_list{};
     std::stack<std::shared_ptr<function_declaration>> buffer;
