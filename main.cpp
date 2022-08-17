@@ -217,38 +217,38 @@ s_expression* func(Token_stream& ts) {
     std::string &function_key = func.value;
     function* f;
     if(function_key == "car") {
-        s_expression* s_exp = closure(ts);
+        auto s_exp = closure(ts);
         f = new car{s_exp};
     } else if(function_key == "cdr") {
-        s_expression* s_exp = closure(ts);
+        auto s_exp = closure(ts);
         f = new cdr{s_exp};
     } else if(function_key == "cons") {
-        s_expression* left = construct_from_token(ts);
-        s_expression* right = closure(ts);
+        auto left = construct_from_token(ts);
+        auto right = closure(ts);
         f = new cons{left, right};
     } else if(function_key == "null?") {
-        s_expression* s_exp = closure(ts);
+        auto s_exp = closure(ts);
         f = new is_null{s_exp};
     } else if(function_key == "addtup") {
-        s_expression* s_exp = construct_from_token(ts);
+        auto s_exp = construct_from_token(ts);
         f = new add_tuple{s_exp};
     } else if(function_key == "atom?") {
-        s_expression* s_exp = construct_from_token(ts);
+        auto s_exp = construct_from_token(ts);
         f = new is_atom{s_exp};
     } else if(function_key == "eq?") {
-        s_expression* left = construct_from_token(ts);
-        s_expression* right = construct_from_token(ts);
+        auto left = construct_from_token(ts);
+        auto right = construct_from_token(ts);
         f = new is_eq{left, right};
     } else if(function_key == "number?") {
-        s_expression* s_exp = construct_from_token(ts);
+        auto s_exp = construct_from_token(ts);
         f = new is_number{s_exp};
     } else if(function_key == "or?") {
-        s_expression* left = construct_from_token(ts);
-        s_expression* right = construct_from_token(ts);
+        auto left = construct_from_token(ts);
+        auto right = construct_from_token(ts);
         f = new or_logic{left, right};
     } else if(function_key == "and?") {
-        s_expression* left = construct_from_token(ts);
-        s_expression* right = construct_from_token(ts);
+        auto left = construct_from_token(ts);
+        auto right = construct_from_token(ts);
         f = new and_logic{left, right};
     } else if(function_key == "cond") {
         while(true) {
@@ -256,12 +256,12 @@ s_expression* func(Token_stream& ts) {
             if(condition_start.type == ')') {
                 ts.get();
             }
-            s_expression* assertion = construct_from_token(ts);
+            auto assertion = construct_from_token(ts);
             if(assertion->get_indicator() != "bool") {
                 throw std::runtime_error("wrong syntax! assertion need to return bool!");
             }
             if(((boolean*)assertion)->val()) {
-                s_expression* res = construct_from_token(ts);
+                auto res = construct_from_token(ts);
                 ts.get();
                 ignore_else(ts);
                 return res;
@@ -270,17 +270,17 @@ s_expression* func(Token_stream& ts) {
             }
         }
     } else if(function_key == "zero?") {
-        s_expression* number = construct_from_token(ts);
+        auto number = construct_from_token(ts);
         f = new is_zero{number};
     } else if(function_key == "add1") {
-        s_expression* number = construct_from_token(ts);
+        auto number = construct_from_token(ts);
         f = new self_add{number};
     } else if(function_key == "sub1") {
-        s_expression* number = construct_from_token(ts);
+        auto number = construct_from_token(ts);
         f = new self_sub{number};
     } else if(context->is_in(function_key, true)) {
         auto params = std::shared_ptr<s_expression>(get_input_param(ts));
-        std::string body = context->instantiate(std::move(params));
+        std::string body = context->instantiate(params);
         ts.put_back(body);
         return closure(ts);
     } else {
@@ -292,13 +292,13 @@ s_expression* func(Token_stream& ts) {
         throw std::runtime_error("wrong syntax: " + end.value);
     }
 
-    s_expression *pExpression = f->execute();
+    auto pExpression = f->execute();
     std::cout << "-> " << f->name() << " -> " << f->return_type() << " [" << pExpression->get_value() << "]" << std::endl;
     return pExpression;
 }
 
 s_expression* get_input_param(Token_stream& ts) {
-    list* params = new list();
+    auto params = new list();
 
     while(true) {
         const Token &token = ts.get();
@@ -320,7 +320,7 @@ s_expression* closure(Token_stream& ts) {
         throw std::runtime_error("wrong syntax: " + left.value);
     }
 
-    list* l = new list();
+    auto l = new list();
     while(true) {
         Token token = ts.get();
         if(token.type == 'A') {
@@ -386,7 +386,7 @@ function_declaration* function_define(Token_stream& ts) {
         throw std::runtime_error("wrong syntax in function define!");
     }
 
-    s_expression* params = collect_params(ts);
+    auto params = collect_params(ts);
     if(params->get_indicator() != "list") {
         throw std::runtime_error("wrong syntax in function define!");
     }
@@ -406,7 +406,7 @@ s_expression* collect_params(Token_stream& ts) {
         throw std::runtime_error("wrong syntax when declare parameters");
     }
 
-    list* l = new list();
+    auto l = new list();
     while(true) {
         Token token = ts.get();
         if(token.type == 'A') {
@@ -424,7 +424,7 @@ s_expression* collect_params(Token_stream& ts) {
 
 std::string get_func_body(Token_stream& ts, s_expression* params) {
     const Token& left_bracket = ts.get();
-    list* param_list = (list*)params;
+    auto param_list = (list*)params;
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare function body");
     }
