@@ -177,26 +177,23 @@ void scheme(Token_stream& ts) {
         Token token = ts.get();
         switch (token.type) {
             case 'A': {
-                s_expression* s_exp;
-                s_exp = new atom{token.value};
+                std::unique_ptr<s_expression> s_exp(new atom{token.value});
                 s_exp->print(std::cout);
                 continue;
             }
             case 'B': {
-                s_expression* s_exp;
-                s_exp = new boolean{token.value == "#t" || token.value == "else"};
+                std::unique_ptr<s_expression> s_exp(new boolean{token.value == "#t" || token.value == "else"});
                 s_exp->print(std::cout);
                 continue;
             }
             case 'N': {
-                s_expression* s_exp;
-                s_exp = new integer{token.integer_value};
+                std::unique_ptr<s_expression> s_exp(new integer{token.integer_value});
                 s_exp->print(std::cout);
                 continue;
             }
             case '(': {
                 ts.put_back(token);
-                s_expression* s_exp = closure(ts);
+                std::unique_ptr<s_expression> s_exp(closure(ts));
                 s_exp->print(std::cout);
                 continue;
             }
