@@ -681,3 +681,22 @@ integer: 8
 (member* (chips a b) ((potato) (chips a b ((with) fish) (chips))))
 -> bool: #f
 ```
+
+### 32. leftmost
+```scheme
+(define leftmost (lambda (l) (cond ((atom? (car l)) (car l)) (else (leftmost (car l))))))
+```
+```text
+# test cases
+(leftmost ((potato) (chips ((with) fish) (chips))))
+-> atom: potato
+
+(leftmost (((hot) (tuna (and))) cheese))
+-> atom: hot
+
+(leftmost (((() four)) 17 (seventeen)))
+-> no answer
+
+(leftmost (()))
+-> no answer
+```
