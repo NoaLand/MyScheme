@@ -6,7 +6,7 @@
 
 class car: public function {
 public:
-    car(s_expression* exp): s_exp(exp) {
+    explicit car(s_expression* exp): s_exp(exp) {
         if(s_exp->get_indicator() != "list" && s_exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, car can only get list.");
         }
@@ -20,7 +20,7 @@ private:
 
 class cdr: public function {
 public:
-    cdr(s_expression* exp): s_exp(exp) {
+    explicit cdr(s_expression* exp): s_exp(exp) {
         if(s_exp->get_indicator() != "list" && s_exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, cdr can only get list.");
         }
@@ -49,7 +49,7 @@ private:
 
 class is_null: public function {
 public:
-    is_null(s_expression* exp): s_exp(exp) {
+    explicit is_null(s_expression* exp): s_exp(exp) {
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
@@ -63,7 +63,7 @@ private:
 
 class add_tuple: public function {
 public:
-    add_tuple(s_expression* tp): tup_list(tp) {
+    explicit add_tuple(s_expression* tp): tup_list(tp) {
         if(tp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }

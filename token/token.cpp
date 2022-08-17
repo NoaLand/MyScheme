@@ -16,9 +16,9 @@ Token Token_stream::get() {
     std::string s;
     switch(ch) {
         case '(': case ')':
-            return {ch};
+            return Token{ch};
         case ' ': case '\n':
-            return {separator};
+            return Token{separator};
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9': {
             is.putback(ch);
@@ -67,10 +67,10 @@ Token Token_stream::get() {
                         return {'F', s};
                     }
                     if(s == "define") {
-                        return {'D'};
+                        return Token{'D'};
                     }
                     if(s == "lambda") {
-                        return {'L'};
+                        return Token{'L'};
                     }
                     if(s == "#t" || s == "else") {
                         return {'B' ,s};

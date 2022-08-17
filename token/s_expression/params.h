@@ -7,7 +7,7 @@
 #include "s_expression.h"
 class param: public s_expression {
 public:
-    param(std::string v): value(std::move(v)) {}
+    explicit param(std::string v): value(std::move(v)) {}
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;

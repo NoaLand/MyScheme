@@ -8,7 +8,7 @@
 
 class atom: public s_expression {
 public:
-    atom(std::string v): value(std::move(v)) {}
+    explicit atom(std::string v): value(std::move(v)) {}
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
@@ -19,10 +19,10 @@ private:
 
 class boolean: public s_expression {
 public:
-    boolean(bool b) {
+    explicit boolean(bool b) {
         value = b ? "#t" : "#f";
     }
-    boolean(const std::string& b) {
+    explicit boolean(const std::string& b) {
         if(b != "#t" && b != "else" && b != "#f") {
             throw std::runtime_error("wrong syntax: boolean can only take #t/#f/else!");
         }
@@ -40,7 +40,7 @@ private:
 
 class integer: public s_expression {
 public:
-    integer(int i): value(i) {}
+    explicit integer(int i): value(i) {}
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;

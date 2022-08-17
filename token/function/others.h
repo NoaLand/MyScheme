@@ -9,7 +9,7 @@
 
 class quote: public function {
 public:
-    quote(Token any): exp(std::move(any)) {}
+    explicit quote(Token any): exp(std::move(any)) {}
     s_expression* execute() override;
     std::string return_type() override { return "atom"; }
     std::string name() override { return "quote"; }

@@ -20,7 +20,7 @@ private:
 
 class self_sub: public function {
 public:
-    self_sub(s_expression* n): number(n) {
+    explicit self_sub(s_expression* n): number(n) {
         if(number->get_indicator() != "integer") {
             throw std::runtime_error("wrong syntax: sub1 need integer as param!");
         }
@@ -34,7 +34,7 @@ private:
 
 class is_zero: public function {
 public:
-    is_zero(s_expression* n): number(n) {
+    explicit is_zero(s_expression* n): number(n) {
         if(number->get_indicator() != "integer") {
             throw std::runtime_error("wrong syntax: zero? need integer as param!");
         }
