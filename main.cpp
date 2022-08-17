@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "token/token.h"
 #include "token/s_expression/atom.h"
 #include "token/s_expression/list.h"
@@ -9,8 +11,8 @@
 #include "token/function/math_family.h"
 
 std::istream& is{std::cin};
-function_context context;
-Token_stream ts{is, &context};
+auto context = std::make_shared<function_context>();
+Token_stream ts{is, context};
 
 void scheme(Token_stream& ts);
 function_declaration* function_define(Token_stream& ts);
@@ -147,20 +149,20 @@ void preload_libs() {
             "(cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) )"
             );
 
-    context.store(lat);
-    context.store(lat_length);
-    context.store(is_member);
-    context.store(rember);
-    context.store(pick);
-    context.store(rempick);
-    context.store(add);
-    context.store(sub);
-    context.store(multiplication);
-    context.store(divide);
-    context.store(greater_than);
-    context.store(less_than);
-    context.store(equal);
-    context.store(expt);
+    context->store(lat);
+    context->store(lat_length);
+    context->store(is_member);
+    context->store(rember);
+    context->store(pick);
+    context->store(rempick);
+    context->store(add);
+    context->store(sub);
+    context->store(multiplication);
+    context->store(divide);
+    context->store(greater_than);
+    context->store(less_than);
+    context->store(equal);
+    context->store(expt);
 }
 
 int main() {
@@ -279,9 +281,9 @@ s_expression* func(Token_stream& ts) {
     } else if(function_key == "sub1") {
         s_expression* number = construct_from_token(ts);
         f = new self_sub{number};
-    } else if(context.is_in(function_key, true)) {
+    } else if(context->is_in(function_key, true)) {
         auto params = get_input_param(ts);
-        std::string body = context.instantiate(params);
+        std::string body = context->instantiate(params);
         ts.put_back(body);
         return closure(ts);
     } else {
@@ -395,7 +397,7 @@ function_declaration* function_define(Token_stream& ts) {
     std::string body = get_func_body(ts, params);
 
     auto* func = new function_declaration{name.value, params, body};
-    context.store(func);
+    context->store(func);
     return func;
 }
 
