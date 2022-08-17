@@ -28,7 +28,6 @@ class function_context {
 public:
     void store(function_declaration* func);
     bool is_in(const std::string& name, bool load_to_buffer = false);
-    function_declaration* get() { return buffer.top(); }
     std::string instantiate(s_expression* p);
 private:
     std::vector<function_declaration*> func_list{};
