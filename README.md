@@ -56,6 +56,9 @@ function:
                     (else s_expression)
                 )
             )
+    - others:
+        - quote class:
+            (quote any) -> atom
     # function basic type
     - assertion: every function return atom(#t/#f)
         - (assertion s_expression) -> bool(#t/#f)
