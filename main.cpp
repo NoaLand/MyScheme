@@ -9,6 +9,7 @@
 #include "token/s_expression/function_declaration.h"
 #include "token/function/nor_logic_family.h"
 #include "token/function/math_family.h"
+#include "token/function/others.h"
 
 std::istream& is{std::cin};
 auto context = std::make_shared<function_context>();
@@ -216,7 +217,10 @@ s_expression* func(Token_stream& ts) {
     Token func = ts.get();
     std::string &function_key = func.value;
     function* f;
-    if(function_key == "car") {
+    if(function_key == "quote") {
+        auto any = ts.get();
+        f = new quote{any};
+    } else if(function_key == "car") {
         auto s_exp = closure(ts);
         f = new car{s_exp};
     } else if(function_key == "cdr") {

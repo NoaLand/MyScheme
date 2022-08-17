@@ -22,6 +22,13 @@ public:
     boolean(bool b) {
         value = b ? "#t" : "#f";
     }
+    boolean(const std::string& b) {
+        if(b != "#t" && b != "else" && b != "#f") {
+            throw std::runtime_error("wrong syntax: boolean can only take #t/#f/else!");
+        }
+
+        value = b;
+    }
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;

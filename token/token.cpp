@@ -42,6 +42,9 @@ Token Token_stream::get() {
             while(is.get(ch)) {
                 if (ch == ' ' || ch == '\n' || ch == ')' || ch == '\0') {
                     is.putback(ch);
+                    if(s == "quote") {
+                        return {'F', s};
+                    }
                     if(s == "car" || s == "cdr" || s == "cons" || s == "null?" || s == "addtup") {
                         return {'F', s};
                     }
