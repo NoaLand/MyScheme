@@ -190,6 +190,7 @@ void scheme(Token_stream& ts) {
             case 'N': {
                 std::unique_ptr<s_expression> s_exp(new integer{token.integer_value});
                 s_exp->print(std::cout);
+                std::cout << "arithmetic expression" << std::endl;
                 continue;
             }
             case '(': {
