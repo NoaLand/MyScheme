@@ -14,6 +14,7 @@ public:
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "or?"; }
+    std::string family() override { return "nor_logic"; }
 private:
     s_expression* left;
     s_expression* right;
@@ -30,6 +31,7 @@ public:
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "and?"; }
+    std::string family() override { return "nor_logic"; }
 private:
     s_expression* left;
     s_expression* right;

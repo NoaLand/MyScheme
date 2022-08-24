@@ -14,6 +14,7 @@ public:
     integer* execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "add1"; }
+    std::string family() override { return "math"; }
 private:
     s_expression* number;
 };
@@ -28,6 +29,7 @@ public:
     integer* execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "sub1"; }
+    std::string family() override { return "math"; }
 private:
     s_expression* number;
 };
@@ -42,6 +44,7 @@ public:
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "zero?"; }
+    std::string family() override { return "math"; }
 private:
     s_expression* number;
 };

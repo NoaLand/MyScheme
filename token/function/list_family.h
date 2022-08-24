@@ -14,6 +14,7 @@ public:
     s_expression* execute() override;
     std::string return_type() override { return "s_expression"; }
     std::string name() override { return "car"; }
+    std::string family() override { return "list"; }
 private:
     s_expression* s_exp;
 };
@@ -28,6 +29,7 @@ public:
     s_expression* execute() override;
     std::string return_type() override { return "list"; }
     std::string name() override { return "cdr"; }
+    std::string family() override { return "list"; }
 private:
     s_expression* s_exp;
 };
@@ -42,6 +44,7 @@ public:
     s_expression* execute() override;
     std::string return_type() override { return "list"; }
     std::string name() override { return "cons"; }
+    std::string family() override { return "list"; }
 private:
     s_expression* left;
     s_expression* right;
@@ -57,6 +60,7 @@ public:
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "null?"; }
+    std::string family() override { return "list"; }
 private:
     s_expression* s_exp;
 };
@@ -71,6 +75,7 @@ public:
     integer* execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "addtup"; }
+    std::string family() override { return "list"; }
 private:
     s_expression* tup_list;
 };

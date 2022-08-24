@@ -10,6 +10,7 @@ public:
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "atom?"; }
+    std::string family() override { return "s_expression"; }
 private:
     s_expression* s_exp;
 };
@@ -20,6 +21,7 @@ public:
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "eq?"; }
+    std::string family() override { return "s_expression"; }
 private:
     s_expression* left;
     s_expression* right;
@@ -31,6 +33,7 @@ public:
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "number?"; }
+    std::string family() override { return "s_expression"; }
 private:
     s_expression* s_exp;
 };
