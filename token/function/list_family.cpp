@@ -7,8 +7,7 @@ s_expression* car::execute() {
         throw std::runtime_error("you cannot ask for the *car* of the empty list");
     }
 
-    std::unique_ptr<s_expression>& res = l->get(0);
-    return res.get();
+    return l->get(0);
 }
 
 s_expression* cdr::execute() {
@@ -19,7 +18,7 @@ s_expression* cdr::execute() {
     
     list* res = new list();
     for(int index = 1; index < l->size_of(); ++index) {
-        res->push_back(std::move(l->get(index)));
+        res->push_back(l->get(index));
     }
 
     return res;
@@ -28,9 +27,9 @@ s_expression* cdr::execute() {
 s_expression* cons::execute() {
     list* r = (list*)right;
     list* res = new list();
-    res->push_back(std::unique_ptr<s_expression>(left));
+    res->push_back(left);
     for(int index = 0; index < r->size_of(); ++index) {
-        res->push_back(std::move(r->get(index)));
+        res->push_back(r->get(index));
     }
 
     return res;
@@ -49,7 +48,7 @@ integer* add_tuple::execute() {
     int sum = 0;
     list* tuple = (list*) tup_list;
     for(const auto& item : tuple->get_iterator()) {
-        auto v = (integer*)item.get();
+        auto v = (integer*)item;
         sum += v->val();
     }
 

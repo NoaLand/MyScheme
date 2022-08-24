@@ -27,7 +27,7 @@ void ignore_else(Token_stream& ts);
 
 void preload_libs() {
     auto lat_params = std::make_unique<list>();
-    lat_params->push_back(std::move(std::make_unique<param>("l")));
+    lat_params->push_back(new param{"l"});
     std::shared_ptr<function_declaration> lat(new function_declaration(
             "lat?",
             std::move(lat_params),
@@ -35,7 +35,7 @@ void preload_libs() {
             ));
 
     auto lat_length_params = std::make_unique<list>();
-    lat_length_params->push_back(std::move(std::make_unique<param>("lat")));
+    lat_length_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> lat_length(new function_declaration(
             "length",
             std::move(lat_length_params),
@@ -43,8 +43,8 @@ void preload_libs() {
             ));
 
     auto is_member_params = std::make_unique<list>();
-    is_member_params->push_back(std::move(std::make_unique<param>("a")));
-    is_member_params->push_back(std::move(std::make_unique<param>("lat")));
+    is_member_params->push_back(new param{"a"});
+    is_member_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> is_member(new function_declaration(
             "member?",
             std::move(is_member_params),
@@ -52,8 +52,8 @@ void preload_libs() {
             ));
 
     auto rember_params = std::make_unique<list>();
-    rember_params->push_back(std::move(std::make_unique<param>("a")));
-    rember_params->push_back(std::move(std::make_unique<param>("lat")));
+    rember_params->push_back(new param{"a"});
+    rember_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> rember(new function_declaration(
             "rember",
             std::move(rember_params),
@@ -61,8 +61,8 @@ void preload_libs() {
             ));
 
     auto pick_params = std::make_unique<list>();
-    pick_params->push_back(std::move(std::make_unique<param>("n")));
-    pick_params->push_back(std::move(std::make_unique<param>("lat")));
+    pick_params->push_back(new param{"n"});
+    pick_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> pick(new function_declaration(
             "pick",
             std::move(pick_params),
@@ -70,8 +70,8 @@ void preload_libs() {
             ));
 
     auto rempick_params = std::make_unique<list>();
-    rempick_params->push_back(std::move(std::make_unique<param>("n")));
-    rempick_params->push_back(std::move(std::make_unique<param>("lat")));
+    rempick_params->push_back(new param{"n"});
+    rempick_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> rempick(new function_declaration(
             "rempick",
             std::move(rempick_params),
@@ -79,8 +79,8 @@ void preload_libs() {
             ));
 
     auto add_params = std::make_unique<list>();
-    add_params->push_back(std::move(std::make_unique<param>("n")));
-    add_params->push_back(std::move(std::make_unique<param>("m")));
+    add_params->push_back(new param{"n"});
+    add_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> add(new function_declaration(
             "+",
             std::move(add_params),
@@ -88,8 +88,8 @@ void preload_libs() {
             ));
 
     auto sub_params = std::make_unique<list>();
-    sub_params->push_back(std::move(std::make_unique<param>("n")));
-    sub_params->push_back(std::move(std::make_unique<param>("m")));
+    sub_params->push_back(new param{"n"});
+    sub_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> sub(new function_declaration(
             "-",
             std::move(sub_params),
@@ -97,8 +97,8 @@ void preload_libs() {
             ));
 
     auto multiplication_params = std::make_unique<list>();
-    multiplication_params->push_back(std::move(std::make_unique<param>("n")));
-    multiplication_params->push_back(std::move(std::make_unique<param>("m")));
+    multiplication_params->push_back(new param{"n"});
+    multiplication_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> multiplication(new function_declaration(
             "*",
             std::move(multiplication_params),
@@ -106,8 +106,8 @@ void preload_libs() {
             ));
 
     auto divide_params = std::make_unique<list>();
-    divide_params->push_back(std::move(std::make_unique<param>("n")));
-    divide_params->push_back(std::move(std::make_unique<param>("m")));
+    divide_params->push_back(new param{"n"});
+    divide_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> divide(new function_declaration(
             "/",
             std::move(divide_params),
@@ -115,8 +115,8 @@ void preload_libs() {
             ));
 
     auto greater_than_params = std::make_unique<list>();
-    greater_than_params->push_back(std::move(std::make_unique<param>("n")));
-    greater_than_params->push_back(std::move(std::make_unique<param>("m")));
+    greater_than_params->push_back(new param{"n"});
+    greater_than_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> greater_than(new function_declaration(
             ">",
             std::move(greater_than_params),
@@ -124,8 +124,8 @@ void preload_libs() {
             ));
 
     auto less_than_params = std::make_unique<list>();
-    less_than_params->push_back(std::move(std::make_unique<param>("n")));
-    less_than_params->push_back(std::move(std::make_unique<param>("m")));
+    less_than_params->push_back(new param{"n"});
+    less_than_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> less_than(new function_declaration(
             "<",
             std::move(less_than_params),
@@ -133,8 +133,8 @@ void preload_libs() {
             ));
 
     auto equal_params = std::make_unique<list>();
-    equal_params->push_back(std::move(std::make_unique<param>("n")));
-    equal_params->push_back(std::move(std::make_unique<param>("m")));
+    equal_params->push_back(new param{"n"});
+    equal_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> equal(new function_declaration(
             "=",
             std::move(equal_params),
@@ -142,8 +142,8 @@ void preload_libs() {
             ));
 
     auto expt_params = std::make_unique<list>();
-    expt_params->push_back(std::move(std::make_unique<param>("n")));
-    expt_params->push_back(std::move(std::make_unique<param>("m")));
+    expt_params->push_back(new param{"n"});
+    expt_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> expt(new function_declaration(
             "^",
             std::move(expt_params),
@@ -308,8 +308,8 @@ s_expression* get_input_param(Token_stream& ts) {
         const Token &token = ts.get();
         if(token.type != ')') {
             ts.put_back(token);
-            auto p = std::unique_ptr<s_expression>(construct_from_token(ts));
-            params->push_back(std::move(p));
+            const auto p = construct_from_token(ts);
+            params->push_back(p);
         } else {
             break;
         }
@@ -328,20 +328,20 @@ s_expression* closure(Token_stream& ts) {
     while(true) {
         Token token = ts.get();
         if(token.type == 'A') {
-            auto a = std::make_unique<atom>(token.value);
-            l->push_back(std::move(a));
+            atom* a = new atom(token.value);
+            l->push_back(a);
         } else if(token.type == 'B') {
-            auto b = std::make_unique<boolean>(token.value == "#t" || token.value == "else");
-            l->push_back(std::move(b));
+            auto* b = new boolean(token.value == "#t" || token.value == "else");
+            l->push_back(b);
         } else if(token.type == 'N') {
-            auto i = std::make_unique<integer>(token.integer_value);
-            l->push_back(std::move(i));
+            auto* i = new integer(token.integer_value);
+            l->push_back(i);
         } else if(token.type == ')') {
             break;
         } else if(token.type == '(') {
             ts.put_back(token);
-            auto pList = std::unique_ptr<s_expression>(closure(ts));
-            l->push_back(std::move(pList));
+            list* pList = (list*) closure(ts);
+            l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
             return func(ts);
@@ -413,8 +413,8 @@ s_expression* collect_params(Token_stream& ts) {
     while(true) {
         Token token = ts.get();
         if(token.type == 'A') {
-            auto p = std::make_unique<param>(token.value);
-            l->push_back(std::move(p));
+            param* p = new param(token.value);
+            l->push_back(p);
         } else if(token.type == ')') {
             break;
         } else {
