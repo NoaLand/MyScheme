@@ -747,4 +747,20 @@ integer: 8
 
 ### 36. p+
 ```scheme
+(define p+
+    (lambda (n m)
+        (cond
+            ((sero? m) n)
+            (else (edd1 (p+ n (zub1 m))))
+        )
+    )
+)
+```
+```text
+# test cases
+(p+ (()()()) (()()()()))
+-> list: ( ( ) ( ) ( ) ( ) ( ) ( ) ( ) )
+
+(p+ (()()()()()) (()()()()))
+-> list: ( ( ) ( ) ( ) ( ) ( ) ( ) ( ) ( ) ( ) )
 ```
