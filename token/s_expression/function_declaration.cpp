@@ -38,7 +38,7 @@ bool function_context::is_in(const std::string& name, bool load_to_buffer) {
     return false;
 }
 
-std::string function_context::instantiate(const std::shared_ptr<s_expression>& p) {
+std::string function_context::instantiate(s_expression* p) {
     if(p->get_indicator() != "list" && p->get_indicator() != "tuple") {
         throw std::runtime_error("wrong params type!");
     }
@@ -46,7 +46,7 @@ std::string function_context::instantiate(const std::shared_ptr<s_expression>& p
     auto func_define = buffer.top();
     buffer.pop();
 
-    auto input_params = std::dynamic_pointer_cast<list>(p);
+    list* input_params = (list *) p;
     auto params = std::dynamic_pointer_cast<list>(func_define->get_params());
     if(input_params->size_of() != params->size_of()) {
         throw std::runtime_error("wrong numbers of params!");
