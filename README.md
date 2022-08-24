@@ -730,3 +730,17 @@ integer: 8
 (edd1 (() ()))
 -> list: (() () ())
 ```
+
+### 35. zub1
+#### v1
+```scheme
+(define zub1 (lambda (n) (cdr n)))
+```
+```text
+# test cases
+(zub1 (()))
+-> tuple: ()
+
+(zub1 (() ()))
+-> list: (())
+```
