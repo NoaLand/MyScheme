@@ -703,3 +703,17 @@ integer: 8
 (leftmost (()))
 -> no answer
 ```
+
+# Let's use () as zero, (()) as 1, (() ()) as 2, (() () ()) as 3 ...
+### 33. pzero?
+```scheme
+(define pzero? (lambda (n) (null? n)))
+```
+```text
+# test cases
+(pzero? ())
+-> bool: #t
+
+(pzero? (() ()))
+-> bool: #f
+```
