@@ -399,7 +399,7 @@ function_declaration* function_define(Token_stream& ts) {
 
     auto pDeclaration = new function_declaration{name.value, std::move(std::unique_ptr<s_expression>(params)), body};
     std::shared_ptr<function_declaration> func(pDeclaration);
-    context->store(std::move(func));
+    context->store(func);
     return pDeclaration;
 }
 
