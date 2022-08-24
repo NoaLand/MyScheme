@@ -458,3 +458,26 @@
 )
 (define numbered?  (lambda (aexp) (cond ((atom? aexp) (number? aexp)) (else (and? (numbered? (car aexp)) (numbered? (car (cdr (cdr aexp)))))))))
 (numbered? (3 * 5))
+
+(define sero? (lambda (n) (null? n)))
+(sero? ())
+(sero? (() ()))
+
+(define edd1 (lambda (n) (cons () n)))
+(edd1 ())
+(edd1 (() ()))
+
+(define zub1 (lambda (n) (cdr n)))
+(zub1 (()))
+(zub1 (() ()))
+
+(define p+
+    (lambda (n m)
+        (cond
+            ((sero? m) n)
+            (else (edd1 (p+ n (zub1 m))))
+        )
+    )
+)
+(define + (lambda (n m) (cond ((sero? m) n) (else (edd1 (+ n (zub1 m)))))))
+(+ (()()()) (()()()()))
