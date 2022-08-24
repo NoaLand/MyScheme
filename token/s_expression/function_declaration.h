@@ -26,12 +26,12 @@ private:
 
 class function_context {
 public:
-    void store(std::shared_ptr<function_declaration> func);
+    void store(function_declaration* func);
     bool is_in(const std::string& name, bool load_to_buffer = false);
     std::string instantiate(s_expression* p);
 private:
-    std::vector<std::shared_ptr<function_declaration>> func_list{};
-    std::stack<std::shared_ptr<function_declaration>> buffer;
+    std::vector<function_declaration*> func_list{};
+    std::stack<function_declaration*> buffer;
 };
 
 #endif //MYSCHEME_FUNCTION_DECLARATION_H
