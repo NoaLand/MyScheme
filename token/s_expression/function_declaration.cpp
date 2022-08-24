@@ -47,7 +47,7 @@ std::string function_context::instantiate(s_expression* p) {
     buffer.pop();
 
     list* input_params = (list *) p;
-    auto params = std::dynamic_pointer_cast<list>(func_define->get_params());
+    list* params = (list*)func_define->get_params();
     if(input_params->size_of() != params->size_of()) {
         throw std::runtime_error("wrong numbers of params!");
     }

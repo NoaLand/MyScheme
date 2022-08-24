@@ -26,127 +26,127 @@ void preload_libs();
 void ignore_else(Token_stream& ts);
 
 void preload_libs() {
-    auto lat_params = std::make_unique<list>();
+    auto lat_params = new list();
     lat_params->push_back(new param{"l"});
     std::shared_ptr<function_declaration> lat(new function_declaration(
             "lat?",
-            std::move(lat_params),
+            lat_params,
             "(cond ( ( null? $l$ ) #t ) ( ( atom? ( car $l$ ) ) ( lat? ( cdr $l$ ) ) ) ( else #f ) )"
             ));
 
-    auto lat_length_params = std::make_unique<list>();
+    auto lat_length_params = new list();
     lat_length_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> lat_length(new function_declaration(
             "length",
-            std::move(lat_length_params),
+            lat_length_params,
             "(cond ( ( null? $lat$ ) 0 ) ( else ( add1 ( length ( cdr $lat$ ) ) ) ) )"
             ));
 
-    auto is_member_params = std::make_unique<list>();
+    auto is_member_params = new list();
     is_member_params->push_back(new param{"a"});
     is_member_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> is_member(new function_declaration(
             "member?",
-            std::move(is_member_params),
+            is_member_params,
             "(cond ( ( null? $lat$ ) #f ) ( else ( or ( eq? ( car $lat$ ) $a$ ) ( member? $a$ ( cdr $lat$ ) ) ) ) ) "
             ));
 
-    auto rember_params = std::make_unique<list>();
+    auto rember_params = new list();
     rember_params->push_back(new param{"a"});
     rember_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> rember(new function_declaration(
             "rember",
-            std::move(rember_params),
+            rember_params,
             "(cond ( ( null? $lat$ ) ( ( ) ) ) ( else ( cond ( ( eq? ( car $lat$ ) $a$ ) ( cdr $lat$ ) ) ( else ( cons ( car $lat$ ) ( rember $a$ ( cdr $lat$ ) ) ) ) ) ) ) "
             ));
 
-    auto pick_params = std::make_unique<list>();
+    auto pick_params = new list();
     pick_params->push_back(new param{"n"});
     pick_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> pick(new function_declaration(
             "pick",
-            std::move(pick_params),
+            pick_params,
             "(cond ( ( zero? ( sub1 $n$ ) ) ( car $lat$ ) ) ( else ( pick ( sub1 $n$ ) ( cdr $lat$ ) ) ) )"
             ));
 
-    auto rempick_params = std::make_unique<list>();
+    auto rempick_params = new list();
     rempick_params->push_back(new param{"n"});
     rempick_params->push_back(new param{"lat"});
     std::shared_ptr<function_declaration> rempick(new function_declaration(
             "rempick",
-            std::move(rempick_params),
+            rempick_params,
             "(cond ( ( zero? ( sub1 $n$ ) ) ( cdr $lat$ ) ) ( else ( cons ( car $lat$ ) ( rempick ( sub1 $n$ ) ( cdr $lat$ ) ) ) ) )"
             ));
 
-    auto add_params = std::make_unique<list>();
+    auto add_params = new list();
     add_params->push_back(new param{"n"});
     add_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> add(new function_declaration(
             "+",
-            std::move(add_params),
+            add_params,
             "(cond ( ( zero? $m$ ) $n$ ) ( else ( add1 ( + $n$ ( sub1 $m$ ) ) ) ) )"
             ));
 
-    auto sub_params = std::make_unique<list>();
+    auto sub_params = new list();
     sub_params->push_back(new param{"n"});
     sub_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> sub(new function_declaration(
             "-",
-            std::move(sub_params),
+            sub_params,
             "(cond ( ( zero? $m$ ) $n$ ) ( else ( sub1 ( - $n$ ( sub1 $m$ ) ) ) ) )"
             ));
 
-    auto multiplication_params = std::make_unique<list>();
+    auto multiplication_params = new list();
     multiplication_params->push_back(new param{"n"});
     multiplication_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> multiplication(new function_declaration(
             "*",
-            std::move(multiplication_params),
+            multiplication_params,
             "(cond ( ( zero? $m$ ) 0 ) ( else ( + $n$ ( * $n$ ( sub1 $m$ ) ) ) ) )"
             ));
 
-    auto divide_params = std::make_unique<list>();
+    auto divide_params = new list();
     divide_params->push_back(new param{"n"});
     divide_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> divide(new function_declaration(
             "/",
-            std::move(divide_params),
+            divide_params,
             "(cond ( ( < $n$ $m$ ) 0 ) ( else ( add1 ( / ( - $n$ $m$ ) $m$ ) ) ) )"
             ));
 
-    auto greater_than_params = std::make_unique<list>();
+    auto greater_than_params = new list();
     greater_than_params->push_back(new param{"n"});
     greater_than_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> greater_than(new function_declaration(
             ">",
-            std::move(greater_than_params),
+            greater_than_params,
             "(cond ( ( zero? $n$ ) #f ) ( ( zero? $m$ ) #t ) ( else ( > ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
             ));
 
-    auto less_than_params = std::make_unique<list>();
+    auto less_than_params = new list();
     less_than_params->push_back(new param{"n"});
     less_than_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> less_than(new function_declaration(
             "<",
-            std::move(less_than_params),
+            less_than_params,
             "(cond ( ( zero? $m$ ) #f ) ( ( zero? $n$ ) #t ) ( else ( < ( sub1 $n$ ) ( sub1 $m$ ) ) ) )"
             ));
 
-    auto equal_params = std::make_unique<list>();
+    auto equal_params = new list();
     equal_params->push_back(new param{"n"});
     equal_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> equal(new function_declaration(
             "=",
-            std::move(equal_params),
+            equal_params,
             "(cond ( ( > $n$ $m$ ) #f ) ( ( < $n$ $m$ ) #f ) ( else #t ) )"
             ));
 
-    auto expt_params = std::make_unique<list>();
+    auto expt_params = new list();
     expt_params->push_back(new param{"n"});
     expt_params->push_back(new param{"m"});
     std::shared_ptr<function_declaration> expt(new function_declaration(
             "^",
-            std::move(expt_params),
+            expt_params,
             "(cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) )"
             ));
 
@@ -397,7 +397,8 @@ function_declaration* function_define(Token_stream& ts) {
 
     std::string body = get_func_body(ts, params);
 
-    auto pDeclaration = new function_declaration{name.value, std::move(std::unique_ptr<s_expression>(params)), body};
+    // TODO: this pDeclaration should be refactored into shared_ptr
+    auto pDeclaration = new function_declaration{name.value, params, body};
     std::shared_ptr<function_declaration> func(pDeclaration);
     context->store(func);
     return pDeclaration;

@@ -10,12 +10,9 @@
 
 class function_declaration: public s_expression {
 public:
-    function_declaration(std::string n, std::unique_ptr<s_expression> p, std::string b):
-            name(std::move(n)),
-            params( std::move(p)),
-            body(std::move(b)) {}
+    function_declaration(std::string n, s_expression* p, std::string b): name(std::move(n)), params(p), body(std::move(b)) {}
     std::string get_name() { return name; }
-    std::shared_ptr<s_expression> get_params() { return params; }
+    s_expression* get_params() { return params; }
     std::string get_body() { return body; }
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
@@ -23,7 +20,7 @@ public:
 private:
     std::string indicator{"customized_function"};
     std::string name;
-    std::shared_ptr<s_expression> params;
+    s_expression* params;
     std::string body;
 };
 
