@@ -705,28 +705,28 @@ integer: 8
 ```
 
 # Let's use () as zero, (()) as 1, (() ()) as 2, (() () ()) as 3 ...
-### 33. pzero?
+### 33. sero?
 ```scheme
-(define pzero? (lambda (n) (null? n)))
+(define sero? (lambda (n) (null? n)))
 ```
 ```text
 # test cases
-(pzero? ())
+(sero? ())
 -> bool: #t
 
-(pzero? (() ()))
+(sero? (() ()))
 -> bool: #f
 ```
 
-### 34. padd1
+### 34. edd1
 ```scheme
-(define padd1 (lambda (n) (cons () n)))
+(define edd1 (lambda (n) (cons () n)))
 ```
 ```text
 # test cases
-(padd1 ())
+(edd1 ())
 -> list: (())
 
-(padd1 (() ()))
+(edd1 (() ()))
 -> list: (() () ())
 ```
