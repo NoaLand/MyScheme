@@ -717,3 +717,16 @@ integer: 8
 (pzero? (() ()))
 -> bool: #f
 ```
+
+### 34. padd1
+```scheme
+(define padd1 (lambda (n) (cons () n)))
+```
+```text
+# test cases
+(padd1 ())
+-> list: (())
+
+(padd1 (() ()))
+-> list: (() () ())
+```
