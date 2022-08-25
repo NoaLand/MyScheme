@@ -11,7 +11,7 @@ TEST(AtomTest, should_get_value_successfully_after_create_atom) {
     ASSERT_EQ(atom_indicator, "atom");
 }
 
-TEST(BooleanTest, should_set_boolean_successfully_when_pass_bool_value) {
+TEST(BooleanTest, should_set_true_successfully_when_pass_bool_true) {
     auto b = new boolean{true};
     bool val = b->val();
     const std::string& boolean_value = b->get_value();
@@ -19,6 +19,17 @@ TEST(BooleanTest, should_set_boolean_successfully_when_pass_bool_value) {
 
     ASSERT_EQ(val, true);
     ASSERT_EQ(boolean_value, "#t");
+    ASSERT_EQ(boolean_indicator, "bool");
+}
+
+TEST(BooleanTest, should_set_false_successfully_when_pass_bool_false) {
+    auto b = new boolean{false};
+    bool val = b->val();
+    const std::string& boolean_value = b->get_value();
+    const std::string& boolean_indicator = b->get_indicator();
+
+    ASSERT_EQ(val, false);
+    ASSERT_EQ(boolean_value, "#f");
     ASSERT_EQ(boolean_indicator, "bool");
 }
 
