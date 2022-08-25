@@ -2,7 +2,7 @@
 #define MYSCHEME_NOR_LOGIC_FAMILY_H
 
 #include "function.h"
-#include "../token/s_expression/atom.h"
+#include "token/s_expression/atom.h"
 
 class or_logic: public function {
 public:
