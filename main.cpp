@@ -216,7 +216,7 @@ void scheme(Token_stream& ts) {
 
 auto func(Token_stream& ts) -> s_expression* {
     auto func = ts.get();
-    auto &function_key = func.value;
+    auto& function_key = func.value;
     function* f;
     if(function_key == "quote") {
         auto any = ts.get();
@@ -265,7 +265,7 @@ auto func(Token_stream& ts) -> s_expression* {
             if(assertion->get_indicator() != "bool") {
                 throw std::runtime_error("wrong syntax! assertion need to return bool!");
             }
-            if(((boolean*)assertion)->val()) {
+            if(dynamic_cast<boolean*>(assertion)->val()) {
                 auto res = construct_from_token(ts);
                 ts.get();
                 ignore_else(ts);
@@ -320,7 +320,7 @@ auto get_input_param(Token_stream& ts) -> s_expression* {
 }
 
 auto closure(Token_stream& ts) -> s_expression* {
-    const Token &left = ts.get();
+    const Token& left = ts.get();
     if(left.type != '(') {
         throw std::runtime_error("wrong syntax: " + left.value);
     }
@@ -341,7 +341,7 @@ auto closure(Token_stream& ts) -> s_expression* {
             break;
         } else if(token.type == '(') {
             ts.put_back(token);
-            auto pList = (list*) closure(ts);
+            auto pList = dynamic_cast<list*>(closure(ts));
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
@@ -427,7 +427,7 @@ auto collect_params(Token_stream& ts) -> s_expression* {
 
 auto get_func_body(Token_stream& ts, s_expression* params) -> std::string {
     const auto& left_bracket = ts.get();
-    auto param_list = (list*)params;
+    auto param_list = dynamic_cast<list*>(params);
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare function body");
     }
