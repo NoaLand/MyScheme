@@ -17,7 +17,7 @@ void boolean::print(std::ostream &os) {
 }
 
 bool boolean::val() {
-    return get_value() == "#t";
+    return get_value() == "#t" || get_value() == "else";
 }
 
 std::string integer::get_value() {
