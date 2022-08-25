@@ -1,4 +1,4 @@
-#include "nor_logic_family.h"
+#include "function/nor_logic_family.h"
 
 boolean* or_logic::execute() {
     if(left->val()) {

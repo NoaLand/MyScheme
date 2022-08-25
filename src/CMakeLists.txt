@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 3.22)
-
-set(CMAKE_CXX_STANDARD 20)
-
 add_library(SchemeCore
         token/token.cpp
         token/s_expression/list.cpp
@@ -14,3 +10,6 @@ add_library(SchemeCore
         function/math_family.cpp
         function/others.cpp
         )
+
+target_include_directories(SchemeCore PUBLIC ../include)
+target_compile_features(SchemeCore PUBLIC cxx_std_20)

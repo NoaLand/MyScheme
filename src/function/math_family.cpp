@@ -1,4 +1,4 @@
-#include "math_family.h"
+#include "function/math_family.h"
 
 integer* self_add::execute() {
     return new integer(number->val() + 1);

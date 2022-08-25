@@ -1,13 +1,11 @@
-#include "../src/token/token.h"
-#include "../src/token/s_expression/atom.h"
-#include "../src/token/s_expression/list.h"
-#include "../src/function/list_family.h"
-#include "../src/function/s_expression_family.h"
-#include "../src/token/s_expression/params.h"
-#include "../src/token/s_expression/function_declaration.h"
-#include "../src/function/nor_logic_family.h"
-#include "../src/function/math_family.h"
-#include "../src/function/others.h"
+#include "token/token.h"
+#include "token/s_expression/atom.h"
+#include "function/list_family.h"
+#include "function/s_expression_family.h"
+#include "token/s_expression/params.h"
+#include "function/nor_logic_family.h"
+#include "function/math_family.h"
+#include "function/others.h"
 
 std::istream& is{std::cin};
 function_context context;
