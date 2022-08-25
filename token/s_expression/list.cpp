@@ -26,7 +26,7 @@ s_expression *list::get(int index) {
     return l.at(index);
 }
 
-bool list::has_value(std::string value) {
+bool list::has_value(const std::string& value) {
     for(const auto& element : l) {
         if(element->get_value() == value) {
             return true;
