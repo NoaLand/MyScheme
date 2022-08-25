@@ -8,7 +8,6 @@
 class list: public s_expression{
 public:
     list() = default;
-    list(list const &copy) { l = copy.l; }
     s_expression* get(int index);
     size_t size_of() {return l.size(); }
     bool empty() { return l.empty(); }
