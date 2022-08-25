@@ -4,7 +4,7 @@ project(MyScheme)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(MyScheme
-        main.cpp
+        scheme.cpp
         token/token.cpp
         token/s_expression/list.cpp
         token/s_expression/atom.cpp
