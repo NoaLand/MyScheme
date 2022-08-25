@@ -68,3 +68,14 @@ TEST(BooleanTest, should_set_false_when_pass_string_f) {
     ASSERT_EQ(boolean_value, "#f");
     ASSERT_EQ(boolean_indicator, "bool");
 }
+
+TEST(IntegerTest, should_set_10_to_integer_when_passing_10) {
+    auto i = new integer{10};
+    auto val = i->val();
+    const std::string& int_to_string = i->get_value();
+    const std::string& int_indicator = i->get_indicator();
+
+    ASSERT_EQ(val, 10);
+    ASSERT_EQ(int_to_string, "10");
+    ASSERT_EQ(int_indicator, "integer");
+}
