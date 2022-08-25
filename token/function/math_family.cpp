@@ -9,6 +9,5 @@ integer* self_sub::execute() {
 }
 
 boolean *is_zero::execute() {
-    auto original_val = dynamic_cast<integer*>(number)->val();
-    return new boolean{original_val == 0};
+    return new boolean{number->val() == 0};
 }

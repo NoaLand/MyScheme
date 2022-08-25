@@ -38,16 +38,17 @@ private:
 
 class is_zero: public function {
 public:
-    explicit is_zero(s_expression* n): number(n) {
-        if(number->get_indicator() != "integer") {
+    explicit is_zero(s_expression* n) {
+        if(n->get_indicator() != "integer") {
             throw std::runtime_error("wrong syntax: zero? need integer as param!");
         }
+        number = dynamic_cast<integer*>(n);
     }
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "zero?"; }
     std::string family() override { return "math"; }
 private:
-    s_expression* number;
+    integer* number;
 };
 #endif //MYSCHEME_MATH_FAMILY_H
