@@ -22,11 +22,10 @@ s_expression* cdr::execute() {
 }
 
 s_expression* cons::execute() {
-    auto r = (list*)right;
     auto res = new list();
     res->push_back(left);
-    for(int index = 0; index < r->size_of(); ++index) {
-        res->push_back(r->get(index));
+    for(int index = 0; index < right->size_of(); ++index) {
+        res->push_back(right->get(index));
     }
 
     return res;

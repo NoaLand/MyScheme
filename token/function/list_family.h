@@ -39,10 +39,11 @@ private:
 
 class cons: public function {
 public:
-    cons(s_expression* l, s_expression* r): left(l), right(r) {
+    cons(s_expression* l, s_expression* r): left(l) {
         if(r->get_indicator() != "list" && r->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, the second argument to cons must be a list.");
         }
+        right = dynamic_cast<list*>(r);
     }
     s_expression* execute() override;
     std::string return_type() override { return "list"; }
@@ -50,7 +51,7 @@ public:
     std::string family() override { return "list"; }
 private:
     s_expression* left;
-    s_expression* right;
+    list* right;
 };
 
 class is_null: public function {
