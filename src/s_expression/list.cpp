@@ -1,4 +1,4 @@
-#include "token/s_expression/list.h"
+#include "s_expression/list.h"
 
 std::string list::get_value() {
     std::string res = "( ";

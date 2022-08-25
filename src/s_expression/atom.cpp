@@ -1,4 +1,4 @@
-#include "token/s_expression/atom.h"
+#include "s_expression/atom.h"
 
 std::string atom::get_value() {
     return value;

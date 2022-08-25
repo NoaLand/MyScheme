@@ -1,4 +1,4 @@
-#include "token/s_expression/function_declaration.h"
+#include "s_expression/function_declaration.h"
 
 std::string function_declaration::get_value() {
     std::string func;

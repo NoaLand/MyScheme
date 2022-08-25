@@ -5,7 +5,7 @@
 
 #include "function.h"
 #include "token/token.h"
-#include "token/s_expression/atom.h"
+#include "s_expression/atom.h"
 
 class quote: public function {
 public:
