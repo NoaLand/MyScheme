@@ -38,16 +38,15 @@ bool function_context::is_in(const std::string& name, bool load_to_buffer) {
     return false;
 }
 
-std::string function_context::instantiate(s_expression* p) {
-    if(p->get_indicator() != "list" && p->get_indicator() != "tuple") {
+std::string function_context::instantiate(list* input_params) {
+    if(input_params->get_indicator() != "list" && input_params->get_indicator() != "tuple") {
         throw std::runtime_error("wrong params type!");
     }
 
     auto func_define = buffer.top();
     buffer.pop();
 
-    auto input_params = dynamic_cast<list*>(p);
-    auto params = dynamic_cast<list*>(func_define->get_params());
+    auto params = func_define->get_params();
     if(input_params->size_of() != params->size_of()) {
         throw std::runtime_error("wrong numbers of params!");
     }

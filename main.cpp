@@ -18,7 +18,7 @@ auto function_define(Token_stream& ts) -> function_declaration*;
 auto construct_from_token(Token_stream& ts) -> s_expression*;
 auto func(Token_stream& ts) -> s_expression*;
 auto closure(Token_stream& ts) -> s_expression*;
-auto get_input_param(Token_stream& ts) -> s_expression*;
+auto get_input_param(Token_stream& ts) -> list*;
 
 auto preload_libs() -> void;
 auto ignore_else(Token_stream& ts) -> void;
@@ -302,7 +302,7 @@ auto func(Token_stream& ts) -> s_expression* {
     return pExpression;
 }
 
-auto get_input_param(Token_stream& ts) -> s_expression* {
+auto get_input_param(Token_stream& ts) -> list* {
     auto params = new list();
 
     while(true) {
@@ -374,8 +374,8 @@ auto construct_from_token(Token_stream& ts) -> s_expression* {
     return s_exp;
 }
 
-auto collect_params(Token_stream& ts) -> s_expression*;
-auto get_func_body(Token_stream& ts, s_expression* params) -> std::string;
+auto collect_params(Token_stream& ts) -> list*;
+auto get_func_body(Token_stream& ts, list* params) -> std::string;
 
 auto function_define(Token_stream& ts) -> function_declaration* {
     auto define_keyword = ts.get();
@@ -392,10 +392,6 @@ auto function_define(Token_stream& ts) -> function_declaration* {
     }
 
     auto params = collect_params(ts);
-    if(params->get_indicator() != "list") {
-        throw std::runtime_error("wrong syntax in function define!");
-    }
-
     auto body = get_func_body(ts, params);
 
     auto func = new function_declaration{name.value, params, body};
@@ -403,7 +399,7 @@ auto function_define(Token_stream& ts) -> function_declaration* {
     return func;
 }
 
-auto collect_params(Token_stream& ts) -> s_expression* {
+auto collect_params(Token_stream& ts) -> list* {
     const auto& left_bracket = ts.get();
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare parameters");
@@ -425,9 +421,9 @@ auto collect_params(Token_stream& ts) -> s_expression* {
     return l;
 }
 
-auto get_func_body(Token_stream& ts, s_expression* params) -> std::string {
+auto get_func_body(Token_stream& ts, list* params) -> std::string {
     const auto& left_bracket = ts.get();
-    auto param_list = dynamic_cast<list*>(params);
+    auto param_list = params;
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare function body");
     }

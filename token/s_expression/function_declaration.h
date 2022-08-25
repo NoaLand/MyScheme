@@ -6,13 +6,13 @@
 #include <vector>
 #include <stack>
 
-#include "s_expression.h"
+#include "list.h"
 
 class function_declaration: public s_expression {
 public:
-    function_declaration(std::string n, s_expression* p, std::string b): name(std::move(n)), params(p), body(std::move(b)) {}
+    function_declaration(std::string n, list* p, std::string b): name(std::move(n)), params(p), body(std::move(b)) {}
     std::string get_name() { return name; }
-    s_expression* get_params() { return params; }
+    list* get_params() { return params; }
     std::string get_body() { return body; }
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
@@ -20,7 +20,7 @@ public:
 private:
     std::string indicator{"customized_function"};
     std::string name;
-    s_expression* params;
+    list* params;
     std::string body;
 };
 
@@ -28,7 +28,7 @@ class function_context {
 public:
     void store(function_declaration* func);
     bool is_in(const std::string& name, bool load_to_buffer = false);
-    std::string instantiate(s_expression* p);
+    std::string instantiate(list* p);
 private:
     std::vector<function_declaration*> func_list{};
     std::stack<function_declaration*> buffer;

@@ -3,7 +3,6 @@
 
 #include <vector>
 
-#include "../token.h"
 #include "s_expression.h"
 
 class list: public s_expression{
