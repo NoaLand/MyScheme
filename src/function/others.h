@@ -4,8 +4,8 @@
 #include <utility>
 
 #include "function.h"
-#include "../token.h"
-#include "../s_expression/atom.h"
+#include "../token/token.h"
+#include "../token/s_expression/atom.h"
 
 class quote: public function {
 public:

@@ -2,8 +2,8 @@
 #define MYSCHEME_LIST_FAMILY_H
 
 #include "function.h"
-#include "../s_expression/atom.h"
-#include "../s_expression/list.h"
+#include "../token/s_expression/atom.h"
+#include "../token/s_expression/list.h"
 
 class car: public function {
 public:

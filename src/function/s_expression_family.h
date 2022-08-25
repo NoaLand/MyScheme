@@ -2,7 +2,7 @@
 #define MYSCHEME_S_EXPRESSION_FAMILY_H
 
 #include "function.h"
-#include "../s_expression/atom.h"
+#include "../token/s_expression/atom.h"
 
 class is_atom: public function {
 public:

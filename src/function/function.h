@@ -1,7 +1,7 @@
 #ifndef MYSCHEME_FUNCTION_H
 #define MYSCHEME_FUNCTION_H
 
-#include "../s_expression/s_expression.h"
+#include "../token/s_expression/s_expression.h"
 
 class function {
 public:

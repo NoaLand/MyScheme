@@ -2,7 +2,7 @@
 #define MYSCHEME_MATH_FAMILY_H
 
 #include "function.h"
-#include "../s_expression/atom.h"
+#include "../token/s_expression/atom.h"
 
 class self_add: public function {
 public:

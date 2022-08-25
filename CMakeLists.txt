@@ -8,11 +8,11 @@ add_executable(MyScheme
         src/token/token.cpp
         src/token/s_expression/list.cpp
         src/token/s_expression/atom.cpp
-        src/token/function/list_family.cpp
-        src/token/function/s_expression_family.cpp
+        src/function/list_family.cpp
+        src/function/s_expression_family.cpp
         src/token/s_expression/params.cpp
         src/token/s_expression/function_declaration.cpp
-        src/token/function/nor_logic_family.cpp
-        src/token/function/math_family.cpp
-        src/token/function/others.cpp
+        src/function/nor_logic_family.cpp
+        src/function/math_family.cpp
+        src/function/others.cpp
 )
