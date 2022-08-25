@@ -9,7 +9,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(
         SchemeCoreTest
         s_expression/atom_test.cpp
-        s_expression/params_test.cpp s_expression/list_test.cpp)
+        s_expression/params_test.cpp s_expression/list_test.cpp s_expression/function_declaration_test.cpp)
 
 target_link_libraries(
         SchemeCoreTest
