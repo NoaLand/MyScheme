@@ -89,7 +89,7 @@
     )
 )
 (define multiinsertL (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons new (cons old (multiinsertL new old (cdr lat))))) (else (cons (car lat) (multiinsertL new old (cdr lat)))))))
-(multiinsertL fried fish (chips and fish / fish and fried))
+(multiinsertL fried fish (chips and fish or fish and fried))
 
 (define multisubst
     (lambda (new old lat)
@@ -479,5 +479,5 @@
         )
     )
 )
-(define + (lambda (n m) (cond ((sero? m) n) (else (edd1 (+ n (zub1 m)))))))
-(+ (()()()) (()()()()))
+(define p+ (lambda (n m) (cond ((sero? m) n) (else (edd1 (p+ n (zub1 m)))))))
+(p+ (()()()) (()()()()))
