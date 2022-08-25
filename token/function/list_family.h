@@ -3,20 +3,22 @@
 
 #include "function.h"
 #include "../s_expression/atom.h"
+#include "../s_expression/list.h"
 
 class car: public function {
 public:
-    explicit car(s_expression* exp): s_exp(exp) {
-        if(s_exp->get_indicator() != "list" && s_exp->get_indicator() != "tuple") {
+    explicit car(s_expression* exp) {
+        if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, car can only get list.");
         }
+        s_exp = dynamic_cast<list*>(exp);
     }
     s_expression* execute() override;
     std::string return_type() override { return "s_expression"; }
     std::string name() override { return "car"; }
     std::string family() override { return "list"; }
 private:
-    s_expression* s_exp;
+    list* s_exp;
 };
 
 class cdr: public function {

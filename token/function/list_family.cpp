@@ -1,13 +1,11 @@
 #include "list_family.h"
-#include "../s_expression/list.h"
 
 s_expression* car::execute() {
-    auto l = (list*)s_exp;
-    if(l->empty()) {
+    if(s_exp->empty()) {
         throw std::runtime_error("you cannot ask for the *car* of the empty list");
     }
 
-    return l->get(0);
+    return s_exp->get(0);
 }
 
 s_expression* cdr::execute() {
