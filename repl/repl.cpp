@@ -1,8 +1,10 @@
 #include "token/token.h"
+
 #include "s_expression/atom.h"
+#include "s_expression/params.h"
+
 #include "function/list_family.h"
 #include "function/s_expression_family.h"
-#include "s_expression/params.h"
 #include "function/nor_logic_family.h"
 #include "function/math_family.h"
 #include "function/others.h"
