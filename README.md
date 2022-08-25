@@ -63,7 +63,7 @@ function:
             )
     - others:
         - quote class:
-            (quote any) -> atom
+            (quote s_expression) -> atom
     # function basic type
     - assertion: every function return atom(#t/#f)
         - (assertion s_expression) -> bool(#t/#f)
