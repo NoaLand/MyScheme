@@ -1,7 +1,7 @@
 #include "list.h"
 
 std::string list::get_value() {
-    auto res = "( ";
+    std::string res = "( ";
     for (auto atom : l) {
         res += atom->get_value();
         res += " ";
