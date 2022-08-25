@@ -44,7 +44,7 @@ auto scheme(Token_stream& ts) -> void {
             }
             case 'B': {
                 s_expression* s_exp;
-                s_exp = new boolean{token.value == "#t" || token.value == "else"};
+                s_exp = new boolean{token.value};
                 s_exp->print(std::cout);
                 continue;
             }

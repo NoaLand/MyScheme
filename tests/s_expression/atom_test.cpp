@@ -42,7 +42,7 @@ TEST(BooleanTest, should_set_true_when_pass_else) {
     const std::string& boolean_indicator = b->get_indicator();
 
     ASSERT_EQ(val, true);
-    ASSERT_EQ(boolean_value, "else");
+    ASSERT_EQ(boolean_value, "#t");
     ASSERT_EQ(boolean_indicator, "bool");
 }
 

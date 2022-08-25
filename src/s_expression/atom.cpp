@@ -9,6 +9,10 @@ void atom::print(std::ostream &os) {
 }
 
 std::string boolean::get_value() {
+    if(value == "else") {
+        return "#t";
+    }
+
     return value;
 }
 
