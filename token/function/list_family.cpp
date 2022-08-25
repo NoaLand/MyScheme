@@ -21,7 +21,7 @@ s_expression* cdr::execute() {
     return res;
 }
 
-s_expression* cons::execute() {
+list* cons::execute() {
     auto res = new list();
     res->push_back(left);
     for(int index = 0; index < right->size_of(); ++index) {

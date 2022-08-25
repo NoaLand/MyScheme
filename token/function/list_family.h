@@ -45,7 +45,7 @@ public:
         }
         right = dynamic_cast<list*>(r);
     }
-    s_expression* execute() override;
+    list* execute() override;
     std::string return_type() override { return "list"; }
     std::string name() override { return "cons"; }
     std::string family() override { return "list"; }
