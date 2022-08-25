@@ -15,7 +15,7 @@ std::istream& is{std::cin};
 function_context context;
 Token_stream ts{is, &context};
 
-void scheme(Token_stream& ts);
+auto scheme(Token_stream& ts) -> void;
 auto function_define(Token_stream& ts) -> function_declaration*;
 auto construct_from_token(Token_stream& ts) -> s_expression*;
 auto func(Token_stream& ts) -> s_expression*;
@@ -31,7 +31,7 @@ int main() {
     scheme(ts);
 }
 
-void scheme(Token_stream& ts) {
+auto scheme(Token_stream& ts) -> void {
     while(ts.get_istream()) {
         std::cout << "> ";
         auto token = ts.get();
