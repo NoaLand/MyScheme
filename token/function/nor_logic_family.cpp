@@ -1,11 +1,10 @@
 #include "nor_logic_family.h"
 
 boolean* or_logic::execute() {
-    if(dynamic_cast<boolean*>(left)->val()) {
+    if(left->val()) {
         return new boolean{true};
     }
-    auto final_res = dynamic_cast<boolean*>(right)->val();
-    return new boolean{final_res};
+    return new boolean{right->val()};
 }
 
 boolean *and_logic::execute() {
