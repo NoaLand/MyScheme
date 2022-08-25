@@ -43,19 +43,19 @@ std::string function_context::instantiate(s_expression* p) {
         throw std::runtime_error("wrong params type!");
     }
 
-    function_declaration* func_define = buffer.top();
+    auto func_define = buffer.top();
     buffer.pop();
 
-    list* input_params = (list *) p;
-    list* params = (list*)func_define->get_params();
+    auto input_params = dynamic_cast<list*>(p);
+    auto params = dynamic_cast<list*>(func_define->get_params());
     if(input_params->size_of() != params->size_of()) {
         throw std::runtime_error("wrong numbers of params!");
     }
-    std::string body = func_define->get_body();
+    auto body = func_define->get_body();
 
     for(int index = 0; index < params->size_of(); ++index) {
-        std::string replace = " $" + params->get(index)->get_value() + "$ ";
-        std::string value = " " + input_params->get(index)->get_value() + " ";
+        auto replace = " $" + params->get(index)->get_value() + "$ ";
+        auto value = " " + input_params->get(index)->get_value() + " ";
 
         while (body.find(replace) != std::string::npos)
             body.replace(body.find(replace), replace.size(), value);

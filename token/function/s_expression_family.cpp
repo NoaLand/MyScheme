@@ -1,7 +1,7 @@
 #include "s_expression_family.h"
 
 boolean* is_atom::execute() {
-    const std::string &type_info = s_exp->get_indicator();
+    const auto& type_info = s_exp->get_indicator();
     if(type_info == "atom" || type_info == "bool" || type_info == "integer") {
         return new boolean{true};
     } else {
@@ -9,7 +9,7 @@ boolean* is_atom::execute() {
     }
 }
 
-boolean *is_eq::execute() {
+boolean* is_eq::execute() {
     if(left->get_indicator() == right->get_indicator()
         && left->get_value() == right->get_value()) {
         return new boolean{true};
@@ -18,8 +18,8 @@ boolean *is_eq::execute() {
     }
 }
 
-boolean *is_number::execute() {
-    const std::string &type_info = s_exp->get_indicator();
+boolean* is_number::execute() {
+    const auto& type_info = s_exp->get_indicator();
     if(type_info == "integer") {
         return new boolean{true};
     } else {

@@ -2,7 +2,7 @@
 #include "../s_expression/list.h"
 
 s_expression* car::execute() {
-    list* l = (list*)s_exp;
+    auto l = (list*)s_exp;
     if(l->empty()) {
         throw std::runtime_error("you cannot ask for the *car* of the empty list");
     }
@@ -11,12 +11,12 @@ s_expression* car::execute() {
 }
 
 s_expression* cdr::execute() {
-    list* l = (list*)s_exp;
+    auto l = (list*)s_exp;
     if(l->empty()) {
         throw std::runtime_error("you cannot ask for the *cdr* of the empty list");
     }
     
-    list* res = new list();
+    auto res = new list();
     for(int index = 1; index < l->size_of(); ++index) {
         res->push_back(l->get(index));
     }
@@ -25,8 +25,8 @@ s_expression* cdr::execute() {
 }
 
 s_expression* cons::execute() {
-    list* r = (list*)right;
-    list* res = new list();
+    auto r = (list*)right;
+    auto res = new list();
     res->push_back(left);
     for(int index = 0; index < r->size_of(); ++index) {
         res->push_back(r->get(index));
@@ -36,7 +36,7 @@ s_expression* cons::execute() {
 }
 
 boolean* is_null::execute() {
-    list *pList = (list *) s_exp;
+    auto pList = (list *) s_exp;
     if(pList->empty()) {
         return new boolean{true};
     } else {
@@ -45,10 +45,10 @@ boolean* is_null::execute() {
 }
 
 integer* add_tuple::execute() {
-    int sum = 0;
-    list* tuple = (list*) tup_list;
+    auto sum = 0;
+    auto tuple = dynamic_cast<list*>(tup_list);
     for(const auto& item : tuple->get_iterator()) {
-        auto v = (integer*)item;
+        auto v = dynamic_cast<integer*>(item);
         sum += v->val();
     }
 
