@@ -41,8 +41,7 @@ boolean* is_null::execute() {
 
 integer* add_tuple::execute() {
     auto sum = 0;
-    auto tuple = dynamic_cast<list*>(tup_list);
-    for(const auto& item : tuple->get_iterator()) {
+    for(const auto& item : tup_list->get_iterator()) {
         auto v = dynamic_cast<integer*>(item);
         sum += v->val();
     }

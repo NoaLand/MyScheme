@@ -72,16 +72,17 @@ private:
 
 class add_tuple: public function {
 public:
-    explicit add_tuple(s_expression* tp): tup_list(tp) {
+    explicit add_tuple(s_expression* tp) {
         if(tp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
+        tup_list = dynamic_cast<list*>(tp);
     }
     integer* execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "addtup"; }
     std::string family() override { return "list"; }
 private:
-    s_expression* tup_list;
+    list* tup_list;
 };
 #endif //MYSCHEME_LIST_FAMILY_H
