@@ -32,8 +32,7 @@ s_expression* cons::execute() {
 }
 
 boolean* is_null::execute() {
-    auto pList = (list *) s_exp;
-    if(pList->empty()) {
+    if(s_exp->empty()) {
         return new boolean{true};
     } else {
         return new boolean{false};

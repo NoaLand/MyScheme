@@ -56,17 +56,18 @@ private:
 
 class is_null: public function {
 public:
-    explicit is_null(s_expression* exp): s_exp(exp) {
+    explicit is_null(s_expression* exp) {
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
+        s_exp = dynamic_cast<list*>(exp);
     }
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "null?"; }
     std::string family() override { return "list"; }
 private:
-    s_expression* s_exp;
+    list* s_exp;
 };
 
 class add_tuple: public function {
