@@ -8,12 +8,12 @@ s_expression* car::execute() {
     return s_exp->get(0);
 }
 
-list* cdr::execute() {
+list<s_expression>* cdr::execute() {
     if(s_exp->empty()) {
         throw std::runtime_error("you cannot ask for the *cdr* of the empty list");
     }
     
-    auto res = new list();
+    auto res = new list<s_expression>();
     for(int index = 1; index < s_exp->size_of(); ++index) {
         res->push_back(s_exp->get(index));
     }
@@ -21,8 +21,8 @@ list* cdr::execute() {
     return res;
 }
 
-list* cons::execute() {
-    auto res = new list();
+list<s_expression>* cons::execute() {
+    auto res = new list<s_expression>();
     res->push_back(left);
     for(int index = 0; index < right->size_of(); ++index) {
         res->push_back(right->get(index));
@@ -42,8 +42,7 @@ boolean* is_null::execute() {
 integer* add_tuple::execute() {
     auto sum = 0;
     for(const auto& item : tup_list->get_iterator()) {
-        auto v = dynamic_cast<integer*>(item);
-        sum += v->val();
+        sum += item->val();
     }
 
     return new integer{sum};

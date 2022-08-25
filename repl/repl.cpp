@@ -20,9 +20,9 @@ auto function_define(Token_stream& ts) -> function_declaration*;
 auto construct_from_token(Token_stream& ts) -> s_expression*;
 auto func(Token_stream& ts) -> s_expression*;
 auto closure(Token_stream& ts) -> s_expression*;
-auto get_input_param(Token_stream& ts) -> list*;
-auto collect_params(Token_stream& ts) -> list*;
-auto get_func_body(Token_stream& ts, list* params) -> std::string;
+auto get_input_param(Token_stream& ts) -> list<s_expression>*;
+auto collect_params(Token_stream& ts) -> list<param>*;
+auto get_func_body(Token_stream& ts, list<param>* params) -> std::string;
 auto ignore_else(Token_stream& ts) -> void;
 
 int main() {
@@ -163,8 +163,8 @@ auto func(Token_stream& ts) -> s_expression* {
     return pExpression;
 }
 
-auto get_input_param(Token_stream& ts) -> list* {
-    auto params = new list();
+auto get_input_param(Token_stream& ts) -> list<s_expression>* {
+    auto params = new list<s_expression>();
 
     while(true) {
         const auto& token = ts.get();
@@ -186,7 +186,7 @@ auto closure(Token_stream& ts) -> s_expression* {
         throw std::runtime_error("wrong syntax: " + left.value);
     }
 
-    auto l = new list();
+    auto l = new list<s_expression>();
     while(true) {
         auto token = ts.get();
         if(token.type == 'A') {
@@ -202,7 +202,7 @@ auto closure(Token_stream& ts) -> s_expression* {
             break;
         } else if(token.type == '(') {
             ts.put_back(token);
-            auto pList = dynamic_cast<list*>(closure(ts));
+            auto pList = dynamic_cast<list<s_expression>*>(closure(ts));
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
@@ -257,13 +257,13 @@ auto function_define(Token_stream& ts) -> function_declaration* {
     return func;
 }
 
-auto collect_params(Token_stream& ts) -> list* {
+auto collect_params(Token_stream& ts) -> list<param>* {
     const auto& left_bracket = ts.get();
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare parameters");
     }
 
-    auto l = new list();
+    auto l = new list<param>();
     while(true) {
         auto token = ts.get();
         if(token.type == 'A') {
@@ -279,7 +279,7 @@ auto collect_params(Token_stream& ts) -> list* {
     return l;
 }
 
-auto get_func_body(Token_stream& ts, list* params) -> std::string {
+auto get_func_body(Token_stream& ts, list<param>* params) -> std::string {
     const auto& left_bracket = ts.get();
     auto param_list = params;
     if(left_bracket.type != '(') {

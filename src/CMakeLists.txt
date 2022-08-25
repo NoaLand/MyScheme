@@ -1,6 +1,5 @@
 add_library(SchemeCore
         token/token.cpp
-        s_expression/list.cpp
         s_expression/atom.cpp
         function/list_family.cpp
         function/s_expression_family.cpp
