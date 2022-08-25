@@ -9,14 +9,13 @@ s_expression* car::execute() {
 }
 
 s_expression* cdr::execute() {
-    auto l = (list*)s_exp;
-    if(l->empty()) {
+    if(s_exp->empty()) {
         throw std::runtime_error("you cannot ask for the *cdr* of the empty list");
     }
     
     auto res = new list();
-    for(int index = 1; index < l->size_of(); ++index) {
-        res->push_back(l->get(index));
+    for(int index = 1; index < s_exp->size_of(); ++index) {
+        res->push_back(s_exp->get(index));
     }
 
     return res;
