@@ -219,7 +219,7 @@ auto func(Token_stream& ts) -> s_expression* {
     auto& function_key = func.value;
     function* f;
     if(function_key == "quote") {
-        auto any = ts.get();
+        auto any = construct_from_token(ts);
         f = new quote{any};
     } else if(function_key == "car") {
         auto s_exp = closure(ts);
