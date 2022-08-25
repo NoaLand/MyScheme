@@ -8,7 +8,7 @@ s_expression* car::execute() {
     return s_exp->get(0);
 }
 
-s_expression* cdr::execute() {
+list* cdr::execute() {
     if(s_exp->empty()) {
         throw std::runtime_error("you cannot ask for the *cdr* of the empty list");
     }

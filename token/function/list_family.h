@@ -29,7 +29,7 @@ public:
         }
         s_exp = dynamic_cast<list*>(exp);
     }
-    s_expression* execute() override;
+    list* execute() override;
     std::string return_type() override { return "list"; }
     std::string name() override { return "cdr"; }
     std::string family() override { return "list"; }
