@@ -44,7 +44,7 @@ public:
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
-    int val();
+    int val() const;
 private:
     std::string indicator{"integer"};
     int value;

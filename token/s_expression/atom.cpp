@@ -28,6 +28,6 @@ void integer::print(std::ostream &os) {
     os << "integer: " << get_value() << std::endl;
 }
 
-int integer::val() {
+int integer::val() const {
     return value;
 }
