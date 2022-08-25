@@ -5,9 +5,7 @@ integer* self_add::execute() {
 }
 
 integer* self_sub::execute() {
-    auto original_val = dynamic_cast<integer*>(number)->val();
-
-    return new integer(original_val - 1);
+    return new integer(number->val() - 1);
 }
 
 boolean *is_zero::execute() {

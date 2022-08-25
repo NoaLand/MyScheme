@@ -22,17 +22,18 @@ private:
 
 class self_sub: public function {
 public:
-    explicit self_sub(s_expression* n): number(n) {
-        if(number->get_indicator() != "integer") {
+    explicit self_sub(s_expression* n) {
+        if(n->get_indicator() != "integer") {
             throw std::runtime_error("wrong syntax: sub1 need integer as param!");
         }
+        number = dynamic_cast<integer*>(n);
     }
     integer* execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "sub1"; }
     std::string family() override { return "math"; }
 private:
-    s_expression* number;
+    integer* number;
 };
 
 class is_zero: public function {
