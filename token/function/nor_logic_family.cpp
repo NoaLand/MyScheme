@@ -7,8 +7,6 @@ boolean* or_logic::execute() {
     return new boolean{right->val()};
 }
 
-boolean *and_logic::execute() {
-    auto left_val = dynamic_cast<boolean*>(left)->val();
-    auto right_val = dynamic_cast<boolean*>(right)->val();
-    return new boolean(left_val && right_val);
+boolean* and_logic::execute() {
+    return new boolean(left->val() && right->val());
 }
