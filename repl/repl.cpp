@@ -21,7 +21,8 @@ auto construct_from_token(Token_stream& ts) -> s_expression*;
 auto func(Token_stream& ts) -> s_expression*;
 auto closure(Token_stream& ts) -> s_expression*;
 auto get_input_param(Token_stream& ts) -> list*;
-
+auto collect_params(Token_stream& ts) -> list*;
+auto get_func_body(Token_stream& ts, list* params) -> std::string;
 auto ignore_else(Token_stream& ts) -> void;
 
 int main() {
@@ -233,9 +234,6 @@ auto construct_from_token(Token_stream& ts) -> s_expression* {
 
     return s_exp;
 }
-
-auto collect_params(Token_stream& ts) -> list*;
-auto get_func_body(Token_stream& ts, list* params) -> std::string;
 
 auto function_define(Token_stream& ts) -> function_declaration* {
     auto define_keyword = ts.get();
