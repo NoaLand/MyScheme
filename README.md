@@ -7,8 +7,11 @@ Basically, I'll define term according to 'The Little Schemer'.
 So we can just start from the begining of this book.
 
 ## TODO
+- [ ] add automation test according to docs
 - [ ] use **smart pointer** to refactor this codebase, since last 8 refactor commit introduce memory bugs when declare customized function
 - [ ] refactor architecture
+  - [x] refactor to basic structure
+  - [ ] extract function out of repl
 - [ ] refactor code smell
 
 ## Grammar
