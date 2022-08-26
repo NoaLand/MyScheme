@@ -60,7 +60,7 @@ public:
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
-        s_exp = dynamic_cast<list<s_expression>*>(exp);
+        s_exp = reinterpret_cast<list<s_expression>*>(exp);
     }
     boolean* execute() override;
     std::string return_type() override { return "bool"; }
