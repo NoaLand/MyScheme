@@ -33,6 +33,21 @@ TEST(CarTest, should_return_a1_when_car_get_a1_a2_a3_list) {
     ASSERT_EQ(res->get_value(), "a1");
 }
 
+TEST(CarTest, should_return_1_when_car_get_1_2_3_tuple) {
+    auto l = new list<integer>{};
+    auto a1 = new integer{1};
+    auto a2 = new integer{2};
+    auto a3 = new integer{3};
+    l->push_back(a1);
+    l->push_back(a2);
+    l->push_back(a3);
+
+    auto f = new car{l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "integer");
+    ASSERT_EQ(dynamic_cast<integer*>(res)->val(), 1);
+}
 TEST(CarTest, should_return_a1_a2_list_when_car_get_a1_a2_list_a3_a4) {
     auto l1 = new list<atom>{};
     auto a1 = new atom{"a1"};
