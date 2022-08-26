@@ -63,3 +63,16 @@ TEST_F(FunctionDeclarationAndContextTest, should_instantiate_success_when_passin
 
     ASSERT_EQ(evaluated_body, "(car ( a b c ) )");
 }
+
+TEST_F(FunctionDeclarationAndContextTest, should_throw_exception_when_input_num_is_not_match) {
+    auto err_input_1 = new atom{"err_input_1"};
+    auto err_input_2 = new atom{"err_input_2"};
+
+    auto wrong_input_params_num = new list<s_expression>{};
+    wrong_input_params_num->push_back(err_input_1);
+    wrong_input_params_num->push_back(err_input_2);
+
+    context.is_in("my_lambda", true);
+
+    ASSERT_ANY_THROW(context.instantiate(wrong_input_params_num));
+}
