@@ -41,3 +41,20 @@ TEST(FunctionContextTest, should_return_false_when_function_is_not_in_context) {
 
     ASSERT_EQ(context.is_in("lat?"), false);
 }
+
+TEST(FunctionContextTest, should_throw_exception_when_store_function_already_exist) {
+    function_context context;
+
+    auto lat_params = new list<param>();
+    lat_params->push_back(new param{"l"});
+    std::string lat_body = "(cond ( ( null? $l$ ) #t ) ( ( atom? ( car $l$ ) ) ( lat? ( cdr $l$ ) ) ) ( else #f ) )";
+    auto lat = new function_declaration(
+            "lat?",
+            lat_params,
+            lat_body
+    );
+
+    context.store(lat);
+
+    ASSERT_ANY_THROW(context.store(lat));
+}
