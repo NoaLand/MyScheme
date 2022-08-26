@@ -313,3 +313,21 @@ TEST(AddTupleTest, should_return_0_when_add_tuple_get_empty_tuple) {
     ASSERT_EQ(res->get_indicator(), "integer");
     ASSERT_EQ(dynamic_cast<integer*>(res)->val(), 0);
 }
+
+TEST(AddTupleTest, should_return_10_when_add_tuple_get_1_2_3_4_tuple) {
+    auto l = new list<integer>{};
+    auto i1 = new integer{1};
+    auto i2 = new integer{2};
+    auto i3 = new integer{3};
+    auto i4 = new integer{4};
+    l->push_back(i1);
+    l->push_back(i2);
+    l->push_back(i3);
+    l->push_back(i4);
+
+    auto f = new add_tuple{l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "integer");
+    ASSERT_EQ(dynamic_cast<integer*>(res)->val(), 10);
+}
