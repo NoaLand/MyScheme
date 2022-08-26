@@ -12,11 +12,18 @@ TEST(FunctionDeclarationTest, should_get_info_of_lat_function_successfully_after
             lat_body
     );
 
+    std::string function_definition_body = "-> name: lat?\n-> var: ( l )\n-> body: (cond ( ( null? $l$ ) #t ) ( ( atom? ( car $l$ ) ) ( lat? ( cdr $l$ ) ) ) ( else #f ) )";
+
     ASSERT_EQ(lat->get_indicator(), "customized_function");
     ASSERT_EQ(lat->get_name(), "lat?");
     ASSERT_EQ(lat->get_params()->size_of(), 1);
     ASSERT_EQ(lat->get_params()->get(0)->get_value(), "l");
     ASSERT_EQ(lat->get_body(), lat_body);
+    ASSERT_EQ(lat->get_value(), function_definition_body);
+
+    std::ostringstream buf;
+    lat->print(buf);
+    ASSERT_EQ(buf.str(), "---- func ----\n" + function_definition_body + "\n");
 }
 
 TEST(FunctionContextTest, should_return_true_when_function_has_been_stored_in_context) {
