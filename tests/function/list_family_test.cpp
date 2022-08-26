@@ -254,3 +254,12 @@ TEST(ConsTest, should_throw_exception_when_cons_right_param_is_not_a_list) {
     auto a2 = new atom{"a2"};
     ASSERT_ANY_THROW(new cons(a1, a2));
 }
+
+TEST(IsNullTest, should_get_correct_basic_info_after_successfully_init_is_null_expression) {
+    auto l = new list<atom>{};
+    auto f = new is_null{l};
+
+    ASSERT_EQ(f->name(), "null?");
+    ASSERT_EQ(f->return_type(), "bool");
+    ASSERT_EQ(f->family(), "list");
+}
