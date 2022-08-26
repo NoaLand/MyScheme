@@ -46,6 +46,12 @@ TEST(ListTest, should_contain_a1_when_already_push_into_it) {
     ASSERT_EQ(l->has_value("a1"), true);
 }
 
+TEST(ListTest, should_return_not_contain_when_a1_is_not_in_list) {
+    auto l = new list<atom>{};
+
+    ASSERT_EQ(l->has_value("a1"), false);
+}
+
 TEST(ListTest, should_return_value_of_list_successfully_after_input_atoms) {
     auto a1 = new atom{"a1"};
     auto a2 = new atom{"a2"};
@@ -58,4 +64,8 @@ TEST(ListTest, should_return_value_of_list_successfully_after_input_atoms) {
 
     ASSERT_EQ(l->get_value(), "( a1 a2 a3 )");
     ASSERT_EQ(l->get_indicator(), "list");
+
+    std::ostringstream buf;
+    l->print(buf);
+    ASSERT_EQ(buf.str(), "list: ( a1 a2 a3 )\n");
 }
