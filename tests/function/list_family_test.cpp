@@ -285,3 +285,9 @@ TEST(IsNullTest, should_return_false_when_is_null_getting_non_empty_list) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_FALSE(dynamic_cast<boolean*>(res)->val());
 }
+
+TEST(IsNullTest, should_throw_exception_when_param_passing_to_is_null_is_not_a_list) {
+    auto a1 = new atom{"a1"};
+
+    ASSERT_ANY_THROW(new is_null{a1});
+}
