@@ -248,3 +248,9 @@ TEST(ConsTest, should_return_a1_a2_list_in_a3_list_when_cons_a1_a2_list_to_a3_li
     auto second_element_in_res_list = dynamic_cast<atom*>(res_to_list->get(1));
     ASSERT_EQ(second_element_in_res_list->get_value(), "a3");
 }
+
+TEST(ConsTest, should_throw_exception_when_cons_right_param_is_not_a_list) {
+    auto a1 = new atom{"a1"};
+    auto a2 = new atom{"a2"};
+    ASSERT_ANY_THROW(new cons(a1, a2));
+}
