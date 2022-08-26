@@ -303,3 +303,13 @@ TEST(AddTupleTest, should_get_correct_basic_info_after_successfully_init_add_tup
     ASSERT_EQ(f->return_type(), "integer");
     ASSERT_EQ(f->family(), "list");
 }
+
+TEST(AddTupleTest, should_return_0_when_add_tuple_get_empty_tuple) {
+    auto l = new list<integer>{};
+
+    auto f = new add_tuple{l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "integer");
+    ASSERT_EQ(dynamic_cast<integer*>(res)->val(), 0);
+}
