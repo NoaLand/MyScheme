@@ -175,3 +175,16 @@ TEST(CdrTest, should_throw_exception_when_call_cdr_primitive_execute_with_empty_
     auto f = new cdr{empty_list};
     ASSERT_ANY_THROW(f->execute());
 }
+
+TEST(ConsTest, should_get_correct_basic_info_after_successfully_init_cons_expression) {
+    auto a1 = new atom{"a1"};
+
+    auto l = new list<atom>{};
+    auto a2 = new atom{"a2"};
+    l->push_back(a2);
+
+    auto f = new cons{a1, l};
+    ASSERT_EQ(f->name(), "cons");
+    ASSERT_EQ(f->return_type(), "list");
+    ASSERT_EQ(f->family(), "list");
+}
