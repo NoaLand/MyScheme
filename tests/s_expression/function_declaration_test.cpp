@@ -5,6 +5,10 @@
 
 class FunctionDeclarationAndContextTest : public ::testing::Test {
 protected:
+    function_context context;
+    std::shared_ptr<function_declaration> lat{};
+    const std::string lat_body = "(cond ( ( null? $l$ ) #t ) ( ( atom? ( car $l$ ) ) ( lat? ( cdr $l$ ) ) ) ( else #f ) )";
+
     void SetUp() override {
         auto lat_params = new list<param>();
         lat_params->push_back(new param{"l"});
@@ -13,10 +17,8 @@ protected:
                 lat_params,
                 lat_body
         );
+        context.store(lat.get());
     }
-
-    std::shared_ptr<function_declaration> lat{};
-    const std::string lat_body = "(cond ( ( null? $l$ ) #t ) ( ( atom? ( car $l$ ) ) ( lat? ( cdr $l$ ) ) ) ( else #f ) )";
 };
 
 TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_successfully_after_init_function) {
@@ -35,21 +37,13 @@ TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_succes
 }
 
 TEST_F(FunctionDeclarationAndContextTest, should_return_true_when_function_has_been_stored_in_context) {
-    function_context context;
-    context.store(lat.get());
-
     ASSERT_EQ(context.is_in("lat?"), true);
 }
 
 TEST_F(FunctionDeclarationAndContextTest, should_return_false_when_function_is_not_in_context) {
-    function_context context;
-
-    ASSERT_EQ(context.is_in("lat?"), false);
+    ASSERT_EQ(context.is_in("leftmost"), false);
 }
 
 TEST_F(FunctionDeclarationAndContextTest, should_throw_exception_when_store_function_already_exist) {
-    function_context context;
-    context.store(lat.get());
-
     ASSERT_ANY_THROW(context.store(lat.get()));
 }
