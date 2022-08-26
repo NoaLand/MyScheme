@@ -27,7 +27,7 @@ public:
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, cdr can only get list.");
         }
-        s_exp = dynamic_cast<list<s_expression>*>(exp);
+        s_exp = reinterpret_cast<list<s_expression>*>(exp);
     }
     list<s_expression>* execute() override;
     std::string return_type() override { return "list"; }
