@@ -188,3 +188,21 @@ TEST(ConsTest, should_get_correct_basic_info_after_successfully_init_cons_expres
     ASSERT_EQ(f->return_type(), "list");
     ASSERT_EQ(f->family(), "list");
 }
+
+TEST(ConsTest, should_return_a1_a2_list_when_cons_a1_to_a2_list) {
+    auto a1 = new atom{"a1"};
+
+    auto l = new list<atom>{};
+    auto a2 = new atom{"a2"};
+    l->push_back(a2);
+
+    auto f = new cons{a1, l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "list");
+
+    auto res_to_list = reinterpret_cast<list<atom>*>(res);
+    ASSERT_EQ(res_to_list->size_of(), 2);
+    ASSERT_EQ(res_to_list->get(0)->get_value(), "a1");
+    ASSERT_EQ(res_to_list->get(1)->get_value(), "a2");
+}
