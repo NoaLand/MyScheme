@@ -35,12 +35,12 @@ TEST(CarTest, should_return_a1_when_car_get_a1_a2_a3_list) {
 
 TEST(CarTest, should_return_1_when_car_get_1_2_3_tuple) {
     auto l = new list<integer>{};
-    auto a1 = new integer{1};
-    auto a2 = new integer{2};
-    auto a3 = new integer{3};
-    l->push_back(a1);
-    l->push_back(a2);
-    l->push_back(a3);
+    auto i1 = new integer{1};
+    auto i2 = new integer{2};
+    auto i3 = new integer{3};
+    l->push_back(i1);
+    l->push_back(i2);
+    l->push_back(i3);
 
     auto f = new car{l};
     auto res = f->execute();
@@ -118,12 +118,12 @@ TEST(CdrTest, should_return_a2_a3_when_cdr_get_a1_a2_a3_list) {
 
 TEST(CdrTest, should_return_2_3_when_cdr_get_1_2_3_tuple) {
     auto l = new list<integer>{};
-    auto a1 = new integer{1};
-    auto a2 = new integer{2};
-    auto a3 = new integer{3};
-    l->push_back(a1);
-    l->push_back(a2);
-    l->push_back(a3);
+    auto i1 = new integer{1};
+    auto i2 = new integer{2};
+    auto i3 = new integer{3};
+    l->push_back(i1);
+    l->push_back(i2);
+    l->push_back(i3);
 
     auto f = new cdr{l};
     auto res = f->execute();
@@ -207,13 +207,13 @@ TEST(ConsTest, should_return_a1_a2_list_when_cons_a1_to_a2_list) {
 }
 
 TEST(ConsTest, should_return_1_2_tuple_when_cons_1_to_2_tuple) {
-    auto a1 = new integer{1};
+    auto i1 = new integer{1};
 
     auto l = new list<integer>{};
-    auto a2 = new integer{2};
-    l->push_back(a2);
+    auto i2 = new integer{2};
+    l->push_back(i2);
 
-    auto f = new cons{a1, l};
+    auto f = new cons{i1, l};
     auto res = f->execute();
     ASSERT_EQ(res->get_indicator(), "tuple");
 
