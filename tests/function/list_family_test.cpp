@@ -198,11 +198,27 @@ TEST(ConsTest, should_return_a1_a2_list_when_cons_a1_to_a2_list) {
 
     auto f = new cons{a1, l};
     auto res = f->execute();
-
     ASSERT_EQ(res->get_indicator(), "list");
 
     auto res_to_list = reinterpret_cast<list<atom>*>(res);
     ASSERT_EQ(res_to_list->size_of(), 2);
     ASSERT_EQ(res_to_list->get(0)->get_value(), "a1");
     ASSERT_EQ(res_to_list->get(1)->get_value(), "a2");
+}
+
+TEST(ConsTest, should_return_1_2_tuple_when_cons_1_to_2_tuple) {
+    auto a1 = new integer{1};
+
+    auto l = new list<integer>{};
+    auto a2 = new integer{2};
+    l->push_back(a2);
+
+    auto f = new cons{a1, l};
+    auto res = f->execute();
+    ASSERT_EQ(res->get_indicator(), "tuple");
+
+    auto res_to_list = reinterpret_cast<list<integer>*>(res);
+    ASSERT_EQ(res_to_list->size_of(), 2);
+    ASSERT_EQ(dynamic_cast<integer*>(res_to_list->get(0))->val(), 1);
+    ASSERT_EQ(dynamic_cast<integer*>(res_to_list->get(1))->val(), 2);
 }
