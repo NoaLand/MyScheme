@@ -343,3 +343,11 @@ TEST(AddTupleTest, should_throw_exception_when_getting_an_integer_in_add_tuple) 
 
     ASSERT_ANY_THROW(new add_tuple{i1});
 }
+
+TEST(AddTupleTest, should_throw_exception_when_getting_an_atom_list_in_add_tuple) {
+    auto l = new list<atom>{};
+    auto a1 = new atom{"a1"};
+    l->push_back(a1);
+
+    ASSERT_ANY_THROW(new add_tuple{l});
+}
