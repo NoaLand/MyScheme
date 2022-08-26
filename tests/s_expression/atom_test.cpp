@@ -80,7 +80,7 @@ TEST(IntegerTest, should_set_10_to_integer_when_passing_10) {
     const std::string& int_to_string = i->get_value();
     const std::string& int_indicator = i->get_indicator();
 
-    ASSERT_EQ(val, 9);
+    ASSERT_EQ(val, 10);
     ASSERT_EQ(int_to_string, "10");
     ASSERT_EQ(int_indicator, "integer");
 }
