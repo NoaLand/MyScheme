@@ -291,3 +291,15 @@ TEST(IsNullTest, should_throw_exception_when_param_passing_to_is_null_is_not_a_l
 
     ASSERT_ANY_THROW(new is_null{a1});
 }
+
+TEST(AddTupleTest, should_get_correct_basic_info_after_successfully_init_add_tuple_expression) {
+    auto l = new list<integer>{};
+    auto i1 = new integer{1};
+    l->push_back(i1);
+
+    auto f = new add_tuple{l};
+
+    ASSERT_EQ(f->name(), "addtup");
+    ASSERT_EQ(f->return_type(), "integer");
+    ASSERT_EQ(f->family(), "list");
+}
