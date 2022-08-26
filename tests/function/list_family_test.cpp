@@ -331,3 +331,9 @@ TEST(AddTupleTest, should_return_10_when_add_tuple_get_1_2_3_4_tuple) {
     ASSERT_EQ(res->get_indicator(), "integer");
     ASSERT_EQ(dynamic_cast<integer*>(res)->val(), 10);
 }
+
+TEST(AddTupleTest, should_throw_exception_when_getting_an_atom_in_add_tuple) {
+    auto a1 = new atom{"a1"};
+
+    ASSERT_ANY_THROW(new add_tuple{a1});
+}
