@@ -14,7 +14,7 @@ TEST(AtomTest, should_get_value_successfully_after_create_atom) {
 
 TEST(BooleanTest, should_set_true_successfully_when_pass_bool_true) {
     auto b = new boolean{true};
-    ASSERT_EQ(b->val(), true);
+    ASSERT_TRUE(b->val());
     ASSERT_EQ(b->get_value(), "#t");
     ASSERT_EQ(b->get_indicator(), "bool");
 
@@ -26,7 +26,7 @@ TEST(BooleanTest, should_set_true_successfully_when_pass_bool_true) {
 TEST(BooleanTest, should_set_false_successfully_when_pass_bool_false) {
     auto b = new boolean{false};
 
-    ASSERT_EQ(b->val(), false);
+    ASSERT_FALSE(b->val());
     ASSERT_EQ(b->get_value(), "#f");
     ASSERT_EQ(b->get_indicator(), "bool");
 
@@ -39,7 +39,7 @@ TEST(BooleanTest, should_set_true_when_pass_string_t) {
     const std::string true_string = "#t";
     auto b = new boolean{true_string};
 
-    ASSERT_EQ(b->val(), true);
+    ASSERT_TRUE(b->val());
     ASSERT_EQ(b->get_value(), "#t");
     ASSERT_EQ(b->get_indicator(), "bool");
 }
@@ -48,7 +48,7 @@ TEST(BooleanTest, should_set_true_when_pass_else) {
     const std::string else_string = "else";
     auto b = new boolean{else_string};
 
-    ASSERT_EQ(b->val(), true);
+    ASSERT_TRUE(b->val());
     ASSERT_EQ(b->get_value(), "#t");
     ASSERT_EQ(b->get_indicator(), "bool");
 }
@@ -57,7 +57,7 @@ TEST(BooleanTest, should_set_false_when_pass_string_f) {
     const std::string false_string = "#f";
     auto b = new boolean{false_string};
 
-    ASSERT_EQ(b->val(), false);
+    ASSERT_FALSE(b->val());
     ASSERT_EQ(b->get_value(), "#f");
     ASSERT_EQ(b->get_indicator(), "bool");
 }

@@ -38,11 +38,11 @@ TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_succes
 }
 
 TEST_F(FunctionDeclarationAndContextTest, should_return_true_when_function_has_been_stored_in_context) {
-    ASSERT_EQ(context.is_in("my_lambda"), true);
+    ASSERT_TRUE(context.is_in("my_lambda"));
 }
 
 TEST_F(FunctionDeclarationAndContextTest, should_return_false_when_function_is_not_in_context) {
-    ASSERT_EQ(context.is_in("leftmost"), false);
+    ASSERT_FALSE(context.is_in("leftmost"));
 }
 
 TEST_F(FunctionDeclarationAndContextTest, should_throw_exception_when_store_function_already_exist) {

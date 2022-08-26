@@ -25,7 +25,7 @@ TEST(ListTest, should_return_3_when_list_has_3_value) {
 TEST(ListTest, should_return_true_when_list_is_empty) {
     auto l = new list<s_expression>{};
 
-    ASSERT_EQ(l->empty(), true);
+    ASSERT_TRUE(l->empty());
 
     std::ostringstream buf;
     l->print(buf);
@@ -38,7 +38,7 @@ TEST(ListTest, should_return_false_when_list_has_value) {
 
     l->push_back(a1);
 
-    ASSERT_EQ(l->empty(), false);
+    ASSERT_FALSE(l->empty());
 }
 
 TEST(ListTest, should_contain_a1_when_already_push_into_it) {
@@ -47,13 +47,13 @@ TEST(ListTest, should_contain_a1_when_already_push_into_it) {
 
     l->push_back(a1);
 
-    ASSERT_EQ(l->has_value("a1"), true);
+    ASSERT_TRUE(l->has_value("a1"));
 }
 
 TEST(ListTest, should_return_not_contain_when_a1_is_not_in_list) {
     auto l = new list<atom>{};
 
-    ASSERT_EQ(l->has_value("a1"), false);
+    ASSERT_FALSE(l->has_value("a1"));
 }
 
 TEST(ListTest, should_return_value_of_list_successfully_after_input_atoms) {
