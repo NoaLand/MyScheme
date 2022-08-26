@@ -337,3 +337,9 @@ TEST(AddTupleTest, should_throw_exception_when_getting_an_atom_in_add_tuple) {
 
     ASSERT_ANY_THROW(new add_tuple{a1});
 }
+
+TEST(AddTupleTest, should_throw_exception_when_getting_an_integer_in_add_tuple) {
+    auto i1 = new integer{1};
+
+    ASSERT_ANY_THROW(new add_tuple{i1});
+}
