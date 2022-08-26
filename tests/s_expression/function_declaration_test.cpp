@@ -1,13 +1,14 @@
 #include <gtest/gtest.h>
 
 #include "s_expression/function_declaration.h"
+#include "s_expression/atom.h"
 
 
 class FunctionDeclarationAndContextTest : public ::testing::Test {
 protected:
     function_context context;
     std::shared_ptr<function_declaration> my_lambda{};
-    const std::string my_lambda_body = "(car $l$)";
+    const std::string my_lambda_body = "(car $l$ )";
 
     void SetUp() override {
         auto my_lambda_params = new list<param>();
@@ -22,7 +23,7 @@ protected:
 };
 
 TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_successfully_after_init_function) {
-    std::string function_definition_body = "-> name: my_lambda\n-> var: ( l )\n-> body: (car $l$)";
+    std::string function_definition_body = "-> name: my_lambda\n-> var: ( l )\n-> body: (car $l$ )";
 
     ASSERT_EQ(my_lambda->get_indicator(), "customized_function");
     ASSERT_EQ(my_lambda->get_name(), "my_lambda");
@@ -46,4 +47,19 @@ TEST_F(FunctionDeclarationAndContextTest, should_return_false_when_function_is_n
 
 TEST_F(FunctionDeclarationAndContextTest, should_throw_exception_when_store_function_already_exist) {
     ASSERT_ANY_THROW(context.store(my_lambda.get()));
+}
+
+TEST_F(FunctionDeclarationAndContextTest, should_instantiate_success_when_passing_valid_params) {
+    auto input = new list<atom>;
+    input->push_back(new atom{"a"});
+    input->push_back(new atom{"b"});
+    input->push_back(new atom{"c"});
+
+    auto input_params = new list<s_expression>{};
+    input_params->push_back(input);
+    
+    context.is_in("my_lambda", true);
+    const std::string& evaluated_body = context.instantiate(input_params);
+
+    ASSERT_EQ(evaluated_body, "(car ( a b c ) )");
 }
