@@ -26,6 +26,10 @@ TEST(ListTest, should_return_true_when_list_is_empty) {
     auto l = new list<s_expression>{};
 
     ASSERT_EQ(l->empty(), true);
+
+    std::ostringstream buf;
+    l->print(buf);
+    ASSERT_EQ(buf.str(), "tuple: ( )\n");
 }
 
 TEST(ListTest, should_return_false_when_list_has_value) {
@@ -68,4 +72,17 @@ TEST(ListTest, should_return_value_of_list_successfully_after_input_atoms) {
     std::ostringstream buf;
     l->print(buf);
     ASSERT_EQ(buf.str(), "list: ( a1 a2 a3 )\n");
+}
+
+TEST(ListTest, should_return_iterator_successfully_when_get_iterator) {
+    auto a1 = new atom{"a1"};
+    auto a2 = new atom{"a2"};
+    auto a3 = new atom{"a3"};
+    auto l = new list<atom>{};
+
+    l->push_back(a1);
+    l->push_back(a2);
+    l->push_back(a3);
+
+    ASSERT_EQ(l->get_iterator().size(), 3);
 }
