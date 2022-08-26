@@ -38,10 +38,6 @@ bool function_context::is_in(const std::string& name, bool load_to_buffer) {
 }
 
 std::string function_context::instantiate(list<s_expression>* input_params) {
-    if(input_params->get_indicator() != "list" && input_params->get_indicator() != "tuple") {
-        throw std::runtime_error("wrong params type!");
-    }
-
     auto func_define = buffer.top();
     buffer.pop();
 
