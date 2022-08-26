@@ -222,3 +222,29 @@ TEST(ConsTest, should_return_1_2_tuple_when_cons_1_to_2_tuple) {
     ASSERT_EQ(dynamic_cast<integer*>(res_to_list->get(0))->val(), 1);
     ASSERT_EQ(dynamic_cast<integer*>(res_to_list->get(1))->val(), 2);
 }
+
+TEST(ConsTest, should_return_a1_a2_list_in_a3_list_when_cons_a1_a2_list_to_a3_list) {
+    auto l1 = new list<atom>{};
+    auto a1 = new atom{"a1"};
+    auto a2 = new atom{"a2"};
+    l1->push_back(a1);
+    l1->push_back(a2);
+
+    auto l2 = new list<atom>{};
+    auto a3 = new atom{"a3"};
+    l2->push_back(a3);
+
+    auto f = new cons{l1, l2};
+    auto res = f->execute();
+    ASSERT_EQ(res->get_indicator(), "list");
+
+    auto res_to_list = reinterpret_cast<list<s_expression>*>(res);
+    ASSERT_EQ(res_to_list->size_of(), 2);
+
+    auto first_element_in_res_list = reinterpret_cast<list<atom>*>(res_to_list->get(0));
+    ASSERT_EQ(first_element_in_res_list->get(0)->get_value(), "a1");
+    ASSERT_EQ(first_element_in_res_list->get(1)->get_value(), "a2");
+
+    auto second_element_in_res_list = dynamic_cast<atom*>(res_to_list->get(1));
+    ASSERT_EQ(second_element_in_res_list->get_value(), "a3");
+}
