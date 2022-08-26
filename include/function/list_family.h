@@ -43,7 +43,7 @@ public:
         if(r->get_indicator() != "list" && r->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, the second argument to cons must be a list.");
         }
-        right = dynamic_cast<list<s_expression>*>(r);
+        right = reinterpret_cast<list<s_expression>*>(r);
     }
     list<s_expression>* execute() override;
     std::string return_type() override { return "list"; }
