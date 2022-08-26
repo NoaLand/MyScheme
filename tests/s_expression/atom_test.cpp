@@ -69,6 +69,11 @@ TEST(BooleanTest, should_set_false_when_pass_string_f) {
     ASSERT_EQ(boolean_indicator, "bool");
 }
 
+TEST(BooleanTest, should_throw_exception_when_input_is_not_t_or_else_or_f) {
+    const std::string err_string = "err";
+    ASSERT_ANY_THROW(new boolean{err_string});
+}
+
 TEST(IntegerTest, should_set_10_to_integer_when_passing_10) {
     auto i = new integer{10};
     auto val = i->val();
