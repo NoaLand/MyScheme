@@ -48,6 +48,7 @@ TEST(CarTest, should_return_1_when_car_get_1_2_3_tuple) {
     ASSERT_EQ(res->get_indicator(), "integer");
     ASSERT_EQ(dynamic_cast<integer*>(res)->val(), 1);
 }
+
 TEST(CarTest, should_return_a1_a2_list_when_car_get_a1_a2_list_a3_a4) {
     auto l1 = new list<atom>{};
     auto a1 = new atom{"a1"};
