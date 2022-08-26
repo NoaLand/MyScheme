@@ -263,3 +263,13 @@ TEST(IsNullTest, should_get_correct_basic_info_after_successfully_init_is_null_e
     ASSERT_EQ(f->return_type(), "bool");
     ASSERT_EQ(f->family(), "list");
 }
+
+TEST(IsNullTest, should_return_true_when_is_null_getting_an_empty_list) {
+    auto l = new list<atom>{};
+
+    auto f = new is_null{l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_TRUE(dynamic_cast<boolean*>(res)->val());
+}
