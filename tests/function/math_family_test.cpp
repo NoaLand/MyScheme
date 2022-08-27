@@ -20,3 +20,13 @@ TEST(SelfAddTest, should_return_2_when_self_add_get_1_as_input) {
     ASSERT_EQ(res->get_indicator(), "integer");
     ASSERT_EQ(res->val(), 2);
 }
+
+TEST(SelfAddTest, should_return_101_when_self_add_get_100_as_input) {
+    auto i = new integer{100};
+
+    auto f = new self_add{i};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "integer");
+    ASSERT_EQ(res->val(), 101);
+}
