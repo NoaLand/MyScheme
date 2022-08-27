@@ -30,3 +30,9 @@ TEST(SelfAddTest, should_return_101_when_self_add_get_100_as_input) {
     ASSERT_EQ(res->get_indicator(), "integer");
     ASSERT_EQ(res->val(), 101);
 }
+
+TEST(SelfAddTest, should_throw_exception_when_param_passing_is_not_integer) {
+    auto a = new atom{"wrong_type_input"};
+
+    ASSERT_ANY_THROW(new self_add{a});
+}
