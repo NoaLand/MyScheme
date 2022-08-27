@@ -90,3 +90,13 @@ TEST(IsZeroTest, should_return_true_when_function_get_0) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_EQ(res->val(), true);
 }
+
+TEST(IsZeroTest, should_return_false_when_function_get_non_zero_as_input) {
+    auto i = new integer{100};
+
+    auto f = new is_zero{i};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_EQ(res->val(), false);
+}
