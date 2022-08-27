@@ -88,7 +88,7 @@ TEST(IsZeroTest, should_return_true_when_function_get_0) {
     auto res = f->execute();
 
     ASSERT_EQ(res->get_indicator(), "bool");
-    ASSERT_EQ(res->val(), true);
+    ASSERT_TRUE(res->val());
 }
 
 TEST(IsZeroTest, should_return_false_when_function_get_non_zero_as_input) {
@@ -98,5 +98,5 @@ TEST(IsZeroTest, should_return_false_when_function_get_non_zero_as_input) {
     auto res = f->execute();
 
     ASSERT_EQ(res->get_indicator(), "bool");
-    ASSERT_EQ(res->val(), false);
+    ASSERT_FALSE(res->val());
 }
