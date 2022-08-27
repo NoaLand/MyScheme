@@ -80,3 +80,13 @@ TEST(IsZeroTest, should_get_correct_basic_info_when_successfully_create_is_zero_
     ASSERT_EQ(f->return_type(), "bool");
     ASSERT_EQ(f->family(), "math");
 }
+
+TEST(IsZeroTest, should_return_true_when_function_get_0) {
+    auto i = new integer{0};
+
+    auto f = new is_zero{i};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_EQ(res->val(), true);
+}
