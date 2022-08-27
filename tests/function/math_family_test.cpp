@@ -100,3 +100,9 @@ TEST(IsZeroTest, should_return_false_when_function_get_non_zero_as_input) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_FALSE(res->val());
 }
+
+TEST(IsZeroTest, should_throw_exception_when_function_get_input_type_is_wrong) {
+    auto a = new atom{"wrong_type_input"};
+
+    ASSERT_ANY_THROW(new is_zero{a});
+}
