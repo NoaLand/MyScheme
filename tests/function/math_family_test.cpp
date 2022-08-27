@@ -71,3 +71,12 @@ TEST(SelfSubTest, should_throw_exception_when_param_passing_is_not_integer) {
 
     ASSERT_ANY_THROW(new self_sub{a});
 }
+
+TEST(IsZeroTest, should_get_correct_basic_info_when_successfully_create_is_zero_expression) {
+    auto i = new integer{1};
+    auto f = new is_zero{i};
+
+    ASSERT_EQ(f->name(), "zero?");
+    ASSERT_EQ(f->return_type(), "bool");
+    ASSERT_EQ(f->family(), "math");
+}
