@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include "s_expression/list.h"
 #include "function/s_expression_family.h"
 
 TEST(IsAtomTest, should_get_basic_info_when_successfully_create_is_atom_expression) {
@@ -39,4 +40,14 @@ TEST(IsAtomTest, should_return_true_when_input_is_an_integer) {
 
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_TRUE(res->val());
+}
+
+TEST(IsAtomTest, should_return_false_when_input_is_a_list) {
+    auto l = new list<atom>{};
+
+    auto f = new is_atom{l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_FALSE(res->val());
 }
