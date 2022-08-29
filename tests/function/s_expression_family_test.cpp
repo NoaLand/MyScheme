@@ -101,3 +101,14 @@ TEST(IsEqTest, should_get_basic_info_when_successfully_create_is_eq_expression) 
     ASSERT_EQ(f->return_type(), "bool");
     ASSERT_EQ(f->family(), "s_expression");
 }
+
+TEST(IsEqTest, should_return_true_when_l_and_r_are_same_in_type_and_value) {
+    auto l = new atom{"a1"};
+    auto r = new atom{"a1"};
+
+    auto f = new is_eq{l, r};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_TRUE(res->val());
+}
