@@ -22,6 +22,7 @@ add_executable(
         core/interpreter_test.cpp
 )
 
+target_include_directories(SchemeCore PUBLIC ./)
 target_link_libraries(
         SchemeCoreTest
         SchemeCore

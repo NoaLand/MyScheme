@@ -1,10 +1,9 @@
-#include <gtest/gtest.h>
+#include "base_test.h"
 
-#include "s_expression/function_declaration.h"
 #include "s_expression/atom.h"
 
 
-class FunctionDeclarationAndContextTest : public ::testing::Test {
+class FunctionDeclarationAndContextTest : public BaseTest {
 protected:
     function_context context;
     std::shared_ptr<function_declaration> my_lambda{};
