@@ -30,3 +30,13 @@ TEST(IsAtomTest, should_return_true_when_input_is_a_boolean) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_TRUE(res->val());
 }
+
+TEST(IsAtomTest, should_return_true_when_input_is_an_integer) {
+    auto i = new integer{1};
+
+    auto f = new is_atom{i};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_TRUE(res->val());
+}
