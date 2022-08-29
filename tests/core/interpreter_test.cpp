@@ -92,3 +92,9 @@ TEST_F(InterpreterTest, should_throw_exception_when_function_name_is_not_in_corr
 
     ASSERT_ANY_THROW(inter.function_define());
 }
+
+TEST_F(InterpreterTest, should_throw_exception_when_function_define_has_not_lambda) {
+    is.str("define one? ((n) (= n 1)))\n");
+
+    ASSERT_ANY_THROW(inter.function_define());
+}
