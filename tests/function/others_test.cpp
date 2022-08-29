@@ -57,3 +57,23 @@ TEST(QuoteTest, should_return_a1_a2_a3_list_value_when_quote_a1_a2_a3_list) {
     ASSERT_EQ(res->get_indicator(), "atom");
     ASSERT_EQ(res->get_value(), "( a1 a2 a3 )");
 }
+
+TEST(QuoteTest, should_return_t_atom_when_quote_true_boolean) {
+    auto b = new boolean{true};
+
+    auto f = new quote{b};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "atom");
+    ASSERT_EQ(res->get_value(), "#t");
+}
+
+TEST(QuoteTest, should_return_f_atom_when_quote_false_boolean) {
+    auto b = new boolean{false};
+
+    auto f = new quote{b};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "atom");
+    ASSERT_EQ(res->get_value(), "#f");
+}
