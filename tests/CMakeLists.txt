@@ -14,7 +14,9 @@ add_executable(
         s_expression/function_declaration_test.cpp
         function/list_family_test.cpp
         function/math_family_test.cpp
-        function/nor_logic_family_test.cpp)
+        function/nor_logic_family_test.cpp
+        function/others_test.cpp
+)
 
 target_link_libraries(
         SchemeCoreTest
