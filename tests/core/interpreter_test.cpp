@@ -134,3 +134,12 @@ TEST_F(InterpreterTest, should_construct_false_when_getting_is_buf_has_is_false)
     ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#f");
     ASSERT_FALSE(dynamic_cast<boolean*>(t)->val());
 }
+
+TEST_F(InterpreterTest, should_construct_integer_10_when_getting_is_buf_has_10) {
+    is.str("10\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "integer");
+    ASSERT_EQ(dynamic_cast<integer*>(t)->get_value(), "10");
+    ASSERT_EQ(dynamic_cast<integer*>(t)->val(), 10);
+}
