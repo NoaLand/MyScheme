@@ -26,3 +26,15 @@ TEST_F(InterpreterTest, should_get_params_successfully_when_passing_more_than_on
     ASSERT_EQ(params->get(1)->get_value(), "old");
     ASSERT_EQ(params->get(2)->get_value(), "l");
 }
+
+TEST_F(InterpreterTest, should_throw_exception_when_the_first_token_is_not_left_parentheses) {
+    is.str("wrong (new old l)");
+
+    ASSERT_ANY_THROW(inter.collect_params());
+}
+
+TEST_F(InterpreterTest, should_throw_exception_when_params_type_are_not_list_of_atom) {
+    is.str("(cdr (wrong new old l))");
+
+    ASSERT_ANY_THROW(inter.collect_params());
+}
