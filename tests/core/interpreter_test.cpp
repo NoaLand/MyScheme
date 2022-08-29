@@ -55,6 +55,19 @@ TEST_F(ConstructFromTokenTest, should_construct_integer_10_when_getting_is_buf_h
     ASSERT_EQ(dynamic_cast<integer*>(t)->val(), 10);
 }
 
+class GetInputParamTest: public InterpreterTest {
+};
+
+TEST_F(GetInputParamTest, should_return_params_directly_when_input_is_a_list_of_atom) {
+    is.str("a b c)\n");
+    auto inputs = inter.get_input_param();
+
+    ASSERT_EQ(inputs->size_of(), 3);
+    ASSERT_EQ(inputs->get(0)->get_value(), "a");
+    ASSERT_EQ(inputs->get(1)->get_value(), "b");
+    ASSERT_EQ(inputs->get(2)->get_value(), "c");
+}
+
 class FunctionDefineTest: public InterpreterTest {
 };
 
