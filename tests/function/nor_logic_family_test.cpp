@@ -45,3 +45,10 @@ TEST(OrLogicTest, should_return_false_when_r_and_l_are_false) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_EQ(res->val(), false);
 }
+
+TEST(OrLogicTest, should_throw_exception_when_l_is_not_a_boolean_type) {
+    auto l = new atom{"wrong_input_type"};
+    auto r = new boolean{true};
+
+    ASSERT_ANY_THROW(new or_logic(l, r));
+}
