@@ -2,7 +2,6 @@
 #define MYSCHEME_INTERPRETER_H
 
 #include "token/token.h"
-#include "s_expression/atom.h"
 
 #include "function/function.h"
 #include "function/list_family.h"
