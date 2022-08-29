@@ -2,6 +2,7 @@
 
 #include "s_expression/list.h"
 #include "function/s_expression_family.h"
+#include "function/others.h"
 
 TEST(IsAtomTest, should_get_basic_info_when_successfully_create_is_atom_expression) {
     auto a = new atom{"a"};
@@ -129,6 +130,19 @@ TEST(IsEqTest, should_return_false_when_l_is_atom_and_r_is_list_of_l) {
 TEST(IsEqTest, should_return_false_when_l_is_atom_and_r_is_bool) {
     auto l = new atom{"a"};
     auto r = new boolean{true};
+
+    auto f = new is_eq{l, r};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_FALSE(res->val());
+}
+
+TEST(IsEqTest, should_return_false_when_l_is_true_and_r_is_quote_true) {
+    auto l = new boolean{true};
+
+    auto quote_func = new quote{l};
+    auto r = quote_func->execute();
 
     auto f = new is_eq{l, r};
     auto res = f->execute();
