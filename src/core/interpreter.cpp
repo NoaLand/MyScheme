@@ -1,5 +1,22 @@
 #include "core/interpreter.h"
 
+auto interpreter::construct_from_token() -> s_expression* {
+    auto token = ts.get();
+    s_expression* s_exp;
+    if(token.type == 'A') {
+        s_exp = new atom{token.value};
+    } else if(token.type == 'B') {
+        s_exp = new boolean{token.value == "#t" || token.value == "else" };
+    } else if(token.type == 'N') {
+        s_exp = new integer{ token.integer_value };
+    } else {
+        ts.put_back(token);
+        s_exp = closure();
+    }
+
+    return s_exp;
+}
+
 auto interpreter::scheme() -> void {
     while(ts.get_istream()) {
         std::cout << "> ";
@@ -42,6 +59,44 @@ auto interpreter::scheme() -> void {
                 continue;
         }
     }
+}
+
+auto interpreter::closure() -> s_expression* {
+    const Token& left = ts.get();
+    if(left.type != '(') {
+        throw std::runtime_error("wrong syntax: " + left.value);
+    }
+
+    auto l = new list<s_expression>();
+    while(true) {
+        auto token = ts.get();
+        if(token.type == 'A') {
+            auto a = new atom(token.value);
+            l->push_back(a);
+        } else if(token.type == 'B') {
+            auto* b = new boolean(token.value == "#t" || token.value == "else");
+            l->push_back(b);
+        } else if(token.type == 'N') {
+            auto* i = new integer(token.integer_value);
+            l->push_back(i);
+        } else if(token.type == ')') {
+            break;
+        } else if(token.type == '(') {
+            ts.put_back(token);
+            auto pList = dynamic_cast<list<s_expression>*>(closure());
+            l->push_back(pList);
+        } else if(token.type == 'F') {
+            ts.put_back(token);
+            return call_function();
+        } else if(token.type == 'D') {
+            ts.put_back(token);
+            return function_define();
+        } else {
+            throw std::runtime_error("wrong syntax: " + token.value);
+        }
+    }
+
+    return l;
 }
 
 auto interpreter::call_function() -> s_expression* {
@@ -147,61 +202,6 @@ auto interpreter::get_input_param() -> list<s_expression>* {
     }
 
     return params;
-}
-
-auto interpreter::closure() -> s_expression* {
-    const Token& left = ts.get();
-    if(left.type != '(') {
-        throw std::runtime_error("wrong syntax: " + left.value);
-    }
-
-    auto l = new list<s_expression>();
-    while(true) {
-        auto token = ts.get();
-        if(token.type == 'A') {
-            auto a = new atom(token.value);
-            l->push_back(a);
-        } else if(token.type == 'B') {
-            auto* b = new boolean(token.value == "#t" || token.value == "else");
-            l->push_back(b);
-        } else if(token.type == 'N') {
-            auto* i = new integer(token.integer_value);
-            l->push_back(i);
-        } else if(token.type == ')') {
-            break;
-        } else if(token.type == '(') {
-            ts.put_back(token);
-            auto pList = dynamic_cast<list<s_expression>*>(closure());
-            l->push_back(pList);
-        } else if(token.type == 'F') {
-            ts.put_back(token);
-            return call_function();
-        } else if(token.type == 'D') {
-            ts.put_back(token);
-            return function_define();
-        } else {
-            throw std::runtime_error("wrong syntax: " + token.value);
-        }
-    }
-
-    return l;
-}
-
-auto interpreter::construct_from_token() -> s_expression* {
-    auto token = ts.get();
-    s_expression* s_exp;
-    if(token.type == 'A') {
-        s_exp = new atom{token.value};
-    } else if(token.type == 'B') {
-        s_exp = new boolean{token.value == "#t" || token.value == "else" };
-    } else if(token.type == 'N') {
-        s_exp = new integer{ token.integer_value };
-    } else {
-        ts.put_back(token);
-        s_exp = closure();
-    }
-
-    return s_exp;
 }
 
 auto interpreter::function_define() -> function_declaration* {

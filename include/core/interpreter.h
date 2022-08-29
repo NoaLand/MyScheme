@@ -13,12 +13,12 @@
 class interpreter {
 public:
     interpreter(function_context& c, Token_stream& t_stream): context{c}, ts{t_stream} {};
-    auto scheme() -> void;
-    auto function_define() -> function_declaration*;
     auto construct_from_token() -> s_expression*;
-    auto call_function() -> s_expression*;
+    auto scheme() -> void;
     auto closure() -> s_expression*;
+    auto call_function() -> s_expression*;
     auto get_input_param() -> list<s_expression>*;
+    auto function_define() -> function_declaration*;
     auto collect_params() -> list<param>*;
     auto get_func_body(list<param>* params) -> std::string;
 private:
