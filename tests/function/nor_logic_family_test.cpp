@@ -34,3 +34,14 @@ TEST(OrLogicTest, should_return_true_when_r_and_l_are_true) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_EQ(res->val(), true);
 }
+
+TEST(OrLogicTest, should_return_false_when_r_and_l_are_false) {
+    auto l = new boolean{false};
+    auto r = new boolean{false};
+
+    auto f = new or_logic{l, r};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_EQ(res->val(), false);
+}
