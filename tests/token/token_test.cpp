@@ -2,79 +2,70 @@
 
 #include "token/token.h"
 
-TEST(TokenTest, should_get_from_buffer_when_using_putback_token) {
+class TokenTest: public testing::TestWithParam<const char*> {
+protected:
     std::istringstream is;
     function_context context;
     Token_stream ts{is, &context};
+};
 
+TEST_F(TokenTest, should_get_from_buffer_when_using_putback_token) {
     Token t{'('};
     ts.put_back(t);
 
     const Token &token = ts.get();
+    
     ASSERT_EQ(token.type, '(');
 }
 
-TEST(TokenTest, should_throw_exception_when_putback_token_twice_at_the_same_time) {
-    std::istringstream is;
-    function_context context;
-    Token_stream ts{is, &context};
-
+TEST_F(TokenTest, should_throw_exception_when_putback_token_twice_at_the_same_time) {
     Token t{'('};
     ts.put_back(t);
 
     ASSERT_ANY_THROW(ts.put_back(t));
 }
 
-TEST(TokenTest, should_return_token_with_left_parentheses_when_it_is_in_istream) {
-    std::istringstream is;
+TEST_F(TokenTest, should_return_token_with_left_parentheses_when_it_is_in_istream) {
     is.str("(\n");
-    function_context context;
-    Token_stream ts{is, &context};
 
     const Token &token = ts.get();
+
     ASSERT_EQ(token.type, '(');
 }
 
-TEST(TokenTest, should_return_token_with_N_type_when_getting_an_integer_123) {
-    std::istringstream is;
+TEST_F(TokenTest, should_return_token_with_N_type_when_getting_an_integer_123) {
     is.str("123\n");
-    function_context context;
     Token_stream ts{is, &context};
 
     const Token &token = ts.get();
+
     ASSERT_EQ(token.type, 'N');
     ASSERT_EQ(token.integer_value, 123);
 }
 
-TEST(TokenTest, should_return_A_type_when_getting_input_is_123ABC){
-    std::istringstream is;
+TEST_F(TokenTest, should_return_A_type_when_getting_input_is_123ABC){
     is.str("123ABC\n");
-    function_context context;
-    Token_stream ts{is, &context};
 
     const Token &token = ts.get();
+
     ASSERT_EQ(token.type, 'A');
     ASSERT_EQ(token.value, "123ABC");
 }
 
-TEST(TokenTest, should_return_F_type_when_token_is_quote) {
-    std::istringstream is;
+TEST_F(TokenTest, should_return_F_type_when_token_is_quote) {
     is.str("quote\n");
-    function_context context;
-    Token_stream ts{is, &context};
 
     const Token &token = ts.get();
+
     ASSERT_EQ(token.type, 'F');
     ASSERT_EQ(token.value, "quote");
 }
 
-TEST(TokenTest, should_return_F_type_when_token_is_car) {
-    std::istringstream is;
+TEST_F(TokenTest, should_return_F_type_when_token_is_car) {
     is.str("car\n");
-    function_context context;
-    Token_stream ts{is, &context};
 
     const Token &token = ts.get();
+
     ASSERT_EQ(token.type, 'F');
     ASSERT_EQ(token.value, "car");
 }
