@@ -5,7 +5,6 @@
 
 class FunctionDeclarationAndContextTest : public BaseTest {
 protected:
-    function_context context;
     std::shared_ptr<function_declaration> my_lambda{};
     const std::string my_lambda_body = "(car $l$ )";
 
