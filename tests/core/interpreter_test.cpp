@@ -58,3 +58,21 @@ TEST_F(InterpreterTest, should_get_function_body_successfully_when_function_body
 
     ASSERT_EQ(body, "(cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) ) ");
 }
+
+TEST_F(InterpreterTest, should_throw_exception_when_parsing_body_is_not_start_with_left_parentheses) {
+    is.str("(n m)\n");
+    auto params = inter.collect_params();
+
+    is.str("error function body\n");
+
+    ASSERT_ANY_THROW(inter.get_func_body(params));
+}
+
+TEST_F(InterpreterTest, should_throw_exception_when_parsing_body_is_not_start_with_right_parentheses) {
+    is.str("(n m)\n");
+    auto params = inter.collect_params();
+
+    is.str("(error function) body\n");
+
+    ASSERT_ANY_THROW(inter.get_func_body(params));
+}
