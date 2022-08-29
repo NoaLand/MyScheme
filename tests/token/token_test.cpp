@@ -26,9 +26,8 @@ TEST(TokenTest, should_throw_exception_when_putback_token_twice_at_the_same_time
 }
 
 TEST(TokenTest, should_return_token_with_N_type_when_getting_an_integer_123) {
-    std::string buf = "123\n";
     std::istringstream is;
-    is.str(buf);
+    is.str("123\n");
     function_context context;
     Token_stream ts{is, &context};
 
