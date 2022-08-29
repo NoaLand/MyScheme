@@ -41,3 +41,19 @@ TEST(QuoteTest, should_return_a1_when_quote_car_a1_a2_a3_list) {
     ASSERT_EQ(res->get_indicator(), "atom");
     ASSERT_EQ(res->get_value(), "a1");
 }
+
+TEST(QuoteTest, should_return_a1_a2_a3_list_value_when_quote_a1_a2_a3_list) {
+    auto l = new list<atom>{};
+    auto a1 = new atom{"a1"};
+    auto a2 = new atom{"a2"};
+    auto a3 = new atom{"a3"};
+    l->push_back(a1);
+    l->push_back(a2);
+    l->push_back(a3);
+
+    auto f = new quote{l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "atom");
+    ASSERT_EQ(res->get_value(), "( a1 a2 a3 )");
+}
