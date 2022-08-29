@@ -59,6 +59,15 @@ TEST_F(TokenTest, should_return_A_type_when_getting_input_is_123ABC){
     ASSERT_EQ(token.value, "123ABC");
 }
 
+TEST_F(TokenTest, should_return_D_type_when_getting_input_is_define) {
+    is.str("define\n");
+
+    const Token &token = ts.get();
+
+    ASSERT_EQ(token.type, 'D');
+    ASSERT_EQ(token.value, "");
+}
+
 TEST_P(TokenTest, should_return_F_type_when_token_is_stored) {
     preload_libs(context);
     std::string func_name = GetParam();
