@@ -7,6 +7,79 @@ protected:
     interpreter inter{context, ts};
 };
 
+class ConstructFromTokenTest: public InterpreterTest {
+};
+
+TEST_F(ConstructFromTokenTest, should_construct_atom_when_getting_is_buf_has_atom) {
+    is.str("123abc\n");
+
+    auto a = inter.construct_from_token();
+
+    ASSERT_EQ(a->get_indicator(), "atom");
+    ASSERT_EQ(a->get_value(), "123abc");
+}
+
+TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_true) {
+    is.str("#t\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "bool");
+    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
+    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
+}
+
+TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_else) {
+    is.str("else\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "bool");
+    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
+    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
+}
+
+TEST_F(ConstructFromTokenTest, should_construct_false_when_getting_is_buf_has_is_false) {
+    is.str("#f\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "bool");
+    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#f");
+    ASSERT_FALSE(dynamic_cast<boolean*>(t)->val());
+}
+
+TEST_F(ConstructFromTokenTest, should_construct_integer_10_when_getting_is_buf_has_10) {
+    is.str("10\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "integer");
+    ASSERT_EQ(dynamic_cast<integer*>(t)->get_value(), "10");
+    ASSERT_EQ(dynamic_cast<integer*>(t)->val(), 10);
+}
+
+class FunctionDefineTest: public InterpreterTest {
+};
+
+TEST_F(FunctionDefineTest, should_successfully_define_function_when_input_function_format_is_correct_in_syntax) {
+    is.str("define one? (lambda (n) (= n 1)))\n");
+
+    auto is_one = inter.function_define();
+
+    ASSERT_EQ(is_one->get_name(), "one?");
+    ASSERT_EQ(is_one->get_indicator(), "customized_function");
+    ASSERT_TRUE(context.is_in("one?"));
+}
+
+TEST_F(FunctionDefineTest, should_throw_exception_when_function_name_is_not_in_correct_type) {
+    is.str("define (wrong func name) (lambda (n) (= n 1)))\n");
+
+    ASSERT_ANY_THROW(inter.function_define());
+}
+
+TEST_F(FunctionDefineTest, should_throw_exception_when_function_define_has_not_lambda) {
+    is.str("define one? ((n) (= n 1)))\n");
+
+    ASSERT_ANY_THROW(inter.function_define());
+}
+
 class CollectParamsTest: public InterpreterTest {
 };
 
@@ -81,77 +154,4 @@ TEST_F(GetFuncBodyTest, should_throw_exception_when_parsing_body_is_not_start_wi
     is.str("(error function) body\n");
 
     ASSERT_ANY_THROW(inter.get_func_body(params));
-}
-
-class FunctionDefineTest: public InterpreterTest {
-};
-
-TEST_F(FunctionDefineTest, should_successfully_define_function_when_input_function_format_is_correct_in_syntax) {
-    is.str("define one? (lambda (n) (= n 1)))\n");
-
-    auto is_one = inter.function_define();
-
-    ASSERT_EQ(is_one->get_name(), "one?");
-    ASSERT_EQ(is_one->get_indicator(), "customized_function");
-    ASSERT_TRUE(context.is_in("one?"));
-}
-
-TEST_F(FunctionDefineTest, should_throw_exception_when_function_name_is_not_in_correct_type) {
-    is.str("define (wrong func name) (lambda (n) (= n 1)))\n");
-
-    ASSERT_ANY_THROW(inter.function_define());
-}
-
-TEST_F(FunctionDefineTest, should_throw_exception_when_function_define_has_not_lambda) {
-    is.str("define one? ((n) (= n 1)))\n");
-
-    ASSERT_ANY_THROW(inter.function_define());
-}
-
-class ConstructFromTokenTest: public InterpreterTest {
-};
-
-TEST_F(ConstructFromTokenTest, should_construct_atom_when_getting_is_buf_has_atom) {
-    is.str("123abc\n");
-
-    auto a = inter.construct_from_token();
-
-    ASSERT_EQ(a->get_indicator(), "atom");
-    ASSERT_EQ(a->get_value(), "123abc");
-}
-
-TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_true) {
-    is.str("#t\n");
-    auto t = inter.construct_from_token();
-
-    ASSERT_EQ(t->get_indicator(), "bool");
-    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
-    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
-}
-
-TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_else) {
-    is.str("else\n");
-    auto t = inter.construct_from_token();
-
-    ASSERT_EQ(t->get_indicator(), "bool");
-    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
-    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
-}
-
-TEST_F(ConstructFromTokenTest, should_construct_false_when_getting_is_buf_has_is_false) {
-    is.str("#f\n");
-    auto t = inter.construct_from_token();
-
-    ASSERT_EQ(t->get_indicator(), "bool");
-    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#f");
-    ASSERT_FALSE(dynamic_cast<boolean*>(t)->val());
-}
-
-TEST_F(ConstructFromTokenTest, should_construct_integer_10_when_getting_is_buf_has_10) {
-    is.str("10\n");
-    auto t = inter.construct_from_token();
-
-    ASSERT_EQ(t->get_indicator(), "integer");
-    ASSERT_EQ(dynamic_cast<integer*>(t)->get_value(), "10");
-    ASSERT_EQ(dynamic_cast<integer*>(t)->val(), 10);
 }
