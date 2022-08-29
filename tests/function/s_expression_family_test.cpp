@@ -112,3 +112,16 @@ TEST(IsEqTest, should_return_true_when_l_and_r_are_same_in_type_and_value) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_TRUE(res->val());
 }
+
+TEST(IsEqTest, should_return_false_when_l_is_atom_and_r_is_list_of_l) {
+    auto l = new atom{"a"};
+
+    auto r = new list<atom>{};
+    r->push_back(l);
+
+    auto f = new is_eq{l, r};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_FALSE(res->val());
+}
