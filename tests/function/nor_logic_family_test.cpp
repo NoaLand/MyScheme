@@ -52,3 +52,10 @@ TEST(OrLogicTest, should_throw_exception_when_l_is_not_a_boolean_type) {
 
     ASSERT_ANY_THROW(new or_logic(l, r));
 }
+
+TEST(OrLogicTest, should_throw_exception_when_r_is_not_a_boolean_type) {
+    auto l = new boolean{true};
+    auto r = new atom{"wrong_input_type"};
+
+    ASSERT_ANY_THROW(new or_logic(l, r));
+}
