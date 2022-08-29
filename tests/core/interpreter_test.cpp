@@ -107,3 +107,30 @@ TEST_F(InterpreterTest, should_construct_atom_when_getting_is_buf_has_atom) {
     ASSERT_EQ(a->get_indicator(), "atom");
     ASSERT_EQ(a->get_value(), "123abc");
 }
+
+TEST_F(InterpreterTest, should_construct_true_when_getting_is_buf_has_is_true) {
+    is.str("#t\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "bool");
+    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
+    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
+}
+
+TEST_F(InterpreterTest, should_construct_true_when_getting_is_buf_has_is_else) {
+    is.str("else\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "bool");
+    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
+    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
+}
+
+TEST_F(InterpreterTest, should_construct_false_when_getting_is_buf_has_is_false) {
+    is.str("#f\n");
+    auto t = inter.construct_from_token();
+
+    ASSERT_EQ(t->get_indicator(), "bool");
+    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#f");
+    ASSERT_FALSE(dynamic_cast<boolean*>(t)->val());
+}
