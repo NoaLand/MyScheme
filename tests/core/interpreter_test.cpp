@@ -68,6 +68,18 @@ TEST_F(GetInputParamTest, should_return_params_directly_when_input_is_a_list_of_
     ASSERT_EQ(inputs->get(2)->get_value(), "c");
 }
 
+TEST_F(GetInputParamTest, should_return_params_when_input_has_expression) {
+    is.str("a b (car ((a b c) c d)))\n");
+    auto inputs = inter.get_input_param();
+
+    ASSERT_EQ(inputs->size_of(), 3);
+    ASSERT_EQ(inputs->get(0)->get_value(), "a");
+    ASSERT_EQ(inputs->get(1)->get_value(), "b");
+
+    ASSERT_EQ(inputs->get(2)->get_indicator(), "list");
+    ASSERT_EQ(reinterpret_cast<list<atom>*>(inputs->get(2))->get_value(), "( a b c )");
+}
+
 class FunctionDefineTest: public InterpreterTest {
 };
 
