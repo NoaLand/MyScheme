@@ -10,6 +10,12 @@ protected:
     Token_stream ts{is, &context};
 };
 
+INSTANTIATE_TEST_SUITE_P(PreloadFunc,
+                         TokenTest,
+                         testing::Values("quote", "car", "cdr", "cons", "null?", "addtup", "atom?", "eq?", "number?",
+                                         "cond", "or?","and?", "zero?", "add1", "sub1", "lat?", "length", "member?",
+                                         "rember", "pick", "rempick", "+", "-", "*", "/", ">", "<", "=", "^"));
+
 TEST_F(TokenTest, should_get_from_buffer_when_using_putback_token) {
     Token t{'('};
     ts.put_back(t);
@@ -63,9 +69,3 @@ TEST_P(TokenTest, should_return_F_type_when_token_is_stored) {
     ASSERT_EQ(token.type, 'F');
     ASSERT_EQ(token.value, func_name);
 }
-
-INSTANTIATE_TEST_SUITE_P(PreloadFunc,
-                         TokenTest,
-                         testing::Values("quote", "car", "cdr", "cons", "null?", "addtup", "atom?", "eq?", "number?",
-                                         "cond", "or?","and?", "zero?", "add1", "sub1", "lat?", "length", "member?",
-                                         "rember", "pick", "rempick", "+", "-", "*", "/", ">", "<", "=", "^"));
