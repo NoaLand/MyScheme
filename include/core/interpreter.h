@@ -15,10 +15,6 @@ class interpreter {
 public:
     interpreter(function_context& c, Token_stream& t_stream): context{c}, ts{t_stream} {};
     auto scheme() -> void;
-private:
-    function_context& context;
-    Token_stream& ts;
-
     auto function_define() -> function_declaration*;
     auto construct_from_token() -> s_expression*;
     auto func() -> s_expression*;
@@ -27,5 +23,8 @@ private:
     auto collect_params() -> list<param>*;
     auto get_func_body(list<param>* params) -> std::string;
     auto ignore_else() -> void;
+private:
+    function_context& context;
+    Token_stream& ts;
 };
 #endif //MYSCHEME_INTERPRETER_H
