@@ -16,7 +16,7 @@ public:
     auto scheme() -> void;
     auto function_define() -> function_declaration*;
     auto construct_from_token() -> s_expression*;
-    auto func() -> s_expression*;
+    auto call_function() -> s_expression*;
     auto closure() -> s_expression*;
     auto get_input_param() -> list<s_expression>*;
     auto collect_params() -> list<param>*;

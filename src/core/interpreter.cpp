@@ -44,7 +44,7 @@ auto interpreter::scheme() -> void {
     }
 }
 
-auto interpreter::func() -> s_expression* {
+auto interpreter::call_function() -> s_expression* {
     auto func = ts.get();
     auto& function_key = func.value;
     function* f;
@@ -175,7 +175,7 @@ auto interpreter::closure() -> s_expression* {
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
-            return func();
+            return call_function();
         } else if(token.type == 'D') {
             ts.put_back(token);
             return function_define();
