@@ -70,3 +70,24 @@ TEST(IsNumberTest, should_return_true_when_input_is_a_number) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_TRUE(res->val());
 }
+
+
+TEST(IsNumberTest, should_return_false_when_input_is_an_atom) {
+    auto a = new atom{"a"};
+
+    auto f = new is_number{a};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_FALSE(res->val());
+}
+
+TEST(IsNumberTest, should_return_false_when_input_is_a_list) {
+    auto l = new list<atom>{};
+
+    auto f = new is_number{l};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_FALSE(res->val());
+}
