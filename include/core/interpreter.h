@@ -21,9 +21,10 @@ public:
     auto get_input_param() -> list<s_expression>*;
     auto collect_params() -> list<param>*;
     auto get_func_body(list<param>* params) -> std::string;
-    auto ignore_else() -> void;
 private:
     function_context& context;
     Token_stream& ts;
+
+    auto ignore_else() -> void;
 };
 #endif //MYSCHEME_INTERPRETER_H
