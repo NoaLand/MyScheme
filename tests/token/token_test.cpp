@@ -90,3 +90,21 @@ TEST_P(PrimitiveAndFuncTokenTest, should_return_F_type_when_token_is_stored) {
     ASSERT_EQ(token.type, 'F');
     ASSERT_EQ(token.value, func_name);
 }
+
+class BooleanTokenTest: public BaseTokenTest,
+                        public testing::WithParamInterface<std::string> {};
+
+INSTANTIATE_TEST_SUITE_P(BooleanKeyword,
+                         BooleanTokenTest,
+                         testing::Values("#t", "else", "#f"));
+
+TEST_P(BooleanTokenTest, should_return_B_type_when_token_is_stored) {
+    preload_libs(context);
+    std::string func_name = GetParam();
+    is.str(func_name + "\n");
+
+    const Token &token = ts.get();
+
+    ASSERT_EQ(token.type, 'B');
+    ASSERT_EQ(token.value, func_name);
+}
