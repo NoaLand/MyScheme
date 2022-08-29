@@ -55,6 +55,20 @@ TEST_F(ConstructFromTokenTest, should_construct_integer_10_when_getting_is_buf_h
     ASSERT_EQ(dynamic_cast<integer*>(t)->val(), 10);
 }
 
+class ClosureTest: public InterpreterTest {
+};
+
+TEST_F(ClosureTest, should_return_boolean_list_when_getting_true_true_and_false) {
+    is.str("(#t #t #f)\n");
+    auto boolean_list = inter.closure();
+
+    ASSERT_EQ(boolean_list->get_indicator(), "list");
+    ASSERT_EQ(reinterpret_cast<list<boolean>*>(boolean_list)->size_of(), 3);
+    ASSERT_TRUE(reinterpret_cast<list<boolean>*>(boolean_list)->get(0)->val());
+    ASSERT_TRUE(reinterpret_cast<list<boolean>*>(boolean_list)->get(1)->val());
+    ASSERT_FALSE(reinterpret_cast<list<boolean>*>(boolean_list)->get(2)->val());
+}
+
 class GetInputParamTest: public InterpreterTest {
 };
 
