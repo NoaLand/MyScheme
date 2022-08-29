@@ -91,3 +91,13 @@ TEST(IsNumberTest, should_return_false_when_input_is_a_list) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_FALSE(res->val());
 }
+
+TEST(IsEqTest, should_get_basic_info_when_successfully_create_is_eq_expression) {
+    auto l = new atom{"l"};
+    auto r = new atom{"r"};
+    auto f = new is_eq{l, r};
+
+    ASSERT_EQ(f->name(), "eq?");
+    ASSERT_EQ(f->return_type(), "bool");
+    ASSERT_EQ(f->family(), "s_expression");
+}
