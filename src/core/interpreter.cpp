@@ -19,31 +19,32 @@ auto interpreter::construct_from_token() -> s_expression* {
 
 auto interpreter::scheme() -> void {
     while(ts.get_istream()) {
-        std::cout << "> ";
+        std::ostream& os = ts.get_ostream();
+        os << "> ";
         auto token = ts.get();
         switch (token.type) {
             case 'A': {
                 s_expression* s_exp;
                 s_exp = new atom{token.value};
-                s_exp->print(std::cout);
+                s_exp->print(os);
                 continue;
             }
             case 'B': {
                 s_expression* s_exp;
                 s_exp = new boolean{token.value};
-                s_exp->print(std::cout);
+                s_exp->print(os);
                 continue;
             }
             case 'N': {
                 s_expression* s_exp;
                 s_exp = new integer{token.integer_value};
-                s_exp->print(std::cout);
+                s_exp->print(os);
                 continue;
             }
             case '(': {
                 ts.put_back(token);
                 auto s_exp = closure();
-                s_exp->print(std::cout);
+                s_exp->print(os);
                 continue;
             }
             case ')':
@@ -55,7 +56,7 @@ auto interpreter::scheme() -> void {
                 throw std::runtime_error("function definition can only inside closure!");
             }
             default:
-                std::cout << "others: " << token.value << std::endl;
+                os << "others: " << token.value << std::endl;
                 continue;
         }
     }
@@ -183,7 +184,7 @@ auto interpreter::call_function() -> s_expression* {
     }
 
     auto pExpression = f->execute();
-    std::cout << "-> " << f->name() << " -> " << f->return_type() << " [" << pExpression->get_value() << "]" << std::endl;
+    ts.get_ostream() << "-> " << f->name() << " -> " << f->return_type() << " [" << pExpression->get_value() << "]" << std::endl;
     return pExpression;
 }
 
