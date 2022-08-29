@@ -51,3 +51,12 @@ TEST(IsAtomTest, should_return_false_when_input_is_a_list) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_FALSE(res->val());
 }
+
+TEST(IsNumberTest, should_get_basic_info_when_successfully_create_is_number_expression) {
+    auto a = new atom{"a"};
+    auto f = new is_number{a};
+
+    ASSERT_EQ(f->name(), "number?");
+    ASSERT_EQ(f->return_type(), "bool");
+    ASSERT_EQ(f->family(), "s_expression");
+}
