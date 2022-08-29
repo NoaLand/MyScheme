@@ -2,8 +2,6 @@
 
 #include <utility>
 
-const char separator = 'S';
-
 Token Token_stream::get() {
     if(full) {
         full = false;
@@ -18,7 +16,7 @@ Token Token_stream::get() {
         case '(': case ')':
             return Token{ch};
         case ' ': case '\n':
-            return Token{separator};
+            return Token{'S'};
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9': {
             is.putback(ch);
