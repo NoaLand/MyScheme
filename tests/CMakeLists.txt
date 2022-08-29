@@ -19,6 +19,7 @@ add_executable(
         function/s_expression_family_test.cpp
         preload_libs/preload_libs_test.cpp
         token/token_test.cpp
+        core/interpreter_test.cpp
 )
 
 target_link_libraries(
