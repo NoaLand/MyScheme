@@ -98,3 +98,12 @@ TEST_F(InterpreterTest, should_throw_exception_when_function_define_has_not_lamb
 
     ASSERT_ANY_THROW(inter.function_define());
 }
+
+TEST_F(InterpreterTest, should_construct_atom_when_getting_is_buf_has_atom) {
+    is.str("123abc\n");
+
+    auto a = inter.construct_from_token();
+
+    ASSERT_EQ(a->get_indicator(), "atom");
+    ASSERT_EQ(a->get_value(), "123abc");
+}
