@@ -16,6 +16,7 @@ add_executable(
         function/math_family_test.cpp
         function/nor_logic_family_test.cpp
         function/others_test.cpp
+        function/s_expression_family_test.cpp
 )
 
 target_link_libraries(
