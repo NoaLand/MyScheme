@@ -45,3 +45,14 @@ TEST(TokenTest, should_return_token_with_N_type_when_getting_an_integer_123) {
     ASSERT_EQ(token.type, 'N');
     ASSERT_EQ(token.integer_value, 123);
 }
+
+TEST(TokenTest, should_return_A_type_when_getting_input_is_123ABC){
+    std::istringstream is;
+    is.str("123ABC\n");
+    function_context context;
+    Token_stream ts{is, &context};
+
+    const Token &token = ts.get();
+    ASSERT_EQ(token.type, 'A');
+    ASSERT_EQ(token.value, "123ABC");
+}
