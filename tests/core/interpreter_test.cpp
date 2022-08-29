@@ -69,6 +69,18 @@ TEST_F(ClosureTest, should_return_boolean_list_when_getting_true_true_and_false)
     ASSERT_FALSE(reinterpret_cast<list<boolean>*>(boolean_list)->get(2)->val());
 }
 
+TEST_F(ClosureTest, should_return_tuple_when_getting_list_of_integer) {
+    is.str("(1 2 3 4)\n");
+    auto tuple = inter.closure();
+
+    ASSERT_EQ(tuple->get_indicator(), "tuple");
+    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->size_of(), 4);
+    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(0)->val(), 1);
+    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(1)->val(), 2);
+    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(2)->val(), 3);
+    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(3)->val(), 4);
+}
+
 class GetInputParamTest: public InterpreterTest {
 };
 
