@@ -48,3 +48,13 @@ TEST_F(InterpreterTest, should_get_function_body_successfully_when_passing_corre
 
     ASSERT_EQ(body, "(cond ( ( sero? $m$ ) $n$ ) ( else ( edd1 ( p+ $n$ ( zub1 $m$ ) ) ) ) ) ");
 }
+
+TEST_F(InterpreterTest, should_get_function_body_successfully_when_function_body_has_integer) {
+    is.str("(n m)\n");
+    auto params = inter.collect_params();
+
+    is.str("(cond ((zero? m) 1) (else (* n (^ n (sub1 m)))))))\n");
+    auto body = inter.get_func_body(params);
+
+    ASSERT_EQ(body, "(cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) ) ");
+}
