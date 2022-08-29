@@ -7,7 +7,7 @@
 class or_logic: public function {
 public:
     or_logic(s_expression* l, s_expression* r) {
-        if(l->get_indicator() != "bool" && r->get_indicator() != "bool") {
+        if(l->get_indicator() != "bool" || r->get_indicator() != "bool") {
             throw std::runtime_error("wrong syntax: or need take bool as input");
         }
         left = dynamic_cast<boolean*>(l);
