@@ -250,7 +250,6 @@ auto interpreter::collect_params() -> list<param>* {
 
 auto interpreter::get_func_body(list<param>* params) -> std::string {
     const auto& left_bracket = ts.get();
-    auto param_list = params;
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare function body");
     }
@@ -261,7 +260,7 @@ auto interpreter::get_func_body(list<param>* params) -> std::string {
 
     while(true) {
         auto token = ts.get();
-        if(param_list->has_value(token.value)) {
+        if(params->has_value(token.value)) {
             body += "$" + token.value + "$";
         } else {
             body += token.value;
