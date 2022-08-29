@@ -7,7 +7,10 @@ protected:
     interpreter inter{context, ts};
 };
 
-TEST_F(InterpreterTest, should_get_one_param_successfully_when_passing_one_param_as_input) {
+class CollectParamsTest: public InterpreterTest {
+};
+
+TEST_F(CollectParamsTest, should_get_one_param_successfully_when_passing_one_param_as_input) {
     is.str("(l)\n");
 
     auto params = inter.collect_params();
@@ -16,7 +19,7 @@ TEST_F(InterpreterTest, should_get_one_param_successfully_when_passing_one_param
     ASSERT_EQ(params->get(0)->get_value(), "l");
 }
 
-TEST_F(InterpreterTest, should_get_params_successfully_when_passing_more_than_one_param) {
+TEST_F(CollectParamsTest, should_get_params_successfully_when_passing_more_than_one_param) {
     is.str("(new old l)\n");
 
     auto params = inter.collect_params();
@@ -27,19 +30,22 @@ TEST_F(InterpreterTest, should_get_params_successfully_when_passing_more_than_on
     ASSERT_EQ(params->get(2)->get_value(), "l");
 }
 
-TEST_F(InterpreterTest, should_throw_exception_when_the_first_token_is_not_left_parentheses) {
+TEST_F(CollectParamsTest, should_throw_exception_when_the_first_token_is_not_left_parentheses) {
     is.str("wrong (new old l)\n");
 
     ASSERT_ANY_THROW(inter.collect_params());
 }
 
-TEST_F(InterpreterTest, should_throw_exception_when_params_type_are_not_list_of_atom) {
+TEST_F(CollectParamsTest, should_throw_exception_when_params_type_are_not_list_of_atom) {
     is.str("(cdr (wrong new old l))\n");
 
     ASSERT_ANY_THROW(inter.collect_params());
 }
 
-TEST_F(InterpreterTest, should_get_function_body_successfully_when_passing_correct_syntax_body) {
+class GetFuncBodyTest: public InterpreterTest {
+};
+
+TEST_F(GetFuncBodyTest, should_get_function_body_successfully_when_passing_correct_syntax_body) {
     is.str("(n m)\n");
     auto params = inter.collect_params();
 
@@ -49,7 +55,7 @@ TEST_F(InterpreterTest, should_get_function_body_successfully_when_passing_corre
     ASSERT_EQ(body, "(cond ( ( sero? $m$ ) $n$ ) ( else ( edd1 ( p+ $n$ ( zub1 $m$ ) ) ) ) ) ");
 }
 
-TEST_F(InterpreterTest, should_get_function_body_successfully_when_function_body_has_integer) {
+TEST_F(GetFuncBodyTest, should_get_function_body_successfully_when_function_body_has_integer) {
     is.str("(n m)\n");
     auto params = inter.collect_params();
 
@@ -59,7 +65,7 @@ TEST_F(InterpreterTest, should_get_function_body_successfully_when_function_body
     ASSERT_EQ(body, "(cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) ) ");
 }
 
-TEST_F(InterpreterTest, should_throw_exception_when_parsing_body_is_not_start_with_left_parentheses) {
+TEST_F(GetFuncBodyTest, should_throw_exception_when_parsing_body_is_not_start_with_left_parentheses) {
     is.str("(n m)\n");
     auto params = inter.collect_params();
 
@@ -68,7 +74,7 @@ TEST_F(InterpreterTest, should_throw_exception_when_parsing_body_is_not_start_wi
     ASSERT_ANY_THROW(inter.get_func_body(params));
 }
 
-TEST_F(InterpreterTest, should_throw_exception_when_parsing_body_is_not_start_with_right_parentheses) {
+TEST_F(GetFuncBodyTest, should_throw_exception_when_parsing_body_is_not_start_with_right_parentheses) {
     is.str("(n m)\n");
     auto params = inter.collect_params();
 
@@ -77,7 +83,10 @@ TEST_F(InterpreterTest, should_throw_exception_when_parsing_body_is_not_start_wi
     ASSERT_ANY_THROW(inter.get_func_body(params));
 }
 
-TEST_F(InterpreterTest, should_successfully_define_function_when_input_function_format_is_correct_in_syntax) {
+class FunctionDefineTest: public InterpreterTest {
+};
+
+TEST_F(FunctionDefineTest, should_successfully_define_function_when_input_function_format_is_correct_in_syntax) {
     is.str("define one? (lambda (n) (= n 1)))\n");
 
     auto is_one = inter.function_define();
@@ -87,19 +96,22 @@ TEST_F(InterpreterTest, should_successfully_define_function_when_input_function_
     ASSERT_TRUE(context.is_in("one?"));
 }
 
-TEST_F(InterpreterTest, should_throw_exception_when_function_name_is_not_in_correct_type) {
+TEST_F(FunctionDefineTest, should_throw_exception_when_function_name_is_not_in_correct_type) {
     is.str("define (wrong func name) (lambda (n) (= n 1)))\n");
 
     ASSERT_ANY_THROW(inter.function_define());
 }
 
-TEST_F(InterpreterTest, should_throw_exception_when_function_define_has_not_lambda) {
+TEST_F(FunctionDefineTest, should_throw_exception_when_function_define_has_not_lambda) {
     is.str("define one? ((n) (= n 1)))\n");
 
     ASSERT_ANY_THROW(inter.function_define());
 }
 
-TEST_F(InterpreterTest, should_construct_atom_when_getting_is_buf_has_atom) {
+class ConstructFromTokenTest: public InterpreterTest {
+};
+
+TEST_F(ConstructFromTokenTest, should_construct_atom_when_getting_is_buf_has_atom) {
     is.str("123abc\n");
 
     auto a = inter.construct_from_token();
@@ -108,7 +120,7 @@ TEST_F(InterpreterTest, should_construct_atom_when_getting_is_buf_has_atom) {
     ASSERT_EQ(a->get_value(), "123abc");
 }
 
-TEST_F(InterpreterTest, should_construct_true_when_getting_is_buf_has_is_true) {
+TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_true) {
     is.str("#t\n");
     auto t = inter.construct_from_token();
 
@@ -117,7 +129,7 @@ TEST_F(InterpreterTest, should_construct_true_when_getting_is_buf_has_is_true) {
     ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
 }
 
-TEST_F(InterpreterTest, should_construct_true_when_getting_is_buf_has_is_else) {
+TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_else) {
     is.str("else\n");
     auto t = inter.construct_from_token();
 
@@ -126,7 +138,7 @@ TEST_F(InterpreterTest, should_construct_true_when_getting_is_buf_has_is_else) {
     ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
 }
 
-TEST_F(InterpreterTest, should_construct_false_when_getting_is_buf_has_is_false) {
+TEST_F(ConstructFromTokenTest, should_construct_false_when_getting_is_buf_has_is_false) {
     is.str("#f\n");
     auto t = inter.construct_from_token();
 
@@ -135,7 +147,7 @@ TEST_F(InterpreterTest, should_construct_false_when_getting_is_buf_has_is_false)
     ASSERT_FALSE(dynamic_cast<boolean*>(t)->val());
 }
 
-TEST_F(InterpreterTest, should_construct_integer_10_when_getting_is_buf_has_10) {
+TEST_F(ConstructFromTokenTest, should_construct_integer_10_when_getting_is_buf_has_10) {
     is.str("10\n");
     auto t = inter.construct_from_token();
 
