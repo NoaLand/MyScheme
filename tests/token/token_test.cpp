@@ -56,3 +56,25 @@ TEST(TokenTest, should_return_A_type_when_getting_input_is_123ABC){
     ASSERT_EQ(token.type, 'A');
     ASSERT_EQ(token.value, "123ABC");
 }
+
+TEST(TokenTest, should_return_F_type_when_token_is_quote) {
+    std::istringstream is;
+    is.str("quote\n");
+    function_context context;
+    Token_stream ts{is, &context};
+
+    const Token &token = ts.get();
+    ASSERT_EQ(token.type, 'F');
+    ASSERT_EQ(token.value, "quote");
+}
+
+TEST(TokenTest, should_return_F_type_when_token_is_car) {
+    std::istringstream is;
+    is.str("car\n");
+    function_context context;
+    Token_stream ts{is, &context};
+
+    const Token &token = ts.get();
+    ASSERT_EQ(token.type, 'F');
+    ASSERT_EQ(token.value, "car");
+}
