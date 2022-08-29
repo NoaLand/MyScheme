@@ -89,6 +89,10 @@ std::istream& Token_stream::get_istream() {
     return is;
 }
 
+std::ostream& Token_stream::get_ostream() {
+    return os;
+}
+
 void Token_stream::put_back(Token t) {
     if(full) {
         throw std::runtime_error("buffer is full!!!");

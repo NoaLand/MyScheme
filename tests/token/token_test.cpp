@@ -32,7 +32,6 @@ TEST_F(BaseTokenTest, should_return_token_with_left_parentheses_when_it_is_in_is
 
 TEST_F(BaseTokenTest, should_return_token_with_N_type_when_getting_an_integer_123) {
     is.str("123\n");
-    Token_stream ts{is, &context};
 
     const Token &token = ts.get();
 

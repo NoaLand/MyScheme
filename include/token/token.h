@@ -21,15 +21,17 @@ public:
 // for Token_stream, our compiler will load Scheme code as istream, I gonna wrap it and refer this as the wrapper of istream, which means, it will have buffer, and istream inside of it
 class Token_stream {
 public:
-    Token_stream(std::istream& i, function_context* c): is(i), context(c), full(false), buffer(0) {}
+    Token_stream(std::istream& i, std::ostream& o, function_context* c): is(i), os(o), context(c), full(false), buffer(0) {}
     Token get();
     std::istream& get_istream();
+    std::ostream& get_ostream();
     void put_back(Token);
     void put_back(std::string);
 private:
     bool full;
     Token buffer;
     std::istream& is;
+    std::ostream& os;
     function_context* context;
 };
 
