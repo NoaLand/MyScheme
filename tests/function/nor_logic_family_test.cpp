@@ -23,3 +23,14 @@ TEST(OrLogicTest, should_return_true_when_r_or_l_is_true) {
     ASSERT_EQ(res->get_indicator(), "bool");
     ASSERT_EQ(res->val(), true);
 }
+
+TEST(OrLogicTest, should_return_true_when_r_and_l_are_true) {
+    auto l = new boolean{true};
+    auto r = new boolean{true};
+
+    auto f = new or_logic{l, r};
+    auto res = f->execute();
+
+    ASSERT_EQ(res->get_indicator(), "bool");
+    ASSERT_EQ(res->val(), true);
+}
