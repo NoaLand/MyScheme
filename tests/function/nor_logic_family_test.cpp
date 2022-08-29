@@ -21,7 +21,7 @@ TEST(OrLogicTest, should_return_true_when_r_or_l_is_true) {
     auto res = f->execute();
 
     ASSERT_EQ(res->get_indicator(), "bool");
-    ASSERT_EQ(res->val(), true);
+    ASSERT_TRUE(res->val());
 }
 
 TEST(OrLogicTest, should_return_true_when_r_and_l_are_true) {
@@ -32,7 +32,7 @@ TEST(OrLogicTest, should_return_true_when_r_and_l_are_true) {
     auto res = f->execute();
 
     ASSERT_EQ(res->get_indicator(), "bool");
-    ASSERT_EQ(res->val(), true);
+    ASSERT_TRUE(res->val());
 }
 
 TEST(OrLogicTest, should_return_false_when_r_and_l_are_false) {
@@ -43,7 +43,7 @@ TEST(OrLogicTest, should_return_false_when_r_and_l_are_false) {
     auto res = f->execute();
 
     ASSERT_EQ(res->get_indicator(), "bool");
-    ASSERT_EQ(res->val(), false);
+    ASSERT_FALSE(res->val());
 }
 
 TEST(OrLogicTest, should_throw_exception_when_l_is_not_a_boolean_type) {
