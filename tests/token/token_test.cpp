@@ -1,13 +1,9 @@
 #include <gtest/gtest.h>
 
+#include "base_test.h"
 #include "preload_libs/preload_libs.h"
-#include "token/token.h"
 
-class BaseTokenTest: public testing::Test {
-protected:
-    std::istringstream is;
-    function_context context;
-    Token_stream ts{is, &context};
+class BaseTokenTest: public BaseTest {
 };
 
 TEST_F(BaseTokenTest, should_get_from_buffer_when_using_putback_token) {
@@ -71,7 +67,7 @@ TEST_F(BaseTokenTest, should_return_L_type_when_getting_input_is_lambda) {
     ASSERT_EQ(token.value, "");
 }
 
-class PrimitiveAndFuncTokenTest: public BaseTokenTest,
+class PrimitiveAndFuncTokenTest: public BaseTest,
                                  public testing::WithParamInterface<std::string> {};
 
 INSTANTIATE_TEST_SUITE_P(PreloadFunc,
@@ -91,7 +87,7 @@ TEST_P(PrimitiveAndFuncTokenTest, should_return_F_type_when_token_is_stored) {
     ASSERT_EQ(token.value, func_name);
 }
 
-class BooleanTokenTest: public BaseTokenTest,
+class BooleanTokenTest: public BaseTest,
                         public testing::WithParamInterface<std::string> {};
 
 INSTANTIATE_TEST_SUITE_P(BooleanKeyword,
