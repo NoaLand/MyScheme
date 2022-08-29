@@ -86,3 +86,9 @@ TEST_F(InterpreterTest, should_successfully_define_function_when_input_function_
     ASSERT_EQ(is_one->get_indicator(), "customized_function");
     ASSERT_TRUE(context.is_in("one?"));
 }
+
+TEST_F(InterpreterTest, should_throw_exception_when_function_name_is_not_in_correct_type) {
+    is.str("define (wrong func name) (lambda (n) (= n 1)))\n");
+
+    ASSERT_ANY_THROW(inter.function_define());
+}
