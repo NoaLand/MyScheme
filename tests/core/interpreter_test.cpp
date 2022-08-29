@@ -76,3 +76,13 @@ TEST_F(InterpreterTest, should_throw_exception_when_parsing_body_is_not_start_wi
 
     ASSERT_ANY_THROW(inter.get_func_body(params));
 }
+
+TEST_F(InterpreterTest, should_successfully_define_function_when_input_function_format_is_correct_in_syntax) {
+    is.str("define one? (lambda (n) (= n 1)))\n");
+
+    auto is_one = inter.function_define();
+
+    ASSERT_EQ(is_one->get_name(), "one?");
+    ASSERT_EQ(is_one->get_indicator(), "customized_function");
+    ASSERT_TRUE(context.is_in("one?"));
+}
