@@ -8,7 +8,7 @@ add_library(SchemeCore
         function/nor_logic_family.cpp
         function/math_family.cpp
         function/others.cpp
-        )
+        preload_libs/preload_libs.cpp)
 
 target_include_directories(SchemeCore PUBLIC ../include)
 target_compile_features(SchemeCore PUBLIC cxx_std_20)
