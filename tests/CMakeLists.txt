@@ -20,7 +20,7 @@ add_executable(
         preload_libs/preload_libs_test.cpp
         token/token_test.cpp
         core/interpreter_test.cpp
-)
+        scheme/scheme_atom.cpp)
 
 target_include_directories(SchemeCore PUBLIC ./)
 target_link_libraries(
