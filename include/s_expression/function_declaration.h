@@ -11,6 +11,7 @@
 
 class function_declaration: public s_expression {
 public:
+    function_declaration() = default;
     function_declaration(std::string n, list<param>* p, std::string b): name(std::move(n)), params(p), body(std::move(b)) {}
     std::string get_name() { return name; }
     list<param>* get_params() { return params; }

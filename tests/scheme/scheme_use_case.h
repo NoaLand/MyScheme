@@ -4,23 +4,51 @@
 #include <base_test.h>
 
 #include <utility>
+#include <concepts>
 
 #include "core/interpreter.h"
 
+template <typename T>
+requires std::derived_from<T, s_expression>
 class UseCase {
 public:
-    UseCase(std::string i, std::string e, bool exception = false): input(std::move(i) + "\n"), expected_output(std::move(e)), handle_throw(exception) {};
+    UseCase(std::string i, std::string e, bool exception = false):
+        input(std::move(i) + "\n"),
+        handle_throw(exception) {
+
+        if(!std::is_abstract_v<T>) {
+            if(std::is_same_v<T, list<atom>>
+                || std::is_same_v<T, list<boolean>>
+                || std::is_same_v<T, list<function_declaration>>
+                || std::is_same_v<T, list<param>>
+                || std::is_same_v<T, list<s_expression>>) {
+                expected_output = "list: " + std::move(e);
+            } else {
+                mem = new T{};
+                expected_output = reinterpret_cast<s_expression*>(mem)->get_indicator() + ": " + std::move(e);
+            }
+        }
+    };
+
+    template<typename D> explicit UseCase(const UseCase<D>& u) {
+        handle_throw = u.handle_throw;
+        input = u.input;
+        expected_output = u.expected_output;
+        mem = reinterpret_cast<T*>(u.mem);
+    }
+
+    bool handle_throw;
     std::string input;
     std::string expected_output;
-    bool handle_throw;
+    T* mem;
 };
 
 class SchemeUseCaseBaseTest: public BaseTest,
-                             public testing::WithParamInterface<UseCase> {
+                             public testing::WithParamInterface<UseCase<s_expression>> {
 protected:
     interpreter inter{context, ts};
 
-    inline void scheme(UseCase& use_case) {
+    inline void scheme(UseCase<s_expression>& use_case) {
         std::string expression = use_case.input;
         is.str(expression);
 

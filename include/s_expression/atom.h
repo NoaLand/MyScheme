@@ -8,6 +8,7 @@
 
 class atom: public s_expression {
 public:
+    atom() = default;
     explicit atom(std::string v): value(std::move(v)) {}
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
@@ -19,6 +20,7 @@ private:
 
 class boolean: public s_expression {
 public:
+    boolean() = default;
     explicit boolean(bool b) {
         value = b ? "#t" : "#f";
     }
@@ -40,6 +42,7 @@ private:
 
 class integer: public s_expression {
 public:
+    integer() = default;
     explicit integer(int i): value(i) {}
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
