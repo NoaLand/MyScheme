@@ -15,13 +15,6 @@ TEST_F(BaseTokenTest, should_get_from_buffer_when_using_putback_token) {
     ASSERT_EQ(token.type, '(');
 }
 
-TEST_F(BaseTokenTest, should_throw_exception_when_putback_token_twice_at_the_same_time) {
-    Token t{'('};
-    ts.put_back(t);
-
-    ASSERT_ANY_THROW(ts.put_back(t));
-}
-
 TEST_F(BaseTokenTest, should_return_token_with_left_parentheses_when_it_is_in_istream) {
     is.str("(\n");
 

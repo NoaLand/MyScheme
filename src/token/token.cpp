@@ -3,8 +3,9 @@
 #include <utility>
 
 Token Token_stream::get() {
-    if(full) {
-        full = false;
+    if(!buffer_queue.empty()) {
+        Token buffer = buffer_queue.front();
+        buffer_queue.pop();
         return buffer;
     }
 
@@ -94,12 +95,7 @@ std::ostream& Token_stream::get_ostream() {
 }
 
 void Token_stream::put_back(Token t) {
-    if(full) {
-        throw std::runtime_error("buffer is full!!!");
-    }
-
-    full = true;
-    buffer = std::move(t);
+    buffer_queue.push(t);
 }
 
 void Token_stream::put_back(std::string r) {
