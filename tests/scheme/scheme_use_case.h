@@ -7,6 +7,7 @@
 #include <concepts>
 
 #include "core/interpreter.h"
+#include "preload_libs/preload_libs.h"
 
 template <typename T>
 requires std::derived_from<T, s_expression>
@@ -48,6 +49,12 @@ class SchemeUseCaseBaseTest: public BaseTest,
                              public testing::WithParamInterface<UseCase<s_expression>> {
 protected:
     interpreter inter{context, ts};
+
+    inline void function_define(const std::string& func_name, const std::string& func_definition) {
+        is.str(func_definition + "\n");
+        inter.scheme();
+        ASSERT_TRUE(context.is_in(func_name));
+    }
 
     inline void scheme(UseCase<s_expression>& use_case) {
         std::string expression = use_case.input;
