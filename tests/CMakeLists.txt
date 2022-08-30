@@ -23,7 +23,7 @@ add_executable(
         scheme/atom_group/scheme_atom.cpp
         scheme/list_group/scheme_list.cpp
         scheme/list_group/list_family_group/scheme_list_function.cpp
-        scheme/atom_group/atom_family_group/scheme_atom_function.cpp
+        scheme/s_expression_family_group/scheme_s_expression_function.cpp
 )
 
 target_include_directories(SchemeCore PUBLIC ./)
