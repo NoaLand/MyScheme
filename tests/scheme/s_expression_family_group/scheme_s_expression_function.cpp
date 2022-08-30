@@ -28,7 +28,13 @@ INSTANTIATE_TEST_SUITE_P(IsEqGroup,
                          IsEqGroupTest,
                          testing::Values(
                                  UseCase("(eq? Harry Harry)", "bool: #t"),
-                                 UseCase("(eq? margarine butter)", "bool: #f")
+                                 UseCase("(eq? margarine butter)", "bool: #f"),
+                                 UseCase("(eq? () (strawberry))", "bool: #f"),
+                                 UseCase("(eq? 6 7)", "bool: #f"),
+                                 UseCase("(eq? (car (Mary had a little lamb chop)) Mary)", "bool: #t"),
+                                 UseCase("(eq? (cdr (soured milk)) milk)", "bool: #f"),
+                                 UseCase("(eq? (car (beans beans we need jelly beans))"
+                                                 "(car (cdr (beans beans we need jelly beans))))", "bool: #t")
                          ));
 
 TEST_P(IsEqGroupTest, should_return_expected_is_eq_res_from_scheme_interpreter) {
