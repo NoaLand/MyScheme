@@ -22,6 +22,7 @@ add_executable(
         core/interpreter_test.cpp
         scheme/atom_group/scheme_atom.cpp
         scheme/list_group/scheme_list.cpp
+        scheme/list_family_group/scheme_list_function.cpp
 )
 
 target_include_directories(SchemeCore PUBLIC ./)
