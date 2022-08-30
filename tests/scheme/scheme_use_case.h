@@ -26,6 +26,7 @@ protected:
 
         if(use_case.handle_throw) {
             ASSERT_ANY_THROW(inter.scheme());
+            std::cout << use_case.expected_output << std::endl;
         } else {
             inter.scheme();
             ASSERT_THAT(os.str(), HasSubstr(use_case.expected_output));
