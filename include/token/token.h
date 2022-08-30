@@ -27,7 +27,7 @@ public:
     Token get();
     std::istream& get_istream();
     std::ostream& get_ostream();
-    void put_back(Token);
+    void put_back(const Token&);
     void put_back(std::string);
 private:
     std::queue<Token> buffer_queue;

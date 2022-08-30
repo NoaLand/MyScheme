@@ -94,7 +94,7 @@ std::ostream& Token_stream::get_ostream() {
     return os;
 }
 
-void Token_stream::put_back(Token t) {
+void Token_stream::put_back(const Token& t) {
     buffer_queue.push(t);
 }
 
