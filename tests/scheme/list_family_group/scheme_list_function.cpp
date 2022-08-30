@@ -78,3 +78,20 @@ TEST_P(ConsFunctionGroupTest, should_return_expected_cons_res_from_scheme_interp
 
     scheme(use_case);
 }
+
+class IsNullFunctionGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsNullGroup,
+                         IsNullFunctionGroupTest,
+                         testing::Values(
+                                 UseCase("(null? ())", "bool: #t"),
+                                 UseCase("(null? (a b c))", "bool: #f"),
+                                 UseCase("(null? spaghetti)", "should throw! null? take a list as param", true)
+                         ));
+
+TEST_P(IsNullFunctionGroupTest, should_return_expected_is_null_res_from_scheme_interpreter) {
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
