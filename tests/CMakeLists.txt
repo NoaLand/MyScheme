@@ -27,4 +27,5 @@ target_link_libraries(
         SchemeCoreTest
         SchemeCore
         gtest_main
+        gmock_main
 )
