@@ -13,10 +13,7 @@ INSTANTIATE_TEST_SUITE_P(AtomGroup,
                          ));
 
 TEST_P(SchemeAtomGroupTest, should_return_expected_atom_from_scheme_interpreter) {
-    std::string an_atom = GetParam().input;
-    is.str(an_atom);
+    UseCase use_case = GetParam();
 
-    inter.scheme();
-
-    ASSERT_THAT(os.str(), HasSubstr(GetParam().expected_output));
+    scheme(use_case);
 }

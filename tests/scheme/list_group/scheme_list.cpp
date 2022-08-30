@@ -17,10 +17,7 @@ INSTANTIATE_TEST_SUITE_P(ListGroup,
                          ));
 
 TEST_P(SchemeListGroupTest, should_return_expected_list_from_scheme_interpreter) {
-    std::string a_list = GetParam().input;
-    is.str(a_list);
+    UseCase use_case = GetParam();
 
-    inter.scheme();
-
-    ASSERT_THAT(os.str(), HasSubstr(GetParam().expected_output));
+    scheme(use_case);
 }

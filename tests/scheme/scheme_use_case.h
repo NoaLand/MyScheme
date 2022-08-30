@@ -18,6 +18,15 @@ class SchemeUseCaseBaseTest: public BaseTest,
                              public testing::WithParamInterface<UseCase> {
 protected:
     interpreter inter{context, ts};
+
+    inline void scheme(UseCase& use_case) {
+        std::string expression = use_case.input;
+        is.str(expression);
+
+        inter.scheme();
+
+        ASSERT_THAT(os.str(), HasSubstr(use_case.expected_output));
+    }
 };
 
 #endif //MYSCHEME_SCHEME_USE_CASE_H

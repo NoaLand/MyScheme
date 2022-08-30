@@ -13,10 +13,7 @@ INSTANTIATE_TEST_SUITE_P(CarGroup,
                          ));
 
 TEST_P(CarFunctionGroupTest, should_return_expected_car_res_from_scheme_interpreter) {
-    std::string car_func = GetParam().input;
-    is.str(car_func);
+    UseCase use_case = GetParam();
 
-    inter.scheme();
-
-    ASSERT_THAT(os.str(), HasSubstr(GetParam().expected_output));
+    scheme(use_case);
 }
