@@ -81,6 +81,17 @@ TEST_F(ClosureTest, should_return_tuple_when_getting_list_of_integer) {
     ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(3)->val(), 4);
 }
 
+TEST_F(ClosureTest, should_define_and_store_lambda_successfully_when_calling_with_closure) {
+    is.str("(define one? (lambda (n) (= n 1)))\n");
+
+    auto is_one = inter.closure();
+
+    ASSERT_EQ(is_one->get_indicator(), "customized_function");
+    ASSERT_EQ(dynamic_cast<function_declaration*>(is_one)->get_name(), "one?");
+    ASSERT_TRUE(context.is_in("one?"));
+
+}
+
 TEST_F(ClosureTest, should_throw_exception_when_closure_not_start_from_a_parentheses) {
     is.str("wrong (aa)\n");
 
