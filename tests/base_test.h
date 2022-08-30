@@ -4,8 +4,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
+#include "core/function_context.h"
+#include "token/token_stream.h"
 #include "s_expression/function_declaration.h"
-#include "token/token.h"
 
 using ::testing::HasSubstr;
 

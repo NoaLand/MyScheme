@@ -1,7 +1,9 @@
 #ifndef MYSCHEME_INTERPRETER_H
 #define MYSCHEME_INTERPRETER_H
 
-#include "token/token.h"
+#include "core/function_context.h"
+
+#include "token/token_stream.h"
 
 #include "function/function.h"
 #include "function/list_family.h"
