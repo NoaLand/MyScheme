@@ -1,9 +1,6 @@
-#include <base_test.h>
+#include "scheme/scheme_use_case.h"
 
-#include "core/interpreter.h"
-
-class SchemeAtomGroupTest: public BaseTest,
-                           public testing::WithParamInterface<std::string> {
+class SchemeAtomGroupTest: public SchemeUseCaseBaseTest {
 protected:
     interpreter inter{context, ts};
 };
