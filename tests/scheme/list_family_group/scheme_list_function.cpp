@@ -12,9 +12,9 @@ INSTANTIATE_TEST_SUITE_P(AtomGroup,
                                  UseCase("(car (car (((hotdogs)) (and))))", "list: ( hotdogs )")
                          ));
 
-TEST_P(CarFunctionGroupTest, should_return_expected_list_from_scheme_interpreter) {
-    std::string an_atom = GetParam().input;
-    is.str(an_atom);
+TEST_P(CarFunctionGroupTest, should_return_expected_car_res_from_scheme_interpreter) {
+    std::string car_func = GetParam().input;
+    is.str(car_func);
 
     inter.scheme();
 
