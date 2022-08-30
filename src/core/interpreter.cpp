@@ -260,9 +260,9 @@ auto interpreter::get_func_body(const std::string& func_name, list<param>* param
     while(true) {
         auto token = ts.get();
         if(params->has_value(token.value)) {
-            body.push_back(Token{'P', token.value});
+            body.emplace_back('P', token.value);
         } else if (token.value == func_name){
-            body.push_back(Token{'F', token.value});
+            body.emplace_back('F', token.value);
         } else {
             body.push_back(token);
         }
