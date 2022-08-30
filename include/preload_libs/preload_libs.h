@@ -3,7 +3,7 @@
 
 #include "s_expression/list.h"
 #include "s_expression/params.h"
-#include "s_expression/function_declaration.h"
+#include "core/function_context.h"
 
 auto preload_libs(function_context& context) -> void;
 
