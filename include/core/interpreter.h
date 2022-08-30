@@ -24,7 +24,7 @@ public:
 
     auto function_define() -> function_declaration*;
     auto collect_params() -> list<param>*;
-    auto get_func_body(list<param>* params) -> std::string;
+    auto get_func_body(const std::string& func_name, list<param>* params) -> std::string;
 private:
     function_context& context;
     Token_stream& ts;
