@@ -18,47 +18,45 @@ auto interpreter::construct_from_token() -> s_expression* {
 }
 
 auto interpreter::scheme() -> void {
-    while(ts.get_istream()) {
-        std::ostream& os = ts.get_ostream();
-        os << "> ";
-        auto token = ts.get();
-        switch (token.type) {
-            case 'A': {
-                s_expression* s_exp;
-                s_exp = new atom{token.value};
-                s_exp->print(os);
-                continue;
-            }
-            case 'B': {
-                s_expression* s_exp;
-                s_exp = new boolean{token.value};
-                s_exp->print(os);
-                continue;
-            }
-            case 'N': {
-                s_expression* s_exp;
-                s_exp = new integer{token.integer_value};
-                s_exp->print(os);
-                continue;
-            }
-            case '(': {
-                ts.put_back(token);
-                auto s_exp = closure();
-                s_exp->print(os);
-                continue;
-            }
-            case ')':
-                continue;
-            case 'F': {
-                throw std::runtime_error("function **" + token.value + "** can only call in closure!");
-            }
-            case 'D': {
-                throw std::runtime_error("function definition can only inside closure!");
-            }
-            default:
-                os << "others: " << token.value << std::endl;
-                continue;
+    std::ostream& os = ts.get_ostream();
+    os << "> ";
+    auto token = ts.get();
+    switch (token.type) {
+        case 'A': {
+            s_expression* s_exp;
+            s_exp = new atom{token.value};
+            s_exp->print(os);
+            break;
         }
+        case 'B': {
+            s_expression* s_exp;
+            s_exp = new boolean{token.value};
+            s_exp->print(os);
+            break;
+        }
+        case 'N': {
+            s_expression* s_exp;
+            s_exp = new integer{token.integer_value};
+            s_exp->print(os);
+            break;
+        }
+        case '(': {
+            ts.put_back(token);
+            auto s_exp = closure();
+            s_exp->print(os);
+            break;
+        }
+        case ')':
+            break;
+        case 'F': {
+            throw std::runtime_error("function **" + token.value + "** can only call in closure!");
+        }
+        case 'D': {
+            throw std::runtime_error("function definition can only inside closure!");
+        }
+        default:
+            os << "others: " << token.value << std::endl;
+            break;
     }
 }
 

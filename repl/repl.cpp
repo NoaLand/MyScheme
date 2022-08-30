@@ -10,7 +10,12 @@ int main() {
     Token_stream ts{is, os, &context};
 
     preload_libs(context);
+
     ts.get_ostream() << "Let's start!" << std::endl;
-    interpreter{context, ts}.scheme();
+
+    auto i = interpreter{context, ts};
+    while(ts.get_istream()) {
+        i.scheme();
+    }
 }
 
