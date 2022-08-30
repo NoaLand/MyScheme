@@ -31,7 +31,7 @@ std::string function_context::instantiate(list<s_expression>* input_params) {
     if(input_params->size_of() != params->size_of()) {
         throw std::runtime_error("wrong numbers of params!");
     }
-    auto body = func_define->get_body();
+    auto body = func_define->get_serialized_body();
 
     for(int index = 0; index < params->size_of(); ++index) {
         auto replace = " $" + params->get(index)->get_value() + "$ ";
