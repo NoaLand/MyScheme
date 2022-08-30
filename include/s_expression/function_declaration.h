@@ -2,6 +2,7 @@
 #define MYSCHEME_FUNCTION_DECLARATION_H
 #include <string>
 
+#include "token/token.h"
 #include "list.h"
 #include "params.h"
 
@@ -9,6 +10,7 @@ class function_declaration: public s_expression {
 public:
     function_declaration() = default;
     function_declaration(std::string n, list<param>* p, std::string b): name(std::move(n)), params(p), serialized_body(std::move(b)) {}
+    function_declaration(std::string n, list<param>* p, std::vector<Token> b): name(std::move(n)), params(p), serialized_body(serialize_token_list(b)) {}
     std::string get_name() { return name; }
     list<param>* get_params() { return params; }
     std::string get_body() { return serialized_body; }

@@ -220,9 +220,7 @@ auto interpreter::function_define() -> function_declaration* {
     auto params = collect_params();
     auto body = get_func_body(name.value, params);
 
-    std::string deserialized_body = serialize_token_list(body);
-
-    auto func = new function_declaration{name.value, params, deserialized_body};
+    auto func = new function_declaration{name.value, params, body};
     context.store(func);
     return func;
 }
