@@ -20,3 +20,19 @@ TEST_P(IsAtomGroupTest, should_return_expected_is_atom_res_from_scheme_interpret
 
     scheme(use_case);
 }
+
+class IsEqGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsEqGroup,
+                         IsEqGroupTest,
+                         testing::Values(
+                                 UseCase("(eq? Harry Harry)", "bool: #t"),
+                                 UseCase("(eq? margarine butter)", "bool: #f")
+                         ));
+
+TEST_P(IsEqGroupTest, should_return_expected_is_eq_res_from_scheme_interpreter) {
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
