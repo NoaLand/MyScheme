@@ -36,4 +36,5 @@ private:
     function_context* context;
 };
 
+std::string serialize_token_list(std::vector<Token> token_list);
 #endif //MYSCHEME_TOKEN_H

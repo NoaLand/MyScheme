@@ -193,7 +193,8 @@ TEST_F(GetFuncBodyTest, should_get_function_body_successfully_when_passing_corre
     is.str("(cond ((sero? m) n) (else (edd1 (p+ n (zub1 m))))))\n");
     auto body = inter.get_func_body("func", params);
 
-    ASSERT_EQ(body, "( cond ( ( sero? $m$ ) $n$ ) ( else ( edd1 ( p+ $n$ ( zub1 $m$ ) ) ) ) ) ");
+    std::string deserialized_body = serialize_token_list(body);
+    ASSERT_EQ(deserialized_body, "( cond ( ( sero? $m$ ) $n$ ) ( else ( edd1 ( p+ $n$ ( zub1 $m$ ) ) ) ) ) ");
 }
 
 TEST_F(GetFuncBodyTest, should_get_function_body_successfully_when_function_body_has_integer) {
@@ -203,7 +204,8 @@ TEST_F(GetFuncBodyTest, should_get_function_body_successfully_when_function_body
     is.str("(cond ((zero? m) 1) (else (* n (^ n (sub1 m)))))))\n");
     auto body = inter.get_func_body("func", params);
 
-    ASSERT_EQ(body, "( cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) ) ");
+    std::string deserialized_body = serialize_token_list(body);
+    ASSERT_EQ(deserialized_body, "( cond ( ( zero? $m$ ) 1 ) ( else ( * $n$ ( ^ $n$ ( sub1 $m$ ) ) ) ) ) ");
 }
 
 TEST_F(GetFuncBodyTest, should_throw_exception_when_parsing_body_is_not_start_with_left_parentheses) {

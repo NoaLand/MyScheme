@@ -220,7 +220,9 @@ auto interpreter::function_define() -> function_declaration* {
     auto params = collect_params();
     auto body = get_func_body(name.value, params);
 
-    auto func = new function_declaration{name.value, params, body};
+    std::string deserialized_body = serialize_token_list(body);
+
+    auto func = new function_declaration{name.value, params, deserialized_body};
     context.store(func);
     return func;
 }
@@ -247,7 +249,7 @@ auto interpreter::collect_params() -> list<param>* {
     return l;
 }
 
-auto interpreter::get_func_body(const std::string& func_name, list<param>* params) -> std::string {
+auto interpreter::get_func_body(const std::string& func_name, list<param>* params) -> std::vector<Token> {
     auto body = std::vector<Token>();
     const auto& left_bracket = ts.get();
     if(left_bracket.type != '(') {
@@ -283,20 +285,7 @@ auto interpreter::get_func_body(const std::string& func_name, list<param>* param
         throw std::runtime_error("wrong syntax when declare function deserialized_body");
     }
 
-    std::string deserialized_body;
-    for(const auto& ele : body) {
-        if(ele.type == '(' || ele.type == ')') {
-            deserialized_body += ele.type;
-            deserialized_body += " ";
-        } else if(ele.type == 'N') {
-            deserialized_body += std::to_string(ele.integer_value) + " ";
-        } else if(ele.type == 'P') {
-            deserialized_body += "$" + ele.value + "$" + " ";
-        } else {
-            deserialized_body += ele.value + " ";
-        }
-    }
-    return deserialized_body;
+    return body;
 }
 
 auto interpreter::ignore_else() -> void {
