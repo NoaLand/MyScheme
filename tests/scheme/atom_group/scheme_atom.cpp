@@ -12,7 +12,7 @@ INSTANTIATE_TEST_SUITE_P(AtomGroup,
                                  UseCase("*abc$", "atom: *abc$")
                          ));
 
-TEST_P(SchemeAtomGroupTest, should_return_F_type_when_token_is_stored) {
+TEST_P(SchemeAtomGroupTest, should_return_expected_atom_from_scheme_interpreter) {
     std::string an_atom = GetParam().input;
     is.str(an_atom);
 
