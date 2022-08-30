@@ -81,6 +81,12 @@ TEST_F(ClosureTest, should_return_tuple_when_getting_list_of_integer) {
     ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(3)->val(), 4);
 }
 
+TEST_F(ClosureTest, should_throw_exception_when_closure_not_start_from_a_parentheses) {
+    is.str("wrong (aa)\n");
+
+    ASSERT_ANY_THROW(inter.closure());
+}
+
 class GetInputParamTest: public InterpreterTest {
 };
 
