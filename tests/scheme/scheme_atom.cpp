@@ -1,8 +1,6 @@
 #include "scheme/scheme_use_case.h"
 
 class SchemeAtomGroupTest: public SchemeUseCaseBaseTest {
-protected:
-    interpreter inter{context, ts};
 };
 
 INSTANTIATE_TEST_SUITE_P(AtomGroup,
