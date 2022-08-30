@@ -9,7 +9,9 @@ INSTANTIATE_TEST_SUITE_P(CarGroup,
                                  UseCase("(car (a b c))", "atom: a"),
                                  UseCase("(car ((a b c) x y z))", "list: ( a b c )"),
                                  UseCase("(car (((hotdogs)) (and) (pickle) relish))", "list: ( ( hotdogs ) )"),
-                                 UseCase("(car (car (((hotdogs)) (and))))", "list: ( hotdogs )")
+                                 UseCase("(car (car (((hotdogs)) (and))))", "list: ( hotdogs )"),
+                                 UseCase("(car hotdog)", "should throw! car is only for list", true),
+                                 UseCase("(car ())", "should throw! car is only for list", true)
                          ));
 
 TEST_P(CarFunctionGroupTest, should_return_expected_car_res_from_scheme_interpreter) {
@@ -26,7 +28,9 @@ INSTANTIATE_TEST_SUITE_P(CdrGroup,
                          testing::Values(
                                  UseCase("(cdr ((a b c) x y z))", "list: ( x y z )"),
                                  UseCase("(cdr (hamburger))", "tuple: ( )"),
-                                 UseCase("(cdr ((x) t r))", "list: ( t r )")
+                                 UseCase("(cdr ((x) t r))", "list: ( t r )"),
+                                 UseCase("(cdr hotdogs)", "should throw! cdr is only for list", true),
+                                 UseCase("(cdr ())", "should throw! cdr is only for list", true)
                          ));
 
 TEST_P(CdrFunctionGroupTest, should_return_expected_cdr_res_from_scheme_interpreter) {
