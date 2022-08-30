@@ -3,7 +3,7 @@
 class CarFunctionGroupTest: public SchemeUseCaseBaseTest {
 };
 
-INSTANTIATE_TEST_SUITE_P(AtomGroup,
+INSTANTIATE_TEST_SUITE_P(CarGroup,
                          CarFunctionGroupTest,
                          testing::Values(
                                  UseCase("(car (a b c))", "atom: a"),

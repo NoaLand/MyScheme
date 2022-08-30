@@ -3,7 +3,7 @@
 class SchemeListGroupTest: public SchemeUseCaseBaseTest {
 };
 
-INSTANTIATE_TEST_SUITE_P(AtomGroup,
+INSTANTIATE_TEST_SUITE_P(ListGroup,
                          SchemeListGroupTest,
                          testing::Values(
                                  UseCase("(atom)", "list: ( atom )"),
