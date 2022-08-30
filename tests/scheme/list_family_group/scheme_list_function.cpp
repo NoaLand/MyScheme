@@ -34,3 +34,20 @@ TEST_P(CdrFunctionGroupTest, should_return_expected_cdr_res_from_scheme_interpre
 
     scheme(use_case);
 }
+
+class CarCdrFunctionGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(CarCdrGroup,
+                         CarCdrFunctionGroupTest,
+                         testing::Values(
+                                 UseCase("(car (cdr ((b) (x y) (c))))", "list: ( x y )"),
+                                 UseCase("(cdr (cdr ((b) (x y) ((c)))))", "list: ( ( ( c ) ) )"),
+                                 UseCase("(cdr (car (a (b (c)) d)))", "should throw!", true)
+                         ));
+
+TEST_P(CarCdrFunctionGroupTest, should_return_expected_mix_car_cdr_res_from_scheme_interpreter) {
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}

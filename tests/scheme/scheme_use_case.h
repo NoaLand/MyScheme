@@ -9,9 +9,10 @@
 
 class UseCase {
 public:
-    UseCase(std::string i, std::string e): input(std::move(i) + "\n"), expected_output(std::move(e)) {};
+    UseCase(std::string i, std::string e, bool exception = false): input(std::move(i) + "\n"), expected_output(std::move(e)), handle_throw(exception) {};
     std::string input;
     std::string expected_output;
+    bool handle_throw;
 };
 
 class SchemeUseCaseBaseTest: public BaseTest,
@@ -23,9 +24,12 @@ protected:
         std::string expression = use_case.input;
         is.str(expression);
 
-        inter.scheme();
-
-        ASSERT_THAT(os.str(), HasSubstr(use_case.expected_output));
+        if(use_case.handle_throw) {
+            ASSERT_ANY_THROW(inter.scheme());
+        } else {
+            inter.scheme();
+            ASSERT_THAT(os.str(), HasSubstr(use_case.expected_output));
+        }
     }
 };
 
