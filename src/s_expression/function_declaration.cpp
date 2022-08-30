@@ -4,7 +4,7 @@ std::string function_declaration::get_value() {
     std::string func;
     func += "-> name: " + name + "\n";
     func += "-> var: " + params->get_value() + "\n";
-    func += "-> body: " + body;
+    func += "-> body: " + serialized_body;
 
     return func;
 }
