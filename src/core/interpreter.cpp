@@ -23,6 +23,8 @@ auto interpreter::scheme() -> void {
         os << "> ";
         auto token = ts.get();
         switch (token.type) {
+            case 'S':
+                continue;
             case 'A': {
                 s_expression* s_exp;
                 s_exp = new atom{token.value};

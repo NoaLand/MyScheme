@@ -39,7 +39,7 @@ Token Token_stream::get() {
             s += ch;
             while(is.get(ch)) {
                 if (ch == ' ' || ch == '\n' || ch == ')' || ch == '\0') {
-                    is.putback(ch);
+                    this->put_back({'S'});
                     if(s == "quote") {
                         return {'F', s};
                     }
