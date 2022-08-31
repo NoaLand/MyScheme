@@ -43,3 +43,19 @@ TEST_P(IsEqGroupTest, should_return_expected_is_eq_res_from_scheme_interpreter) 
 
     scheme(use_case);
 }
+
+class IsNumberGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsNumberGroup,
+                         IsNumberGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(number? tomato)", "#f"),
+                                 UseCase<boolean>("(number? 76)", "#t")
+                         ));
+
+TEST_P(IsNumberGroupTest, should_return_expected_is_number_res_from_scheme_interpreter) {
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
