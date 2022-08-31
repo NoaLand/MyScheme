@@ -214,3 +214,21 @@ TEST_P(DivisionGroupTest, should_return_expected_division_res_from_scheme_interp
 
     scheme(use_case);
 }
+
+class IsOneGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsOneGroup,
+                         IsOneGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(one? 1)", "#t"),
+                                 UseCase<boolean>("(one? 2)", "#f")
+                         ));
+
+TEST_P(IsOneGroupTest, should_return_expected_is_one_res_from_scheme_interpreter) {
+    function_define("=", "(define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m))))))");
+    function_define("one?", "(define one?  (lambda (n) (= n 1)))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
