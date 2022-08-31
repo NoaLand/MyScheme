@@ -409,3 +409,22 @@ TEST_P(IsMemberStarImprovementGroupTest, should_return_expected_memberstar_impro
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class LeftmostGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(LeftMostGroup,
+                         LeftmostGroupTest,
+                         testing::Values(
+                                 UseCase<atom>("(leftmost ((potato) (chips ((with) fish) (chips))))", "potato"),
+                                 UseCase<atom>("(leftmost (((hot) (tuna (and))) cheese))", "hot"),
+                                 UseCase<atom>("(leftmost (((() four)) 17 (seventeen)))", "should throw! leftmost cannot get a null list!", true),
+                                 UseCase<atom>("(leftmost (()))", "should throw! leftmost cannot get a null list!", true)
+                         ));
+
+TEST_P(LeftmostGroupTest, should_return_expected_leftmost_boolean_res_from_scheme_interpreter) {
+    function_define("leftmost", "(define leftmost (lambda (l) (cond ((atom? (car l)) (car l)) (else (leftmost (car l))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
