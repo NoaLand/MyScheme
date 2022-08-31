@@ -95,7 +95,7 @@ INSTANTIATE_TEST_SUITE_P(TimeGroup,
                                  UseCase<integer>("(* 10 10)", "100")
                          ));
 
-TEST_P(TimeGroupTest, should_return_expected_minus_res_from_scheme_interpreter) {
+TEST_P(TimeGroupTest, should_return_expected_times_res_from_scheme_interpreter) {
     function_define("+", "(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))");
     function_define("*", "(define * (lambda (n m) (cond ((zero? m) 0) (else (+ n (* n (sub1 m)))))))");
     UseCase use_case = GetParam();
@@ -114,7 +114,7 @@ INSTANTIATE_TEST_SUITE_P(GreaterThanGroup,
                                  UseCase<boolean>("(> 10 10)", "#f")
                          ));
 
-TEST_P(GreaterThanGroupTest, should_return_expected_minus_res_from_scheme_interpreter) {
+TEST_P(GreaterThanGroupTest, should_return_expected_greater_than_res_from_scheme_interpreter) {
     function_define(">", "(define > (lambda (n m) (cond ((zero? n) #f) ((zero? m) #t) (else (> (sub1 n) (sub1 m))))))");
     UseCase use_case = GetParam();
 
@@ -132,7 +132,7 @@ INSTANTIATE_TEST_SUITE_P(LessThanGroup,
                                  UseCase<boolean>("(< 6 6)", "#f")
                          ));
 
-TEST_P(LessThanGroupTest, should_return_expected_minus_res_from_scheme_interpreter) {
+TEST_P(LessThanGroupTest, should_return_expected_less_than_res_from_scheme_interpreter) {
     function_define("<", "(define < (lambda (n m) (cond ((zero? m) #f) ((zero? n) #t) (else (< (sub1 n) (sub1 m))))))");
     UseCase use_case = GetParam();
 
