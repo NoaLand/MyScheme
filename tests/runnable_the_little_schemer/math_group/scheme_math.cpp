@@ -176,3 +176,23 @@ TEST_P(EqualV2GroupTest, should_return_expected_equal_res_from_scheme_interprete
 
     scheme(use_case);
 }
+
+class ExptGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(ExptGroup,
+                         ExptGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(^ 1 1)", "1"),
+                                 UseCase<integer>("(^ 2 3)", "8"),
+                                 UseCase<integer>("(^ 5 3)", "125")
+                         ));
+
+TEST_P(ExptGroupTest, should_return_expected_expt_res_from_scheme_interpreter) {
+    function_define("+", "(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))");
+    function_define("*", "(define * (lambda (n m) (cond ((zero? m) 0) (else (+ n (* n (sub1 m)))))))");
+    function_define("^", "(define ^ (lambda (n m) (cond ((zero? m) 1) (else (* n (^ n (sub1 m)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
