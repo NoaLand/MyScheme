@@ -106,3 +106,21 @@ TEST_P(InsertRGroupTest, should_return_expected_insertR_res_from_scheme_interpre
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class InsertLGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(InsertLGroup,
+                         InsertLGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(insertL topping fudge (ice cream with fudge for dessert))", "( ice cream with topping fudge for dessert )"),
+                                 UseCase<list<atom>>("(insertL jalapeno and (tacos tamales and salsa))", "( tacos tamales jalapeno and salsa )"),
+                                 UseCase<list<atom>>("(insertL e d (a b c d f g d h))", "( a b c e d f g d h )")
+                         ));
+
+TEST_P(InsertLGroupTest, should_return_expected_insertL_res_from_scheme_interpreter) {
+    function_define("insertL", "(define insertL (lambda (new old lat) (cond ((null? lat) (())) ((eq? old (car lat)) (cons new lat)) (else (cons (car lat) (insertL new old (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
