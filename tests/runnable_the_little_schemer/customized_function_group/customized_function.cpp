@@ -234,7 +234,7 @@ INSTANTIATE_TEST_SUITE_P(NoNumsGroup,
                                  UseCase<list<atom>>("(no-nums (5 pears 6 prunes 9 dates))", "( pears prunes dates )")
                          ));
 
-TEST_P(NoNumsGroupTest, should_return_expected_multisubst_res_from_scheme_interpreter) {
+TEST_P(NoNumsGroupTest, should_return_expected_no_nums_res_from_scheme_interpreter) {
     function_define("no-nums", "(define no-nums (lambda (lat) (cond ((null? lat) ()) ((number? (car lat)) (no-nums (cdr lat))) (else (cons (car lat) (no-nums (cdr lat)))))))");
 
     UseCase use_case = GetParam();
