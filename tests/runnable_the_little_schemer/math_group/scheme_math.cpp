@@ -102,3 +102,21 @@ TEST_P(TimeGroupTest, should_return_expected_minus_res_from_scheme_interpreter) 
 
     scheme(use_case);
 }
+
+class GreaterThanGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(GreaterThanGroup,
+                         GreaterThanGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(> 12 133)", "#f"),
+                                 UseCase<boolean>("(> 120 11)", "#t"),
+                                 UseCase<boolean>("(> 10 10)", "#f")
+                         ));
+
+TEST_P(GreaterThanGroupTest, should_return_expected_minus_res_from_scheme_interpreter) {
+    function_define(">", "(define > (lambda (n m) (cond ((zero? n) #f) ((zero? m) #t) (else (> (sub1 n) (sub1 m))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
