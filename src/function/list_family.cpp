@@ -41,5 +41,6 @@ integer* add_tuple::execute() {
         sum += item->val();
     }
 
+
     return new integer{sum};
 }
