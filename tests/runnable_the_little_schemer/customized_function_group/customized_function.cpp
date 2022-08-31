@@ -385,8 +385,26 @@ INSTANTIATE_TEST_SUITE_P(IsMemberStarGroup,
                                  UseCase<boolean>("(member* chips ((potato) (chips ((with) fish) (chips))))", "#t")
                          ));
 
-TEST_P(IsMemberStarGroupTest, should_return_expected_member_boolean_res_from_scheme_interpreter) {
+TEST_P(IsMemberStarGroupTest, should_return_expected_memberstar_boolean_res_from_scheme_interpreter) {
     function_define("member*", "(define member* (lambda (a l) (cond ((null? l) #f) ((atom? (car l)) (cond ((eq? a (car l)) #t) (else (or? #f (member* a (cdr l)))))) (else (or? (member* a (car l)) (member* a (cdr l)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
+
+class IsMemberStarImprovementGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsMemberStarImprovementGroup,
+                         IsMemberStarImprovementGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(member* (chips) ((potato) (chips ((with) fish) (chips))))", "#t"),
+                                 UseCase<boolean>("(member* (chips a b) ((potato) (chips ((with) fish) (chips a b))))", "#t"),
+                                 UseCase<boolean>("(member* (chips a b) ((potato) (chips a b ((with) fish) (chips))))", "#f")
+                         ));
+
+TEST_P(IsMemberStarImprovementGroupTest, should_return_expected_memberstar_improvement_boolean_res_from_scheme_interpreter) {
+    function_define("member*", "(define member* (lambda (a l) (cond ((atom? a) (cond ((null? l) #f) ((atom? (car l)) (cond ((eq? a (car l)) #t) (else (or? #f (member* a (cdr l)))))) (else (or? (member* a (car l) (member* a (cdr l))))))) (else (cond ((null? l) #f) ((atom? (car l)) (member* a (cdr l))) (else (cond ((eq? a (car l)) #t) (else (or? (member* a (car l)) (member* a (cdr l)))))))))))");
 
     UseCase use_case = GetParam();
     scheme(use_case);
