@@ -148,3 +148,20 @@ TEST_P(TupAddV2GroupTest, should_return_expected_add_tup_v2_res_from_scheme_inte
 
     scheme(use_case);
 }
+
+class LengthGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(LengthGroup,
+                         LengthGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(length (hotdogs with mustard sauerkraut and pickles))", "6"),
+                                 UseCase<integer>("(length (ham and cheese on rye))", "5")
+                         ));
+
+TEST_P(LengthGroupTest, should_return_expected_length_res_from_scheme_interpreter) {
+    function_define("length", "(define length (lambda (lat) (cond ((null? lat) 0) (else (add1 (length (cdr lat)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
