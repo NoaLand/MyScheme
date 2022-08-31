@@ -32,11 +32,7 @@ list<s_expression>* cons::execute() {
 }
 
 boolean* is_null::execute() {
-    if(s_exp->empty()) {
-        return new boolean{true};
-    } else {
-        return new boolean{false};
-    }
+    return new boolean{s_exp->empty()};
 }
 
 integer* add_tuple::execute() {
