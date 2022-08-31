@@ -359,3 +359,19 @@ TEST_P(SubstStarGroupTest, should_return_expected_subststar_res_from_scheme_inte
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class InsertLStarGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(InsertLStarGroup,
+                         InsertLStarGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(insertL* pecker chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))", "( ( how much ( wood ) ) could ( ( a ( wood ) pecker chuck ) ) ( ( ( pecker chuck ) ) ) ( if ( a ) ( ( wood pecker chuck ) ) ) could pecker chuck wood )")
+                         ));
+
+TEST_P(InsertLStarGroupTest, should_return_expected_insertL_res_from_scheme_interpreter) {
+    function_define("insertL*", "(define insertL* (lambda (new old l) (cond ((null? l) ()) ((atom? (car l)) (cond ((eq? old (car l)) (cons new (cons old (insertL* new old (cdr l))))) (else (cons (car l) (insertL* new old (cdr l)))))) (else (cons (insertL* new old (car l)) (insertL* new old (cdr l)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
