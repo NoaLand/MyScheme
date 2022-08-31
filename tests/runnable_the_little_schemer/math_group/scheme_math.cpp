@@ -15,3 +15,20 @@ TEST_P(SelfAddGroupTest, should_return_expected_self_add_res_from_scheme_interpr
 
     scheme(use_case);
 }
+
+class SelfSubGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(SelfSubGroup,
+                         SelfSubGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(sub1 5)", "4"),
+                                 UseCase<integer>("(sub1 0)", "-1"),
+                                 UseCase<integer>("(sub1 -1)", "should throw! sub1 is only for [0, 1, 2 ...)", true)
+                         ));
+
+TEST_P(SelfSubGroupTest, should_return_expected_self_sub_res_from_scheme_interpreter) {
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
