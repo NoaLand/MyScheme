@@ -274,3 +274,21 @@ TEST_P(EqanGroupTest, should_return_expected_eqan_res_from_scheme_interpreter) {
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class OccurGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(OccurGroup,
+                         OccurGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(occur bc (abc bc cd cb bc a (bc)))", "2"),
+                                 UseCase<integer>("(occur (bc) (abc bc cd cb bc a (bc)))", "1"),
+                                 UseCase<integer>("(occur nothing (abc bc c))", "0")
+                         ));
+
+TEST_P(OccurGroupTest, should_return_expected_occur_res_from_scheme_interpreter) {
+    function_define("occur", "(define occur (lambda (a lat) (cond ((null? lat) 0) ((eq? a (car lat)) (add1 (occur a (cdr lat)))) (else (occur a (cdr lat))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
