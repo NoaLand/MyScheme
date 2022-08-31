@@ -68,7 +68,10 @@ class FirstGroupTest: public SchemeUseCaseBaseTest {
 INSTANTIATE_TEST_SUITE_P(FirstGroup,
                          FirstGroupTest,
                          testing::Values(
-                                 UseCase<list<atom>>("(firsts ((apple peach pumpkin) (plum pear cherry) (grape raisin pea) (bean carrot eggplant)))", "( apple plum grape bean )")
+                                 UseCase<list<atom>>("(firsts ((apple peach pumpkin)"
+                                                                "(plum pear cherry)"
+                                                                "(grape raisin pea)"
+                                                                "(bean carrot eggplant)))", "( apple plum grape bean )")
                          ));
 
 TEST_P(FirstGroupTest, should_return_expected_first_res_from_scheme_interpreter) {
