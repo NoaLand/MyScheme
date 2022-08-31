@@ -174,3 +174,21 @@ TEST_P(MultiRemberGroupTest, should_return_expected_multirember_res_from_scheme_
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class MultiInsertRGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(MultiInsertRGroup,
+                         MultiInsertRGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(multiinsertR topping fudge (ice cream with fudge for fudge dessert))", "( ice cream with fudge topping for fudge topping dessert )"),
+                                 UseCase<list<atom>>("(multiinsertR jalapeno and (tacos and tamales and salsa))", "( tacos and jalapeno tamales and jalapeno salsa )"),
+                                 UseCase<list<atom>>("(multiinsertR e d (a b c d f g d h))", "( a b c d e f g d e h )")
+                         ));
+
+TEST_P(MultiInsertRGroupTest, should_return_expected_multiinsertR_res_from_scheme_interpreter) {
+    function_define("multiinsertR", "(define multiinsertR (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons old (cons new (multiinsertR new old (cdr lat))))) (else (cons (car lat) (multiinsertR new old (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
