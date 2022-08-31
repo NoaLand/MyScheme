@@ -231,7 +231,7 @@ integer: 8
 ```
 #### use >, < function
 ```scheme
-(define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m))))))
+(define = (lambda (n m) (cond ((> n m) #f) ((< n m) #f) (else #t))))
 ```
 
 ```text
