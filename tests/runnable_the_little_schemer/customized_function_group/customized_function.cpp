@@ -192,3 +192,19 @@ TEST_P(MultiInsertRGroupTest, should_return_expected_multiinsertR_res_from_schem
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class MultiInsertLGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(MultiInsertLGroup,
+                         MultiInsertLGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(multiinsertL fried fish (chips and fish or fish and fried))", "( chips and fried fish or fried fish and fried )")
+                         ));
+
+TEST_P(MultiInsertLGroupTest, should_return_expected_multiinsertL_res_from_scheme_interpreter) {
+    function_define("multiinsertL", "(define multiinsertL (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons new (cons old (multiinsertL new old (cdr lat))))) (else (cons (car lat) (multiinsertL new old (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
