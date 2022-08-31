@@ -35,3 +35,20 @@ TEST_P(IntegerGroupTest, should_return_expected_integer_from_scheme_interpreter)
 
     scheme(use_case);
 }
+
+class BooleanGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(BooleanGroup,
+                         BooleanGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("#t", "#t"),
+                                 UseCase<boolean>("else", "#t"),
+                                 UseCase<boolean>("#f", "#f")
+                         ));
+
+TEST_P(BooleanGroupTest, should_return_expected_boolean_from_scheme_interpreter) {
+    UseCase<s_expression> use_case = GetParam();
+
+    scheme(use_case);
+}
