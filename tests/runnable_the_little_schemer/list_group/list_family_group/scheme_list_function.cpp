@@ -111,3 +111,23 @@ TEST_P(AddTupGroupTest, should_return_expected_add_tup_res_from_scheme_interpret
 
     scheme(use_case);
 }
+
+class TupAddGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(TupAddGroup,
+                         TupAddGroupTest,
+                         testing::Values(
+                                 UseCase<list<integer>>("(tup+ (3 6 9 11 4) (8 5 2 0 7))", "( 11 11 11 11 11 )"),
+                                 UseCase<list<integer>>("(tup+ (2 3) (4 6))", "( 6 9 )"),
+                                 UseCase<list<integer>>("(tup+ (3 7) (4 6))", "( 7 13 )"),
+                                 UseCase<list<integer>>("(tup+ (3 7) (4 6 8 1))", "should throw! tup+ need tuples and has same size!", true)
+                         ));
+
+TEST_P(TupAddGroupTest, should_return_expected_add_tup_res_from_scheme_interpreter) {
+    function_define("+", "(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))");
+    function_define("tup+", "(define tup+ (lambda (tup1 tup2) (cond ((and? (null? tup1) (null? tup2)) ()) (else (cons (+ (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
