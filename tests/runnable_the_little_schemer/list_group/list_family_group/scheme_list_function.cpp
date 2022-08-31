@@ -198,3 +198,12 @@ TEST_P(RemPickGroupTest, should_return_expected_rempick_res_from_scheme_interpre
 
     scheme(use_case);
 }
+
+TEST_P(RemPickGroupTest, should_return_expected_rempick_v2_res_from_scheme_interpreter) {
+    function_define("=", "(define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m))))))");
+    function_define("one?", "(define one?  (lambda (n) (= n 1)))");
+    function_define("rempick", "(define rempick (lambda (n lat) (cond ((one? n) (cdr lat)) (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
