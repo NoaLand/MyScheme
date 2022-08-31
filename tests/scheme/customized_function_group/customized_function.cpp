@@ -15,7 +15,7 @@ INSTANTIATE_TEST_SUITE_P(IsLatGroup,
                                  UseCase<boolean>("(lat? (((tomato sauce)) ((bean) sauce) (and ((flying)) sauce)))", "#f")
                          ));
 
-TEST_P(IsLatListGroupTest, should_return_expected_list_from_scheme_interpreter) {
+TEST_P(IsLatListGroupTest, should_return_expected_list_is_atom_res_from_scheme_interpreter) {
     function_define("lat?", "(define lat? (lambda (l) (cond ((null? l) #t) ((atom? (car l)) (lat? (cdr l))) (else #f))))");
 
     UseCase use_case = GetParam();
@@ -33,7 +33,7 @@ INSTANTIATE_TEST_SUITE_P(IsMemberGroup,
                                  UseCase<boolean>("(member? liver (bagels and lox))", "#f")
                          ));
 
-TEST_P(IsMemberGroupTest, should_return_expected_list_from_scheme_interpreter) {
+TEST_P(IsMemberGroupTest, should_return_expected_member_boolean_res_from_scheme_interpreter) {
     function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
 
     UseCase use_case = GetParam();
@@ -55,7 +55,7 @@ INSTANTIATE_TEST_SUITE_P(RememberGroup,
                                  UseCase<list<atom>>("(rember sauce (soy sauce and tomato sauce))", "( soy and tomato sauce )")
                          ));
 
-TEST_P(RememberGroupTest, should_return_expected_list_from_scheme_interpreter) {
+TEST_P(RememberGroupTest, should_return_expected_rember_list_from_scheme_interpreter) {
     function_define("rember", "(define rember (lambda (a lat) (cond ((null? lat) ()) (else (cond ((eq? (car lat) a) (cdr lat)) (else (cons (car lat) (rember a (cdr lat)))))))))");
 
     UseCase use_case = GetParam();
