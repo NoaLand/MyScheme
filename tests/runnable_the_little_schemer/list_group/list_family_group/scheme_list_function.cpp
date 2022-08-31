@@ -138,6 +138,9 @@ class TupAddV2GroupTest: public SchemeUseCaseBaseTest {
 INSTANTIATE_TEST_SUITE_P(TupAddV2Group,
                          TupAddV2GroupTest,
                          testing::Values(
+                                 UseCase<list<integer>>("(tup+ (3 6 9 11 4) (8 5 2 0 7))", "( 11 11 11 11 11 )"),
+                                 UseCase<list<integer>>("(tup+ (2 3) (4 6))", "( 6 9 )"),
+                                 UseCase<list<integer>>("(tup+ (3 7) (4 6))", "( 7 13 )"),
                                  UseCase<list<integer>>("(tup+ (3 7) (4 6 8 1))", "( 7 13 8 1 )")
                          ));
 

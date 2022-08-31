@@ -157,18 +157,7 @@ TEST_P(EqualGroupTest, should_return_expected_equal_res_from_scheme_interpreter)
     scheme(use_case);
 }
 
-class EqualV2GroupTest: public SchemeUseCaseBaseTest {
-};
-
-INSTANTIATE_TEST_SUITE_P(EqualV2Group,
-                         EqualV2GroupTest,
-                         testing::Values(
-                                 UseCase<boolean>("(= 10 10)", "#t"),
-                                 UseCase<boolean>("(= 9 10)", "#f"),
-                                 UseCase<boolean>("(= 10 9)", "#f")
-                         ));
-
-TEST_P(EqualV2GroupTest, should_return_expected_equal_res_from_scheme_interpreter) {
+TEST_P(EqualGroupTest, should_return_expected_equal_v2_res_from_scheme_interpreter) {
     function_define(">", "(define > (lambda (n m) (cond ((zero? n) #f) ((zero? m) #t) (else (> (sub1 n) (sub1 m))))))");
     function_define("<", "(define < (lambda (n m) (cond ((zero? m) #f) ((zero? n) #t) (else (< (sub1 n) (sub1 m))))))");
     function_define("=", "(define = (lambda (n m) (cond ((> n m) #f) ((< n m) #f) (else #t))))");
