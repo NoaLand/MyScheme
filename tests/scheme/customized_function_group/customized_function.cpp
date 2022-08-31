@@ -39,3 +39,25 @@ TEST_P(IsMemberGroupTest, should_return_expected_list_from_scheme_interpreter) {
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class RememberGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(RememberGroup,
+                         RememberGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(rember mint (lamb chops and mint jelly))", "( lamb chops and jelly )"),
+                                 UseCase<list<atom>>("(rember mint (lamb chops and mint flavored mint jelly))", "( lamb chops and flavored mint jelly )"),
+                                 UseCase<list<atom>>("(rember toast (bacon lettuce and tomato))", "( bacon lettuce and tomato )"),
+                                 UseCase<list<atom>>("(rember cup (coffee cup tea cup and hick cup))", "( coffee tea cup and hick cup )"),
+                                 UseCase<list<atom>>("(rember bacon (bacon lettuce and tomato))", "( lettuce and tomato )"),
+                                 UseCase<list<atom>>("(rember and (bacon lettuce and tomato))", "( bacon lettuce tomato )"),
+                                 UseCase<list<atom>>("(rember sauce (soy sauce and tomato sauce))", "( soy and tomato sauce )")
+                         ));
+
+TEST_P(RememberGroupTest, should_return_expected_list_from_scheme_interpreter) {
+    function_define("rember", "(define rember (lambda (a lat) (cond ((null? lat) ()) (else (cond ((eq? (car lat) a) (cdr lat)) (else (cons (car lat) (rember a (cdr lat)))))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
