@@ -138,3 +138,21 @@ TEST_P(LessThanGroupTest, should_return_expected_minus_res_from_scheme_interpret
 
     scheme(use_case);
 }
+
+class EqualGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(EqualGroup,
+                         EqualGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(= 10 10)", "#t"),
+                                 UseCase<boolean>("(= 9 10)", "#f"),
+                                 UseCase<boolean>("(= 10 9)", "#f")
+                         ));
+
+TEST_P(EqualGroupTest, should_return_expected_equal_res_from_scheme_interpreter) {
+    function_define("=", "(define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
