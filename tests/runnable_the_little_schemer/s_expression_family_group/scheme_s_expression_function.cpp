@@ -13,7 +13,8 @@ INSTANTIATE_TEST_SUITE_P(IsAtomGroup,
                                  UseCase<boolean>("(atom? (cdr (Harry)))", "#f"),
                                  UseCase<boolean>("(atom? (car (cdr (swing low sweet cherry oat))))", "#t"),
                                  UseCase<boolean>("(atom? (car (cdr (swing (low sweet) cherry oat))))", "#f"),
-                                 UseCase<boolean>("(atom? 14)", "#t")
+                                 UseCase<boolean>("(atom? 14)", "#t"),
+                                 UseCase<boolean>("(atom? (car (((tomato sauce)) ((bean) sauce) (and ((flying)) sauce))))", "#f")
                          ));
 
 TEST_P(IsAtomGroupTest, should_return_expected_is_atom_res_from_scheme_interpreter) {
