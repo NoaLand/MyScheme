@@ -25,7 +25,7 @@ add_executable(
         runnable_the_little_schemer/list_group/list_family_group/scheme_list_function.cpp
         runnable_the_little_schemer/s_expression_family_group/scheme_s_expression_function.cpp
         runnable_the_little_schemer/customized_function_group/customized_function.cpp
-)
+        runnable_the_little_schemer/math_group/scheme_math.cpp)
 
 target_include_directories(SchemeCore PUBLIC ./)
 target_link_libraries(
