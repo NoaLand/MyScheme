@@ -8,8 +8,8 @@ Basically, I'll define term according to 'The Little Schemer'.
 So we can just start from the begining of this book.
 
 ## TODO
-- [ ] refactor implementation of function instantiate -- use stack/list instead of string/replace
-- [ ] add automation test according to docs -- 80%
+- [x] refactor implementation of function instantiate -- use stack/list instead of string/replace
+- [x] add automation test according to docs
 - [ ] use **smart pointer** to refactor this codebase, since last 8 refactor commit introduce memory bugs when declare customized function
 - [ ] refactor architecture
   - [x] refactor to basic structure
