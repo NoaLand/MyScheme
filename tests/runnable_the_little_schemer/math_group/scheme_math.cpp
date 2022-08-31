@@ -120,3 +120,21 @@ TEST_P(GreaterThanGroupTest, should_return_expected_minus_res_from_scheme_interp
 
     scheme(use_case);
 }
+
+class LessThanGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(LessThanGroup,
+                         LessThanGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(< 4 6)", "#t"),
+                                 UseCase<boolean>("(< 8 3)", "#f"),
+                                 UseCase<boolean>("(< 6 6)", "#f")
+                         ));
+
+TEST_P(LessThanGroupTest, should_return_expected_minus_res_from_scheme_interpreter) {
+    function_define("<", "(define < (lambda (n m) (cond ((zero? m) #f) ((zero? n) #t) (else (< (sub1 n) (sub1 m))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
