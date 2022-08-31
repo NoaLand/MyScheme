@@ -88,3 +88,21 @@ TEST_P(FirstGroupTest, should_return_expected_first_res_from_scheme_interpreter)
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class InsertRGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(InsertRGroup,
+                         InsertRGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(insertR topping fudge (ice cream with fudge for dessert))", "( ice cream with fudge topping for dessert )"),
+                                 UseCase<list<atom>>("(insertR jalapeno and (tacos tamales and salsa))", "( tacos tamales and jalapeno salsa )"),
+                                 UseCase<list<atom>>("(insertR e d (a b c d f g d h))", "( a b c d e f g d h )")
+                         ));
+
+TEST_P(InsertRGroupTest, should_return_expected_insertR_res_from_scheme_interpreter) {
+    function_define("insertR", "(define insertR (lambda (new old lat) (cond ((null? lat) (())) ((eq? old (car lat)) (cons old (cons new (cdr lat)))) (else (cons (car lat) (insertR new old (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
