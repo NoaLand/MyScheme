@@ -256,3 +256,21 @@ TEST_P(AllNumsGroupTest, should_return_expected_all_nums_res_from_scheme_interpr
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class EqanGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(EqanGroup,
+                         EqanGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(eqan? (1 2 a (b c)) (1 2 a (b c)))", "#t"),
+                                 UseCase<boolean>("(eqan? (2 c) (2 c b d))", "#f")
+                         ));
+
+TEST_P(EqanGroupTest, should_return_expected_eqan_res_from_scheme_interpreter) {
+    function_define("=", "(define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m))))))");
+    function_define("eqan?", "(define eqan?  (lambda (a1 a2) (cond ((and? (number? a1) (number? a2)) (= a1 a2)) ((or? (number? a1) (number? a2)) #f) (else (eq? a1 a2)))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
