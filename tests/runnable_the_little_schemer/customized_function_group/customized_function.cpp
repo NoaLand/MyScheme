@@ -292,3 +292,20 @@ TEST_P(OccurGroupTest, should_return_expected_occur_res_from_scheme_interpreter)
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class RememberStarGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(RememberStarGroup,
+                         RememberStarGroupTest,
+                         testing::Values(
+                                 UseCase<list<s_expression>>("(rember* cup ((coffee) cup ((tea) cup) (and (hick)) cup))", "( ( coffee ) ( ( tea ) ) ( and ( hick ) ) )"),
+                                 UseCase<list<s_expression>>("(rember* sauce (((tomato sauce)) ((bean) sauce) (and ((flying)) sauce)))", "( ( ( tomato ) ) ( ( bean ) ) ( and ( ( flying ) ) ) )")
+                         ));
+
+TEST_P(RememberStarGroupTest, should_return_expected_rember_list_from_scheme_interpreter) {
+    function_define("rember*", "(define rember* (lambda (a l) (cond ((null? l) ()) ((atom? (car l)) (cond ((eq? a (car l)) (rember* a (cdr l))) (else (cons (car l) (rember* a (cdr l)))))) (else (cons (rember* a (car l)) (rember* a (cdr l)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
