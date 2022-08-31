@@ -71,7 +71,15 @@ INSTANTIATE_TEST_SUITE_P(FirstGroup,
                                  UseCase<list<atom>>("(firsts ((apple peach pumpkin)"
                                                                 "(plum pear cherry)"
                                                                 "(grape raisin pea)"
-                                                                "(bean carrot eggplant)))", "( apple plum grape bean )")
+                                                                "(bean carrot eggplant)))", "( apple plum grape bean )"),
+                                 UseCase<list<atom>>("(firsts ((a b) (c d) (e f)))", "( a c e )"),
+                                 UseCase<list<integer>>("(firsts ())", "( )"),
+                                 UseCase<list<atom>>("(firsts ((five plums)"
+                                                                "(four)"
+                                                                "(eleven green oranges)))", "( five four eleven )"),
+                                 UseCase<list<s_expression>>("(firsts (((five plums) four)"
+                                                                        "(eleven green oranges)"
+                                                                        "((no) more)))", "( ( five plums ) eleven ( no ) )")
                          ));
 
 TEST_P(FirstGroupTest, should_return_expected_first_res_from_scheme_interpreter) {
