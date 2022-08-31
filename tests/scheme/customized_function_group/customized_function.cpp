@@ -21,3 +21,21 @@ TEST_P(IsLatListGroupTest, should_return_expected_list_from_scheme_interpreter) 
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class IsMemberGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsMemberGroup,
+                         IsMemberGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(member? meat (mashed potatoes and meat gravy))", "#t"),
+                                 UseCase<boolean>("(member? liver ())", "#f"),
+                                 UseCase<boolean>("(member? liver (bagels and lox))", "#f")
+                         ));
+
+TEST_P(IsMemberGroupTest, should_return_expected_list_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
