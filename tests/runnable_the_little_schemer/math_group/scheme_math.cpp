@@ -48,3 +48,20 @@ TEST_P(IsZeroGroupTest, should_return_expected_is_zero_res_from_scheme_interpret
 
     scheme(use_case);
 }
+
+class AddGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(AddGroup,
+                         AddGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(+ 46 12)", "58"),
+                                 UseCase<integer>("(+ 10 2)", "12")
+                         ));
+
+TEST_P(AddGroupTest, should_return_expected_add_res_from_scheme_interpreter) {
+    function_define("+", "(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
