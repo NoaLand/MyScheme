@@ -11,6 +11,7 @@ public:
     void store(function_declaration* func);
     bool is_in(const std::string& name, bool load_to_buffer = false);
     std::string instantiate(list<s_expression>* p);
+    function_declaration * load(list<s_expression>* p);
 private:
     std::vector<function_declaration*> func_list{};
     std::stack<function_declaration*> buffer;

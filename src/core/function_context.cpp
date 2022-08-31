@@ -43,3 +43,15 @@ std::string function_context::instantiate(list<s_expression>* input_params) {
 
     return body;
 }
+
+function_declaration* function_context::load(list<s_expression>* input_params) {
+    auto func_define = buffer.top();
+    buffer.pop();
+
+    auto params = func_define->get_params();
+    if(input_params->size_of() != params->size_of()) {
+        throw std::runtime_error("wrong numbers of params!");
+    }
+
+    return func_define;
+}

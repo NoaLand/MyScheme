@@ -2,7 +2,7 @@
 
 #include "preload_libs/preload_libs.h"
 
-TEST(PreloadLibsTest, should_contain_loaded_func_when_searching_for_lat) {
+TEST(DISABLED_PreloadLibsTest, should_contain_loaded_func_when_searching_for_lat) {
     auto context = function_context{};
     preload_libs(context);
 

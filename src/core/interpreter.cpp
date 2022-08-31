@@ -9,7 +9,9 @@ auto interpreter::construct_from_token() -> s_expression* {
         s_exp = new boolean{token.value == "#t" || token.value == "else" };
     } else if(token.type == 'N') {
         s_exp = new integer{ token.integer_value };
-    } else {
+    } else if(token.type == 'P') {
+        return get_param_val(token);
+    }  else {
         ts.put_back(token);
         s_exp = closure();
     }
@@ -62,6 +64,11 @@ auto interpreter::scheme() -> void {
 
 auto interpreter::closure() -> s_expression* {
     const Token& left = ts.get();
+
+    if(left.type == 'P') {
+        return get_param_val(left);
+    }
+
     if(left.type != '(') {
         throw std::runtime_error("wrong syntax: " + left.value);
     }
@@ -169,9 +176,12 @@ auto interpreter::call_function() -> s_expression* {
         f = new self_sub{number};
     } else if(context.is_in(function_key, true)) {
         auto params = get_input_param();
-        auto body = context.instantiate(params);
-        ts.put_back(body);
-        return closure();
+        function_instance instance{context.load(params), params};
+        call_stack.push(instance);
+        ts.push_back(instance.body);
+        s_expression* res = closure();
+        call_stack.pop();
+        return res;
     } else {
         throw std::runtime_error("unknown function: " + function_key);
     }
@@ -201,6 +211,16 @@ auto interpreter::get_input_param() -> list<s_expression>* {
     }
 
     return params;
+}
+
+auto interpreter::get_param_val(const Token &t) -> s_expression * {
+    auto instance = call_stack.top();
+    auto map_result = instance.param_hashmap.find(t.value);
+    if(map_result == instance.param_hashmap.end()) {
+        throw std::runtime_error("wrong syntax! cannot find var");
+    } else {
+        return map_result->second;
+    }
 }
 
 auto interpreter::function_define() -> function_declaration* {
