@@ -17,3 +17,21 @@ TEST_P(SchemeAtomGroupTest, should_return_expected_atom_from_scheme_interpreter)
 
     scheme(use_case);
 }
+
+class IntegerGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IntegerGroup,
+                         IntegerGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("1", "1"),
+                                 UseCase<integer>("3", "3"),
+                                 UseCase<integer>("5", "5"),
+                                 UseCase<integer>("7", "7")
+                         ));
+
+TEST_P(IntegerGroupTest, should_return_expected_integer_from_scheme_interpreter) {
+    UseCase<s_expression> use_case = GetParam();
+
+    scheme(use_case);
+}
