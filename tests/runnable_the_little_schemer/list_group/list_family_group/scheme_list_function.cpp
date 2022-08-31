@@ -165,3 +165,20 @@ TEST_P(LengthGroupTest, should_return_expected_length_res_from_scheme_interprete
 
     scheme(use_case);
 }
+
+class PickGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(PickGroup,
+                         PickGroupTest,
+                         testing::Values(
+                                 UseCase<atom>("(pick 4 (lasagna spaghetti ravioli macaroni meatball))", "macaroni"),
+                                 UseCase<atom>("(pick 0 (lasagna spaghetti ravioli macaroni meatball))", "should throw! cannot pick 0 from list!", true)
+                         ));
+
+TEST_P(PickGroupTest, should_return_expected_pick_res_from_scheme_interpreter) {
+    function_define("pick", "(define pick (lambda (n lat) (cond ((zero? (sub1 n)) (car lat)) (else (pick (sub1 n) (cdr lat))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
