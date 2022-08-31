@@ -208,3 +208,19 @@ TEST_P(MultiInsertLGroupTest, should_return_expected_multiinsertL_res_from_schem
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class MultiSubstGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(MultiSubstLGroup,
+                         MultiSubstGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(multisubst topping fudge (ice cream with fudge for dessert and fudge tacos))", "( ice cream with topping for dessert and topping tacos )")
+                         ));
+
+TEST_P(MultiSubstGroupTest, should_return_expected_multisubst_res_from_scheme_interpreter) {
+    function_define("multisubst", "(define multisubst (lambda (new old lat) (cond ((null? lat) ()) ((eq? old (car lat)) (cons new (multisubst new old (cdr lat)))) (else (cons (car lat) (multisubst new old (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
