@@ -65,3 +65,22 @@ TEST_P(AddGroupTest, should_return_expected_add_res_from_scheme_interpreter) {
 
     scheme(use_case);
 }
+
+class MinusGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(MinusGroup,
+                         MinusGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(- 14 3)", "11"),
+                                 UseCase<integer>("(- 10 2)", "8"),
+                                 UseCase<integer>("(- 17 9)", "8"),
+                                 UseCase<integer>("(- 18 25)", "-7")
+                         ));
+
+TEST_P(MinusGroupTest, should_return_expected_minus_res_from_scheme_interpreter) {
+    function_define("-", "(define - (lambda (n m) (cond ((zero? m) n) (else (sub1 (- n (sub1 m)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
