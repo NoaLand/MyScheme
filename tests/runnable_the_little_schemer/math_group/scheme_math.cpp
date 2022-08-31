@@ -84,3 +84,21 @@ TEST_P(MinusGroupTest, should_return_expected_minus_res_from_scheme_interpreter)
 
     scheme(use_case);
 }
+
+class TimeGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(TimeGroup,
+                         TimeGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(* 12 3)", "36"),
+                                 UseCase<integer>("(* 10 10)", "100")
+                         ));
+
+TEST_P(TimeGroupTest, should_return_expected_minus_res_from_scheme_interpreter) {
+    function_define("+", "(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))");
+    function_define("*", "(define * (lambda (n m) (cond ((zero? m) 0) (else (+ n (* n (sub1 m)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
