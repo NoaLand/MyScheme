@@ -16,7 +16,7 @@ public:
     void put_back(const Token&);
     void push_back(const Token&);
     void push_back(const std::vector<Token> &token_list);
-    void put_back(std::string);
+
 private:
     std::deque<Token> buffer_queue;
     std::istream& is;
