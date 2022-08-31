@@ -46,31 +46,3 @@ TEST_F(FunctionDeclarationAndContextTest, should_return_false_when_function_is_n
 TEST_F(FunctionDeclarationAndContextTest, should_throw_exception_when_store_function_already_exist) {
     ASSERT_ANY_THROW(context.store(my_lambda.get()));
 }
-
-TEST_F(FunctionDeclarationAndContextTest, should_instantiate_success_when_passing_valid_params) {
-    auto input = new list<atom>;
-    input->push_back(new atom{"a"});
-    input->push_back(new atom{"b"});
-    input->push_back(new atom{"c"});
-
-    auto input_params = new list<s_expression>{};
-    input_params->push_back(input);
-    
-    context.is_in("my_lambda", true);
-    const std::string& evaluated_body = context.instantiate(input_params);
-
-    ASSERT_EQ(evaluated_body, "(car ( a b c ) )");
-}
-
-TEST_F(FunctionDeclarationAndContextTest, should_throw_exception_when_input_num_is_not_match) {
-    auto err_input_1 = new atom{"err_input_1"};
-    auto err_input_2 = new atom{"err_input_2"};
-
-    auto wrong_input_params_num = new list<s_expression>{};
-    wrong_input_params_num->push_back(err_input_1);
-    wrong_input_params_num->push_back(err_input_2);
-
-    context.is_in("my_lambda", true);
-
-    ASSERT_ANY_THROW(context.instantiate(wrong_input_params_num));
-}
