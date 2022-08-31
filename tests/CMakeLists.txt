@@ -20,11 +20,11 @@ add_executable(
         preload_libs/preload_libs_test.cpp
         token/token_test.cpp
         core/interpreter_test.cpp
-        scheme/atom_group/scheme_atom.cpp
-        scheme/list_group/scheme_list.cpp
-        scheme/list_group/list_family_group/scheme_list_function.cpp
-        scheme/s_expression_family_group/scheme_s_expression_function.cpp
-        scheme/customized_function_group/customized_function.cpp
+        runnable_the_little_schemer/atom_group/scheme_atom.cpp
+        runnable_the_little_schemer/list_group/scheme_list.cpp
+        runnable_the_little_schemer/list_group/list_family_group/scheme_list_function.cpp
+        runnable_the_little_schemer/s_expression_family_group/scheme_s_expression_function.cpp
+        runnable_the_little_schemer/customized_function_group/customized_function.cpp
 )
 
 target_include_directories(SchemeCore PUBLIC ./)

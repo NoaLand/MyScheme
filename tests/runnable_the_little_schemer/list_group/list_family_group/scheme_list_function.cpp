@@ -1,4 +1,4 @@
-#include "scheme/scheme_use_case.h"
+#include "runnable_the_little_schemer//scheme_use_case.h"
 
 class CarFunctionGroupTest: public SchemeUseCaseBaseTest {
 };
