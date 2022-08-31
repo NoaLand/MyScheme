@@ -21,3 +21,23 @@ TEST_P(SchemeListGroupTest, should_return_expected_list_from_scheme_interpreter)
 
     scheme(use_case);
 }
+
+
+class TupleGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(TupleGroup,
+                         TupleGroupTest,
+                         testing::Values(
+                                 UseCase<list<integer>>("(2 11 3 79 47 6)", "( 2 11 3 79 47 6 )"),
+                                 UseCase<list<integer>>("(8 55 5 555)", "( 8 55 5 555 )"),
+                                 UseCase<list<atom>>("(1 2 8 apple 4 3)", "( 1 2 8 apple 4 3 )"),
+                                 UseCase<list<s_expression>>("(3 (7 4) 13 9)", "( 3 ( 7 4 ) 13 9 )"),
+                                 UseCase<list<integer>>("()", "( )")
+                         ));
+
+TEST_P(TupleGroupTest, should_return_tuple_from_scheme_interpreter) {
+    UseCase<s_expression> use_case = GetParam();
+
+    scheme(use_case);
+}
