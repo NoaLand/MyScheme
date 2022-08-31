@@ -313,7 +313,7 @@ TEST_P(RememberStarGroupTest, should_return_expected_remberstar_list_from_scheme
 class InsertRStarGroupTest: public SchemeUseCaseBaseTest {
 };
 
-INSTANTIATE_TEST_SUITE_P(InsertRGroup,
+INSTANTIATE_TEST_SUITE_P(InsertRStarGroup,
                          InsertRStarGroupTest,
                          testing::Values(
                                  UseCase<list<atom>>("(insertR* roast chuck ((how much (wood)) could ((a (wood) chuck)) (((chuck))) (if (a) ((wood chuck))) could chuck wood))",
@@ -322,6 +322,23 @@ INSTANTIATE_TEST_SUITE_P(InsertRGroup,
 
 TEST_P(InsertRStarGroupTest, should_return_expected_insertRstar_res_from_scheme_interpreter) {
     function_define("insertR*", "(define insertR* (lambda (new old l) (cond ((null? l) ()) ((atom? (car l)) (cond ((eq? (car l) old) (cons old (cons new (insertR* new old (cdr l))))) (else (cons (car l) (insertR* new old (cdr l)))))) (else (cons (insertR* new old (car l)) (insertR* new old (cdr l)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
+
+class OccurStarGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(OccurStarGroup,
+                         OccurStarGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(occur* banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))", "5")
+                         ));
+
+TEST_P(OccurStarGroupTest, should_return_expected_occurstar_res_from_scheme_interpreter) {
+    function_define("+", "(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))");
+    function_define("occur*", "(define occur* (lambda (a l) (cond ((null? l) 0) ((atom? (car l)) (cond ((eq? a (car l)) (add1 (occur* a (cdr l)))) (else (occur* a (cdr l))))) (else (+ (occur* a (car l)) (occur* a (cdr l)))))))");
 
     UseCase use_case = GetParam();
     scheme(use_case);
