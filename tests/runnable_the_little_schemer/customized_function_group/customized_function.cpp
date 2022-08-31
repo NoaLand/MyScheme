@@ -142,3 +142,19 @@ TEST_P(SubstGroupTest, should_return_expected_subst_res_from_scheme_interpreter)
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class Subst2GroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(Subst2Group,
+                         Subst2GroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(subst2 vanilla chocolate banana (banana ice cream with chocolate topping))", "( vanilla ice cream with chocolate topping )")
+                         ));
+
+TEST_P(Subst2GroupTest, should_return_expected_subst2_res_from_scheme_interpreter) {
+    function_define("subst2", "(define subst2 (lambda (new o1 o2 lat) (cond ((null? lat) (())) ((or? (eq? o1 (car lat)) (eq? o2 (car lat))) (cons new (cdr lat))) (else (cons (car lat) (subst new o1 o2 (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
