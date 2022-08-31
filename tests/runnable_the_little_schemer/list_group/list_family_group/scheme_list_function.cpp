@@ -131,3 +131,20 @@ TEST_P(TupAddGroupTest, should_return_expected_add_tup_res_from_scheme_interpret
 
     scheme(use_case);
 }
+
+class TupAddV2GroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(TupAddV2Group,
+                         TupAddV2GroupTest,
+                         testing::Values(
+                                 UseCase<list<integer>>("(tup+ (3 7) (4 6 8 1))", "( 7 13 8 1 )")
+                         ));
+
+TEST_P(TupAddV2GroupTest, should_return_expected_add_tup_v2_res_from_scheme_interpreter) {
+    function_define("+", "(define + (lambda (n m) (cond ((zero? m) n) (else (add1 (+ n (sub1 m)))))))");
+    function_define("tup+", "(define tup+ (lambda (tup1 tup2) (cond ((null? tup1) tup2) ((null? tup2) tup1) (else (cons (+ (car tup1) (car tup2)) (tup+ (cdr tup1) (cdr tup2)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
