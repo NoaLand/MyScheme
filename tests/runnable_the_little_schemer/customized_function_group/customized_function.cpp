@@ -343,3 +343,19 @@ TEST_P(OccurStarGroupTest, should_return_expected_occurstar_res_from_scheme_inte
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class SubstStarGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(SubstStarGroup,
+                         SubstStarGroupTest,
+                         testing::Values(
+                                 UseCase<list<s_expression>>("(subst* orange banana ((banana) (split ((((banana ice))) (cream (banana)) sherbet)) (banana) (bread) (banana brandy)))", "( ( orange ) ( split ( ( ( ( orange ice ) ) ) ( cream ( orange ) ) sherbet ) ) ( orange ) ( bread ) ( orange brandy ) )")
+                         ));
+
+TEST_P(SubstStarGroupTest, should_return_expected_subststar_res_from_scheme_interpreter) {
+    function_define("subst*", "(define subst* (lambda (new old l) (cond ((null? l) ()) ((atom? (car l)) (cond ((eq? old (car l)) (cons new (subst* new old (cdr l)))) (else (cons (car l) (subst* new old (cdr l)))))) (else (cons (subst* new old (car l)) (subst* new old (cdr l)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
