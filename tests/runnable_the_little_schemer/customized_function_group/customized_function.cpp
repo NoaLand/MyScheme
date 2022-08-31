@@ -162,7 +162,7 @@ TEST_P(Subst2GroupTest, should_return_expected_subst2_res_from_scheme_interprete
 class MultiRemberGroupTest: public SchemeUseCaseBaseTest {
 };
 
-INSTANTIATE_TEST_SUITE_P(Subst2Group,
+INSTANTIATE_TEST_SUITE_P(MultiRemberGroup,
                          MultiRemberGroupTest,
                          testing::Values(
                                  UseCase<list<atom>>("(multirember cup (coffee cup tea cup and hick cup))", "( coffee tea and hick )")
