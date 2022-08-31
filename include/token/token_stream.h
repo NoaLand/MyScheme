@@ -14,7 +14,6 @@ public:
     std::istream& get_istream();
     std::ostream& get_ostream();
     void put_back(const Token&);
-    void push_back(const Token&);
     void push_back(const std::vector<Token> &token_list);
 
 private:
