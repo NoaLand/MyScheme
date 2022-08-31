@@ -240,3 +240,19 @@ TEST_P(NoNumsGroupTest, should_return_expected_multisubst_res_from_scheme_interp
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class AllNumsGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(AllNumsGroup,
+                         AllNumsGroupTest,
+                         testing::Values(
+                                 UseCase<list<integer>>("(all-nums (5 pears 6 prunes 9 dates))", "( 5 6 9 )")
+                         ));
+
+TEST_P(AllNumsGroupTest, should_return_expected_all_nums_res_from_scheme_interpreter) {
+    function_define("all-nums", "(define all-nums (lambda (lat) (cond ((null? lat) ()) ((number? (car lat)) (cons (car lat) (all-nums (cdr lat)))) (else (all-nums (cdr lat))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
