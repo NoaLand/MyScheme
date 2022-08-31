@@ -124,3 +124,21 @@ TEST_P(InsertLGroupTest, should_return_expected_insertL_res_from_scheme_interpre
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class SubstGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(SubstGroup,
+                         SubstGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(subst topping fudge (ice cream with fudge for dessert))", "( ice cream with topping for dessert )"),
+                                 UseCase<list<atom>>("(subst jalapeno and (tacos tamales and salsa))", "( tacos tamales jalapeno salsa )"),
+                                 UseCase<list<atom>>("(subst e d (a b c d f g d h))", "( a b c e f g d h )")
+                         ));
+
+TEST_P(SubstGroupTest, should_return_expected_subst_res_from_scheme_interpreter) {
+    function_define("subst", "(define subst (lambda (new old lat) (cond ((null? lat) (())) ((eq? old (car lat)) (cons new (cdr lat))) (else (cons (car lat) (subst new old (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
