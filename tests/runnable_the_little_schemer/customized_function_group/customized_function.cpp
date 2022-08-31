@@ -158,3 +158,19 @@ TEST_P(Subst2GroupTest, should_return_expected_subst2_res_from_scheme_interprete
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class MultiRemberGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(Subst2Group,
+                         MultiRemberGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(multirember cup (coffee cup tea cup and hick cup))", "( coffee tea and hick )")
+                         ));
+
+TEST_P(MultiRemberGroupTest, should_return_expected_multirember_res_from_scheme_interpreter) {
+    function_define("multirember", "(define multirember (lambda (a lat) (cond ((null? lat) ()) ((eq? a (car lat)) (multirember a (cdr lat))) (else (cons (car lat) (multirember a (cdr lat)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
