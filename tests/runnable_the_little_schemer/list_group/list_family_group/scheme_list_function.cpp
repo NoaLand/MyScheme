@@ -182,3 +182,19 @@ TEST_P(PickGroupTest, should_return_expected_pick_res_from_scheme_interpreter) {
 
     scheme(use_case);
 }
+
+class RemPickGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(RemPickGroup,
+                         RemPickGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(rempick 3 (hotdogs with hot mustard))", "( hotdogs with mustard )")
+                         ));
+
+TEST_P(RemPickGroupTest, should_return_expected_rempick_res_from_scheme_interpreter) {
+    function_define("rempick", "(define rempick (lambda (n lat) (cond ((zero? (sub1 n)) (cdr lat)) (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
