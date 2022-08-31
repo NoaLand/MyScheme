@@ -32,3 +32,19 @@ TEST_P(SelfSubGroupTest, should_return_expected_self_sub_res_from_scheme_interpr
 
     scheme(use_case);
 }
+
+class IsZeroGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsZeroGroup,
+                         IsZeroGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(zero? 0)", "#t"),
+                                 UseCase<boolean>("(zero? 1492)", "#f")
+                         ));
+
+TEST_P(IsZeroGroupTest, should_return_expected_is_zero_res_from_scheme_interpreter) {
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
