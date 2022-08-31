@@ -95,3 +95,19 @@ TEST_P(IsNullFunctionGroupTest, should_return_expected_is_null_res_from_scheme_i
 
     scheme(use_case);
 }
+
+class AddTupGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(AddTupGroup,
+                         AddTupGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(addtup (3 5 2 8))", "18"),
+                                 UseCase<integer>("(addtup (15 6 7 12 3))", "43")
+                         ));
+
+TEST_P(AddTupGroupTest, should_return_expected_add_tup_res_from_scheme_interpreter) {
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
