@@ -196,3 +196,21 @@ TEST_P(ExptGroupTest, should_return_expected_expt_res_from_scheme_interpreter) {
 
     scheme(use_case);
 }
+
+class DivisionGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(DivisionGroup,
+                         DivisionGroupTest,
+                         testing::Values(
+                                 UseCase<integer>("(/ 15 4)", "3")
+                         ));
+
+TEST_P(DivisionGroupTest, should_return_expected_division_res_from_scheme_interpreter) {
+    function_define("-", "(define - (lambda (n m) (cond ((zero? m) n) (else (sub1 (- n (sub1 m)))))))");
+    function_define("<", "(define < (lambda (n m) (cond ((zero? m) #f) ((zero? n) #t) (else (< (sub1 n) (sub1 m))))))");
+    function_define("/", "(define / (lambda (n m) (cond ((< n m) 0) (else (add1 (/ (- n m) m))))))");
+    UseCase use_case = GetParam();
+
+    scheme(use_case);
+}
