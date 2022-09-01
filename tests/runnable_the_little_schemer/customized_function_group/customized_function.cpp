@@ -457,7 +457,7 @@ INSTANTIATE_TEST_SUITE_P(Edd1Group,
                                  UseCase<list<s_expression>>("(edd1 (() ()))", "( ( ) ( ) ( ) )")
                          ));
 
-TEST_P(Edd1GroupTest, should_return_expected_edd1_boolean_res_from_scheme_interpreter) {
+TEST_P(Edd1GroupTest, should_return_expected_edd1_res_from_scheme_interpreter) {
     function_define("edd1", "(define edd1 (lambda (n) (cons () n)))");
 
     UseCase use_case = GetParam();
@@ -474,7 +474,7 @@ INSTANTIATE_TEST_SUITE_P(Zub1Group,
                                  UseCase<list<s_expression>>("(zub1 (() ()))", "( ( ) )")
                          ));
 
-TEST_P(Zub1GroupTest, should_return_expected_zub1_boolean_res_from_scheme_interpreter) {
+TEST_P(Zub1GroupTest, should_return_expected_zub1_res_from_scheme_interpreter) {
     function_define("zub1", "(define zub1 (lambda (n) (cdr n)))");
 
     UseCase use_case = GetParam();
