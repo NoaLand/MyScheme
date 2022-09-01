@@ -248,3 +248,21 @@ TEST_P(MakeSetV1GroupTest, should_return_expected_makeset_boolean_res_from_schem
     scheme(use_case);
 }
 
+class MakeSetV2GroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(MakeSetGroup,
+                         MakeSetV2GroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(makeset (apple peach pear peach plum apple lemon peach))", "( apple peach pear plum lemon )"),
+                                 UseCase<list<s_expression>>("(makeset (apple 3 pear 4 9 apple 3 4))", "( apple 3 pear 4 9 )")
+                         ));
+
+TEST_P(MakeSetV2GroupTest, should_return_expected_makeset_boolean_res_from_scheme_interpreter) {
+    function_define("multirember", "(define multirember (lambda (a lat) (cond ((null? lat) ()) ((eq? a (car lat)) (multirember a (cdr lat))) (else (cons (car lat) (multirember a (cdr lat)))))))");
+    function_define("makeset", "(define makeset (lambda (lat) (cond ((null? lat) ()) (else (cons (car lat) (makeset (multirember (car lat) (cdr lat))))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
+

@@ -675,3 +675,15 @@ integer: 8
 (makeset (apple peach pear peach plum apple lemon peach))
 -> list: ( pear plum apple lemon peach )
 ```
+#### v2
+```scheme
+(define makeset (lambda (lat) (cond ((null? lat) ()) (else (cons (car lat) (makeset (multirember (car lat) (cdr lat))))))))
+```
+```text
+# test cases
+(makeset (apple peach pear peach plum apple lemon peach))
+-> list: ( apple peach pear plum lemon )
+
+(makeset (apple 3 pear 4 9 apple 3 4))
+-> list: ( apple 3 pear 4 9 )
+```
