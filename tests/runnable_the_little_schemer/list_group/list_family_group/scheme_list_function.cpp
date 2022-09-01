@@ -292,3 +292,22 @@ TEST_P(IsSubSetGroupTest, should_return_expected_issubset_v2_boolean_res_from_sc
     scheme(use_case);
 }
 
+class IsSetEqGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsSetEqGroup,
+                         IsSetEqGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(eqset? (6 large chickens with wings) (6 chickens with large wings))", "#t"),
+                                 UseCase<boolean>("(eqset? (5 a x s) (x s 5 a))", "#t"),
+                                 UseCase<boolean>("(eqset? (2a b c d) (2 a b c d))", "#f")
+                         ));
+
+TEST_P(IsSetEqGroupTest, should_return_expected_issubset_v1_boolean_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("subset?", "(define subset?  (lambda (set1 set2) (cond ((null? set1) #t) ((member? (car set1) set2) (subset? (cdr set1) set2)) (else #f))))");
+    function_define("eqset?", "(define eqset? (lambda (set1 set2) (and? (subset? set1 set2) (subset? set2 set1))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}

@@ -723,3 +723,17 @@ integer: 8
 (subset? (4 pounds of horseradish) (four pounds chicken and 5 ounces horseradish))
 -> bool: #f
 ```
+
+### 40. eqset?
+```scheme
+(define eqset?
+    (lambda (set1 set2)
+        (and? (subset? set1 set2) (subset? set2 set1))
+    )
+)
+```
+```text
+# test cases
+(eqset? (6 large chickens with wings) (6 chickens with large wings))
+-> bool: #t
+```
