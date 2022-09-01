@@ -39,12 +39,9 @@ public:
         return res;
     }
     std::string get_indicator() override {
-        for(const auto& element : l) {
-            if(element->get_indicator() != "integer") {
-                return "list";
-            }
-        }
-        return "tuple";
+        return std::all_of(l.begin(),
+                           l.end(),
+                           [](auto e) { return e->get_indicator() == "integer"; }) ? "tuple" : "list";
     }
     void print(std::ostream& os) override {
         os << get_indicator() << ": " << get_value() << std::endl;
