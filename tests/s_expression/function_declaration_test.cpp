@@ -27,7 +27,6 @@ TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_succes
     ASSERT_EQ(my_lambda->get_name(), "my_lambda");
     ASSERT_EQ(my_lambda->get_params()->size_of(), 1);
     ASSERT_EQ(my_lambda->get_params()->get(0)->get_value(), "l");
-    ASSERT_EQ(my_lambda->get_serialized_body(), my_lambda_body);
     ASSERT_EQ(my_lambda->get_value(), function_definition_body);
 
     std::ostringstream buf;

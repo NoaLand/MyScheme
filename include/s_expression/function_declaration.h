@@ -15,7 +15,6 @@ public:
 
     std::string get_name() { return name; }
     list<param>* get_params() { return params; }
-    std::string get_serialized_body() { return serialized_body; }
     std::vector<Token> get_body() { return body; }
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
