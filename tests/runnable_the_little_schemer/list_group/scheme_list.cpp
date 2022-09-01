@@ -41,3 +41,21 @@ TEST_P(TupleGroupTest, should_return_tuple_from_scheme_interpreter) {
 
     scheme(use_case);
 }
+
+class PairFirstGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(PairFirstGroup,
+                         PairFirstGroupTest,
+                         testing::Values(
+                                 UseCase<atom>("(first (a b))", "a"),
+                                 UseCase<list<atom>>("(first ((a) b))", "( a )"),
+                                 UseCase<list<atom>>("(first ((a b) (c d)))", "( a b )")
+                         ));
+
+TEST_P(PairFirstGroupTest, should_return_pair_first_s_expression_in_list_from_scheme_interpreter) {
+    function_define("first", "(define first (lambda (p) (car p)))");
+    UseCase<s_expression> use_case = GetParam();
+
+    scheme(use_case);
+}

@@ -863,3 +863,19 @@ integer: 8
 (a-pair? (a b c))
 -> bool: #f
 ```
+
+### 47. first
+```scheme
+(define first (lambda (p) (car p)))
+```
+```text
+# test cases
+(first (a b))
+-> atom: a
+
+(first ((a) b))
+-> list: ( a )
+
+(first ((a b) (c d)))
+-> list: ( a b )
+```
