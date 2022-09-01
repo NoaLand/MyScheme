@@ -3,7 +3,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "token/token.h"
+#include "core/token.h"
 #include "s_expression/function_declaration.h"
 
 class function_instance {
