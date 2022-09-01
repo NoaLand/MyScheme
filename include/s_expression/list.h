@@ -24,13 +24,9 @@ public:
         return l.empty();
     }
     bool has_value(const std::string& value) {
-        for(const auto& element : l) {
-            if(element->get_value() == value) {
-                return true;
-            }
-        }
-
-        return false;
+        return std::any_of(l.begin(),
+                           l.end(),
+                           [&value](auto e){ return e->get_value() == value; });
     }
     std::string get_value() override {
         std::string res = "( ";
