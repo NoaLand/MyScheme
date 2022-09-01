@@ -1,6 +1,7 @@
 #ifndef MYSCHEME_FUNCTION_DECLARATION_H
 #define MYSCHEME_FUNCTION_DECLARATION_H
 #include <string>
+#include <utility>
 
 #include "token/token.h"
 #include "list.h"
@@ -11,7 +12,7 @@ public:
     function_declaration() = default;
     function_declaration(std::string n, list<param>* p, std::string b): name(std::move(n)), params(p) {}
 
-    function_declaration(std::string n, list<param>* p, std::vector<Token> b): name(std::move(n)), params(p), body(b) {}
+    function_declaration(std::string n, list<param>* p, std::vector<Token> b): name(std::move(n)), params(p), body(std::move(b)) {}
 
     std::string get_name() { return name; }
     list<param>* get_params() { return params; }
