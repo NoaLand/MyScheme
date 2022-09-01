@@ -480,3 +480,23 @@ TEST_P(Zub1GroupTest, should_return_expected_zub1_boolean_res_from_scheme_interp
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class ParenthesesAddGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(ParenthesesAddGroup,
+                         ParenthesesAddGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(+ (()()()) (()()()()))", "( ( ) ( ) ( ) ( ) ( ) ( ) ( ) )")
+                         ));
+
+TEST_P(ParenthesesAddGroupTest, should_return_expected_parenthesesadd_res_from_scheme_interpreter) {
+    function_define("sero?", "(define sero? (lambda (n) (null? n)))");
+    function_define("edd1", "(define edd1 (lambda (n) (cons () n)))");
+    function_define("zub1", "(define zub1 (lambda (n) (cdr n)))");
+
+    function_define("+", "(define + (lambda (n m) (cond ((sero? m) n) (else (edd1 (+ n (zub1 m)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
