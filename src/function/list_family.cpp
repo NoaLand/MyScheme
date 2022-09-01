@@ -12,13 +12,9 @@ list<s_expression>* cdr::execute() {
     if(s_exp->empty()) {
         throw std::runtime_error("you cannot ask for the *cdr* of the empty list");
     }
-    
-    auto res = new list<s_expression>();
-    for(int index = 1; index < s_exp->size_of(); ++index) {
-        res->push_back(s_exp->get(index));
-    }
 
-    return res;
+    auto iter = s_exp->get_iterator();
+    return new list<s_expression>(iter.begin() + 1, iter.end());
 }
 
 list<s_expression>* cons::execute() {

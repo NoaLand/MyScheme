@@ -11,6 +11,9 @@ requires std::derived_from<T, s_expression>
 class list: public s_expression{
 public:
     list() = default;
+    list(const std::vector<s_expression*>::iterator& begin, const std::vector<s_expression*>::iterator& end) {
+        l = {begin, end};
+    }
     T* get(const int& index) {
         return l.at(index);
     }
@@ -40,7 +43,12 @@ public:
         return res;
     }
     std::string get_indicator() override {
-        return indicator;
+        for(const auto& element : l) {
+            if(element->get_indicator() != "integer") {
+                return "list";
+            }
+        }
+        return "tuple";
     }
     void print(std::ostream& os) override {
         os << get_indicator() << ": " << get_value() << std::endl;
@@ -49,13 +57,10 @@ public:
         return l;
     }
     void push_back(T* s_exp) {
-        if(s_exp->get_indicator() != "integer" && indicator == "tuple") {
-            indicator = "list";
-        }
         l.push_back(s_exp);
     }
 private:
-    std::string indicator{"tuple"};
+    std::string indicator;
     std::vector<T*> l{};
 };
 #endif //MYSCHEME_LIST_H
