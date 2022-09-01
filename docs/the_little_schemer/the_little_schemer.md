@@ -879,3 +879,19 @@ integer: 8
 (first ((a b) (c d)))
 -> list: ( a b )
 ```
+
+### 48. second
+```scheme
+(define second (lambda (p) (car (cdr p))))
+```
+```text
+# test cases
+(second (a b))
+-> atom: b
+
+(second ((a) b))
+-> list: b
+
+(second ((a b) (c d)))
+-> list: ( c d )
+```

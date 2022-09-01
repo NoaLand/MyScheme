@@ -59,3 +59,21 @@ TEST_P(PairFirstGroupTest, should_return_pair_first_s_expression_in_list_from_sc
 
     scheme(use_case);
 }
+
+class PairSecondGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(PairSecondGroup,
+                         PairSecondGroupTest,
+                         testing::Values(
+                                 UseCase<atom>("(second (a b))", "b"),
+                                 UseCase<atom>("(second ((a) b))", "b"),
+                                 UseCase<list<atom>>("(second ((a b) (c d)))", "( c d )")
+                         ));
+
+TEST_P(PairSecondGroupTest, should_return_pair_second_s_expression_in_list_from_scheme_interpreter) {
+    function_define("second", "(define second (lambda (p) (car (cdr p))))");
+    UseCase<s_expression> use_case = GetParam();
+
+    scheme(use_case);
+}
