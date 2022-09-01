@@ -10,7 +10,7 @@ class Token {
 public:
     explicit Token(char t): type(t) {}
     Token(char t, std::string v): type(t), value(std::move(v)) {}
-    Token(char t, int v): type(t), integer_value(v) {}
+    Token(char t, int v): type(t), integer_value(v), value(std::to_string(v)) {}
     char type;
     std::string value;
     int integer_value{0};

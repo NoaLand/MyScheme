@@ -13,7 +13,7 @@ Token Token_stream::get() {
     std::string s;
     switch(ch) {
         case '(': case ')':
-            return Token{ch};
+            return Token{ch, std::string(1, ch)};
         case ' ': case '\n':
             return Token{'S'};
         case '0': case '1': case '2': case '3': case '4':
