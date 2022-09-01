@@ -36,11 +36,8 @@ boolean* is_null::execute() {
 }
 
 integer* add_tuple::execute() {
-    auto sum = 0;
-    for(const auto& item : tup_list->get_iterator()) {
-        sum += item->val();
-    }
+    auto tup = tup_list->get_iterator();
 
-
-    return new integer{sum};
+    return std::accumulate(tup.begin(), tup.end(), new integer{0},
+                           [](const integer *l, const integer *r) { return new integer{l->val() + r->val()}; });
 }

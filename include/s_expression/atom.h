@@ -50,6 +50,6 @@ public:
     int val() const;
 private:
     std::string indicator{"integer"};
-    int value{};
+    int value{0};
 };
 #endif //MYSCHEME_ATOM_H

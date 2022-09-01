@@ -1,6 +1,8 @@
 #ifndef MYSCHEME_LIST_FAMILY_H
 #define MYSCHEME_LIST_FAMILY_H
 
+#include <numeric>
+
 #include "function.h"
 #include "s_expression/atom.h"
 #include "s_expression/list.h"
