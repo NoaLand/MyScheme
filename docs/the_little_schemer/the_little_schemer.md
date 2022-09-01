@@ -772,3 +772,21 @@ integer: 8
 (intersect (stewed tomatoes and macaroni) (macaroni and cheese))
 -> list: ( and macaroni )
 ```
+
+### 43. union
+```scheme
+(define union
+    (lambda (set1 set2)
+        (cond
+            ((null? set1) set2)
+            ((member? (car set1) set2) (union (cdr set1) set2))
+            (else (cons (car set1) (union (cdr set1) set2)))
+        )
+    )
+)
+```
+```text
+# test cases
+(union (stewed tomatoes and macaroni casserole) (macaroni and cheese))
+-> list: ( stewed tomatoes casserole macaroni and cheese )
+```

@@ -345,3 +345,20 @@ TEST_P(IntersectGroupTest, should_return_expected_intersect_list_res_from_scheme
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class UnionGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(UnionGroup,
+                         UnionGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(union (stewed tomatoes and macaroni casserole) (macaroni and cheese))", "( stewed tomatoes casserole macaroni and cheese )")
+                         ));
+
+TEST_P(UnionGroupTest, should_return_expected_union_list_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("union", "(define union (lambda (set1 set2) (cond ((null? set1) set2) ((member? (car set1) set2) (union (cdr set1) set2)) (else (cons (car set1) (union (cdr set1) set2))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
