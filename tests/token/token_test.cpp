@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
 #include "base_test.h"
-#include "preload_libs/preload_libs.h"
 
 class BaseTokenTest: public BaseTest {
 };
