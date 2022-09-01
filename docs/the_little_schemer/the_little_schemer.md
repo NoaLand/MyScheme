@@ -808,3 +808,23 @@ integer: 8
 (diff (stewed tomatoes and macaroni casserole) (macaroni and cheese))
 -> list: ( stewed tomatoes casserole )
 ```
+
+### 45. intersectall
+```scheme
+(define intersectall
+    (lambda (l-set)
+        (cond
+            ((null? (cdr l-set)) (car l-set))
+            (else (intersect (car l-set) (intersectall (cdr l-set))))
+        )
+    )
+)
+```
+```text
+# test cases
+(intersectall ((a b c) (c a d e) (e f g h a b)))
+-> list: ( a )
+
+(intersectall ((6 pears and) (3 peaches and 6 peppers) (8 pears and 6 plums) (and 6 prunes with some apples)))
+-> list: ( 6 and )
+```

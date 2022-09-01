@@ -379,3 +379,22 @@ TEST_P(DiffGroupTest, should_return_expected_diff_list_res_from_scheme_interpret
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class IntersectAllGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IntersectAllGroup,
+                         IntersectAllGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(intersectall ((a b c) (c a d e) (e f g h a b)))", "( a )"),
+                                 UseCase<list<atom>>("(intersectall ((6 pears and) (3 peaches and 6 peppers) (8 pears and 6 plums) (and 6 prunes with some apples)))", "( 6 and )")
+                         ));
+
+TEST_P(IntersectAllGroupTest, should_return_expected_intersectall_list_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("intersect", "(define intersect (lambda (set1 set2) (cond ((null? set1) ()) ((member? (car set1) set2) (cons (car set1) (intersect (cdr set1) set2))) (else (intersect (cdr set1) set2)))))");
+    function_define("intersectall", "(define intersectall (lambda (l-set) (cond ((null? (cdr l-set)) (car l-set)) (else (intersect (car l-set) (intersectall (cdr l-set)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
