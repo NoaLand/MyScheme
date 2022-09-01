@@ -446,3 +446,20 @@ TEST_P(IsSeroGroupTest, should_return_expected_issero_boolean_res_from_scheme_in
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class Edd1GroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(Edd1Group,
+                         Edd1GroupTest,
+                         testing::Values(
+                                 UseCase<list<s_expression>>("(edd1 ())", "( ( ) )"),
+                                 UseCase<list<s_expression>>("(edd1 (() ()))", "( ( ) ( ) ( ) )")
+                         ));
+
+TEST_P(Edd1GroupTest, should_return_expected_edd1_boolean_res_from_scheme_interpreter) {
+    function_define("edd1", "(define edd1 (lambda (n) (cons () n)))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
