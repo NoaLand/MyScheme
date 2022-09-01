@@ -212,11 +212,8 @@ auto interpreter::get_input_param() -> list<s_expression>* {
 auto interpreter::get_param_val(const Token &t) -> s_expression * {
     auto instance = call_stack.top();
     auto map_result = instance.param_hashmap.find(t.value);
-    if(map_result == instance.param_hashmap.end()) {
-        throw std::runtime_error("wrong syntax! cannot find var");
-    } else {
-        return map_result->second;
-    }
+    
+    return map_result->second;
 }
 
 auto interpreter::function_define() -> function_declaration* {
