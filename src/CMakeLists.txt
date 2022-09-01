@@ -2,7 +2,6 @@ add_library(SchemeCore
         core/token.cpp
         core/interpreter.cpp
         core/function/function_context.cpp
-        core/function/function_factory.cpp
         s_expression/atom.cpp
         s_expression/params.cpp
         s_expression/function_declaration.cpp
