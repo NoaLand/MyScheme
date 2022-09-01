@@ -60,7 +60,7 @@ Token Token_stream::get() {
                     if(s == "add1" || s == "sub1") {
                         return {'F', s};
                     }
-                    if(context->is_in(s)) {
+                    if(context.is_in(s)) {
                         return {'F', s};
                     }
                     if(s == "define") {
@@ -90,6 +90,10 @@ std::istream& Token_stream::get_istream() {
 
 std::ostream& Token_stream::get_ostream() {
     return os;
+}
+
+function_context& Token_stream::get_context() {
+    return context;
 }
 
 void Token_stream::put_back(const Token& t) {

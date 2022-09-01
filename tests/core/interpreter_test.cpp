@@ -4,7 +4,7 @@
 
 class InterpreterTest: public BaseTest {
 protected:
-    interpreter inter{context, ts};
+    interpreter inter{ts};
 };
 
 class ConstructFromTokenTest: public InterpreterTest {

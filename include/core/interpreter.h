@@ -18,7 +18,7 @@
 
 class interpreter {
 public:
-    interpreter(function_context& c, Token_stream& t_stream): context{c}, ts{t_stream} {};
+    interpreter(Token_stream& t_stream): ts{t_stream}, context{t_stream.get_context()} {};
     
     auto construct_from_token() -> s_expression*;
 

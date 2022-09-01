@@ -47,7 +47,7 @@ public:
 class SchemeUseCaseBaseTest: public BaseTest,
                              public testing::WithParamInterface<UseCase<s_expression>> {
 protected:
-    interpreter inter{context, ts};
+    interpreter inter{ts};
 
     inline void function_define(const std::string& func_name, const std::string& func_definition) {
         is.str(func_definition + "\n");

@@ -15,7 +15,7 @@ protected:
     std::istringstream is;
     std::ostringstream os;
     function_context context;
-    Token_stream ts{is, os, &context};
+    Token_stream ts{is, os, context};
 };
 
 #endif //MYSCHEME_BASE_TEST_H
