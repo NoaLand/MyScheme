@@ -751,6 +751,24 @@ integer: 8
 ```
 ```text
 # test cases
-(intersect? (stewed tomatos and macaroni) (macaroni and cheese))
+(intersect? (stewed tomatoes and macaroni) (macaroni and cheese))
 -> bool: #t
+```
+
+### 42. intersect
+```scheme
+(define intersect
+    (lambda (set1 set2)
+        (cond
+            ((null? set1) ())
+            ((member? (car set1) set2) (cons (car set1) (intersect (cdr set1) set2)))
+            (else (intersect (cdr set1) set2))
+        )
+    )
+)
+```
+```text
+# test cases
+(intersect (stewed tomatoes and macaroni) (macaroni and cheese))
+-> list: ( and macaroni )
 ```

@@ -318,12 +318,29 @@ class IsIntersectGroupTest: public SchemeUseCaseBaseTest {
 INSTANTIATE_TEST_SUITE_P(IsIntersectGroup,
                          IsIntersectGroupTest,
                          testing::Values(
-                                 UseCase<boolean>("(intersect? (stewed tomatos and macaroni) (macaroni and cheese))", "#t")
+                                 UseCase<boolean>("(intersect? (stewed tomatoes and macaroni) (macaroni and cheese))", "#t")
                          ));
 
 TEST_P(IsIntersectGroupTest, should_return_expected_isintersect_boolean_res_from_scheme_interpreter) {
     function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
     function_define("intersect?", "(define intersect?  (lambda (set1 set2) (cond ((null? set1) #f) (else (or? (member? (car set1) set2) (intersect? (cdr set1) set2))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
+
+class IntersectGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IntersectGroup,
+                         IntersectGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(intersect (stewed tomatoes and macaroni) (macaroni and cheese))", "( and macaroni )")
+                         ));
+
+TEST_P(IntersectGroupTest, should_return_expected_intersect_list_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("intersect", "(define intersect (lambda (set1 set2) (cond ((null? set1) ()) ((member? (car set1) set2) (cons (car set1) (intersect (cdr set1) set2))) (else (intersect (cdr set1) set2)))))");
 
     UseCase use_case = GetParam();
     scheme(use_case);
