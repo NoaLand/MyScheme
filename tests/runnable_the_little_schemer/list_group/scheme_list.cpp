@@ -77,3 +77,21 @@ TEST_P(PairSecondGroupTest, should_return_pair_second_s_expression_in_list_from_
 
     scheme(use_case);
 }
+
+class BuildPairGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(BuildPairGroup,
+                         BuildPairGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(build a b)", "( a b )"),
+                                 UseCase<list<s_expression>>("(build (a) b)", "( ( a ) b )"),
+                                 UseCase<list<s_expression>>("(build (a b) (c d))", "( ( a b ) ( c d ) )")
+                         ));
+
+TEST_P(BuildPairGroupTest, should_return_building_pair_res_in_list_from_scheme_interpreter) {
+    function_define("build", "(define build (lambda (s1 s2) (cons s1 (cons s2 ()))))");
+    UseCase<s_expression> use_case = GetParam();
+
+    scheme(use_case);
+}

@@ -895,3 +895,19 @@ integer: 8
 (second ((a b) (c d)))
 -> list: ( c d )
 ```
+
+### 49. build
+```scheme
+(define build (lambda (s1 s2) (cons s1 (cons s2 ()))))
+```
+```text
+# test cases
+ (build a b)
+ -> list: ( a b )
+ 
+ (build (a) b)
+ -> list: ( ( a ) b )
+ 
+ (build (a b) (c d))
+ -> list: ( ( a b ) ( c d ) )
+```
