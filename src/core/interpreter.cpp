@@ -97,8 +97,6 @@ auto interpreter::closure() -> s_expression* {
         } else if(token.type == 'D') {
             ts.put_back(token);
             return function_define();
-        } else {
-            throw std::runtime_error("wrong syntax: " + token.value);
         }
     }
 
