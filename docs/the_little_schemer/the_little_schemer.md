@@ -652,4 +652,7 @@ integer: 8
 
 (set? ())
 -> bool: #t
+
+(set? (apple 3 pear 4 9 apple 3 4))
+-> bool: #f
 ```

@@ -218,7 +218,8 @@ INSTANTIATE_TEST_SUITE_P(IsSetGroup,
                          testing::Values(
                                  UseCase<boolean>("(set? (apple peaches apple plum))", "#f"),
                                  UseCase<boolean>("(set? (apple peaches pears plums))", "#t"),
-                                 UseCase<boolean>("(set? ())", "#t")
+                                 UseCase<boolean>("(set? ())", "#t"),
+                                 UseCase<boolean>("(set? (apple 3 pear 4 9 apple 3 4))", "#f")
                          ));
 
 TEST_P(IsSetGroupTest, should_return_expected_isset_boolean_res_from_scheme_interpreter) {
