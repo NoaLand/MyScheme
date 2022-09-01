@@ -6,7 +6,7 @@
 class FunctionDeclarationAndContextTest : public BaseTest {
 protected:
     std::shared_ptr<function_declaration> my_lambda{};
-    const std::string my_lambda_body = "(car $l$ )";
+    std::vector<Token> my_lambda_body_token_list{{'(', "("}, {'F', "car"}, {'P', "l"}, {')', ")"}};
 
     void SetUp() override {
         auto my_lambda_params = new list<param>();
@@ -14,14 +14,14 @@ protected:
         my_lambda = std::make_shared<function_declaration>(
                 "my_lambda",
                 my_lambda_params,
-                my_lambda_body
+                my_lambda_body_token_list
         );
         context.store(my_lambda.get());
     }
 };
 
 TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_successfully_after_init_function) {
-    std::string function_definition_body = "-> name: my_lambda\n-> var: ( l )\n-> body: (car $l$ )";
+    std::string function_definition_body = "-> name: my_lambda\n-> var: ( l )\n-> body: ( car l ) ";
 
     ASSERT_EQ(my_lambda->get_indicator(), "customized_function");
     ASSERT_EQ(my_lambda->get_name(), "my_lambda");
