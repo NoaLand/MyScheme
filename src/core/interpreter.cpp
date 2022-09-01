@@ -25,17 +25,17 @@ auto interpreter::scheme() -> void {
     auto token = ts.get();
     switch (token.type) {
         case 'A': {
-            auto s_exp = std::make_unique<atom>(token.value);
+            auto s_exp = new atom{token.value};
             s_exp->print(os);
             break;
         }
         case 'B': {
-            auto s_exp = std::make_unique<boolean>(token.value);
+            auto s_exp = new boolean{token.value};
             s_exp->print(os);
             break;
         }
         case 'N': {
-            auto s_exp = std::make_unique<integer>(token.integer_value);
+            auto s_exp = new integer{token.integer_value};
             s_exp->print(os);
             break;
         }
