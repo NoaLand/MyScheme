@@ -629,3 +629,27 @@ integer: 8
 (p+ (()()()()()) (()()()()))
 -> list: ( ( ) ( ) ( ) ( ) ( ) ( ) ( ) ( ) ( ) )
 ```
+
+### 37. set?
+```scheme
+(define set?
+    (lambda (lat)
+        (cond
+            ((null? lat) #t)
+            ((member? (car lat) (cdr lat)) #f)
+            (else (set? (cdr lat)))
+        )
+    )
+)
+```
+```text
+# test cases
+(set? (apple peaches apple plum))
+-> bool: #f
+
+(set? (apple peaches pears plums))
+-> bool: #t
+
+(set? ())
+-> bool: #t
+```

@@ -481,3 +481,14 @@
 )
 (define p+ (lambda (n m) (cond ((sero? m) n) (else (edd1 (p+ n (zub1 m)))))))
 (p+ (()()()) (()()()()))
+
+(define set?
+    (lambda (lat)
+        (cond
+            ((null? lat) #t)
+            ((member? (car lat) (cdr lat)) #f)
+            (else (set? (cdr lat)))
+        )
+    )
+)
+(define set? (lambda (lat) (cond ((null? lat) #t) ((member? (car lat) (cdr lat)) #f) (else (set? (cdr lat))))))

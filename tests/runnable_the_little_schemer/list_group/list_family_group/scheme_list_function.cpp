@@ -210,3 +210,22 @@ TEST_P(RemPickGroupTest, should_return_expected_rempick_v2_res_from_scheme_inter
 
     scheme(use_case);
 }
+class IsSetGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsSetGroup,
+                         IsSetGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(set? (apple peaches apple plum))", "#f"),
+                                 UseCase<boolean>("(set? (apple peaches pears plums))", "#t"),
+                                 UseCase<boolean>("(set? ())", "#t")
+                         ));
+
+TEST_P(IsSetGroupTest, should_return_expected_isset_boolean_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("set?", "(define set? (lambda (lat) (cond ((null? lat) #t) ((member? (car lat) (cdr lat)) #f) (else (set? (cdr lat)))))) ");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
+
