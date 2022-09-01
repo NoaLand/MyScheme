@@ -11,7 +11,7 @@ add_library(SchemeCore
         function/others.cpp
         function/list_family.cpp
         function/s_expression_family.cpp
-        token/token_stream.cpp
+        stream/token_stream.cpp
 )
 
 target_include_directories(SchemeCore PUBLIC ../include)

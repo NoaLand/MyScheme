@@ -7,7 +7,7 @@
 #include "core/function/function_context.h"
 #include "core/function/function_factory.h"
 
-#include "token/token_stream.h"
+#include "stream/token_stream.h"
 
 #include "function/function.h"
 #include "function/list_family.h"

@@ -1,4 +1,4 @@
-#include "token/token_stream.h"
+#include "stream/token_stream.h"
 
 Token Token_stream::get() {
     if(!buffer_queue.empty()) {
