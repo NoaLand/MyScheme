@@ -182,8 +182,6 @@ auto interpreter::call_function() -> s_expression* {
         s_expression* res = closure();
         call_stack.pop();
         return res;
-    } else {
-        throw std::runtime_error("unknown function: " + function_key);
     }
 
     const auto end = ts.get();
