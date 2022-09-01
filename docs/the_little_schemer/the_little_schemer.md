@@ -790,3 +790,21 @@ integer: 8
 (union (stewed tomatoes and macaroni casserole) (macaroni and cheese))
 -> list: ( stewed tomatoes casserole macaroni and cheese )
 ```
+
+### 44. diff
+```scheme
+(define diff
+    (lambda (set1 set2)
+        (cond
+            ((null? set1) ())
+            ((member? (car set1) set2) (diff (cdr set1) set2))
+            (else (cons (car set1) (diff (cdr set1) set2)))
+        )
+    )
+)
+```
+```text
+# test cases
+(diff (stewed tomatoes and macaroni casserole) (macaroni and cheese))
+-> list: ( stewed tomatoes casserole )
+```

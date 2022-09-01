@@ -362,3 +362,20 @@ TEST_P(UnionGroupTest, should_return_expected_union_list_res_from_scheme_interpr
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class DiffGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(DiffGroup,
+                         DiffGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(diff (stewed tomatoes and macaroni casserole) (macaroni and cheese))", "( stewed tomatoes casserole )")
+                         ));
+
+TEST_P(DiffGroupTest, should_return_expected_diff_list_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("diff", "(define diff (lambda (set1 set2) (cond ((null? set1) ()) ((member? (car set1) set2) (diff (cdr set1) set2)) (else (cons (car set1) (diff (cdr set1) set2))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
