@@ -9,7 +9,9 @@ add_library(SchemeCore
         function/math_family.cpp
         function/others.cpp
         core/interpreter.cpp
-        core/function/function_context.cpp token/token_stream.cpp)
+        core/function/function_context.cpp
+        core/function/function_factory.cpp
+        token/token_stream.cpp)
 
 target_include_directories(SchemeCore PUBLIC ../include)
 target_compile_features(SchemeCore PUBLIC cxx_std_20)
