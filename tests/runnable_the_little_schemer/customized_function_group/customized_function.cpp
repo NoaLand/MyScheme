@@ -428,3 +428,21 @@ TEST_P(LeftmostGroupTest, should_return_expected_leftmost_boolean_res_from_schem
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class IsSeroGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsSeroGroup,
+                         IsSeroGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(sero? ())", "#t"),
+                                 UseCase<boolean>("(sero? (()))", "#f"),
+                                 UseCase<boolean>("(sero? (() ()))", "#f")
+                         ));
+
+TEST_P(IsSeroGroupTest, should_return_expected_issero_boolean_res_from_scheme_interpreter) {
+    function_define("sero?", "(define sero? (lambda (n) (null? n)))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
