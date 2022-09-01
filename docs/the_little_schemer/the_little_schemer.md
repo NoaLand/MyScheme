@@ -656,3 +656,22 @@ integer: 8
 (set? (apple 3 pear 4 9 apple 3 4))
 -> bool: #f
 ```
+
+### 38. makeset
+#### v1
+```scheme
+(define makeset
+    (lambda (lat)
+        (cond
+            ((null? lat) ())
+            ((member? (car lat) (cdr lat)) (makeset (cdr lat)))
+            (else (cons (car lat) (makeset (cdr lat))))
+        )
+    )
+)
+```
+```text
+# test cases
+(makeset (apple peach pear peach plum apple lemon peach))
+-> list: ( pear plum apple lemon peach )
+```

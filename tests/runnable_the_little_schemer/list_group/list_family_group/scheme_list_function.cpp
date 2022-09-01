@@ -210,6 +210,7 @@ TEST_P(RemPickGroupTest, should_return_expected_rempick_v2_res_from_scheme_inter
 
     scheme(use_case);
 }
+
 class IsSetGroupTest: public SchemeUseCaseBaseTest {
 };
 
@@ -225,6 +226,23 @@ INSTANTIATE_TEST_SUITE_P(IsSetGroup,
 TEST_P(IsSetGroupTest, should_return_expected_isset_boolean_res_from_scheme_interpreter) {
     function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
     function_define("set?", "(define set? (lambda (lat) (cond ((null? lat) #t) ((member? (car lat) (cdr lat)) #f) (else (set? (cdr lat)))))) ");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
+
+class MakeSetV1GroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(MakeSetGroup,
+                         MakeSetV1GroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(makeset (apple peach pear peach plum apple lemon peach))", "( pear plum apple lemon peach )")
+                         ));
+
+TEST_P(MakeSetV1GroupTest, should_return_expected_makeset_boolean_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("makeset", "(define makeset (lambda (lat) (cond ((null? lat) ()) ((member? (car lat) (cdr lat)) (makeset (cdr lat))) (else (cons (car lat) (makeset (cdr lat)))))))");
 
     UseCase use_case = GetParam();
     scheme(use_case);
