@@ -689,13 +689,28 @@ integer: 8
 ```
 
 ### 39. subset?
+#### v1
 ```scheme
 (define subset?
-    (lambda (set 1 set2)
+    (lambda (set1 set2)
         (cond
             ((null? set1) #t)
             ((member? (car set1) set2) (subset? (cdr set1) set2))
             (else #f)
+        )
+    )
+)
+```
+#### v2 -- use and?
+```scheme
+(define subset?
+    (lambda (set1 set2)
+        (cond
+            ((null? set1) #t)
+            (else
+                (and? (member? (car set1) set2)
+                      (subset? (cdr set1) set2))
+            )
         )
     )
 )
