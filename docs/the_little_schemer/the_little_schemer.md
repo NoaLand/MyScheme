@@ -687,3 +687,24 @@ integer: 8
 (makeset (apple 3 pear 4 9 apple 3 4))
 -> list: ( apple 3 pear 4 9 )
 ```
+
+### 39. subset?
+```scheme
+(define subset?
+    (lambda (set 1 set2)
+        (cond
+            ((null? set1) #t)
+            ((member? (car set1) set2) (subset? (cdr set1) set2))
+            (else #f)
+        )
+    )
+)
+```
+```text
+# test cases
+(subset? (5 chicken wings) (5 hamburgers 2 pieces fried chicken and light duckling wings))
+-> bool: #t
+
+(subset? (4 pounds of horseradish) (four pounds chicken and 5 ounces horseradish))
+-> bool: #f
+```

@@ -266,3 +266,21 @@ TEST_P(MakeSetV2GroupTest, should_return_expected_makeset_boolean_res_from_schem
     scheme(use_case);
 }
 
+class IsSubSetGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsSubSetGroup,
+                         IsSubSetGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(subset? (5 chicken wings) (5 hamburgers 2 pieces fried chicken and light duckling wings))", "#t"),
+                                 UseCase<boolean>("(subset? (4 pounds of horseradish) (four pounds chicken and 5 ounces horseradish))", "#f")
+                         ));
+
+TEST_P(IsSubSetGroupTest, should_return_expected_issubset_boolean_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("subset?", "(define subset?  (lambda (set1 set2) (cond ((null? set1) #t) ((member? (car set1) set2) (subset? (cdr set1) set2)) (else #f))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
+
