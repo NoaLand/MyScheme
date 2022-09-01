@@ -828,3 +828,38 @@ integer: 8
 (intersectall ((6 pears and) (3 peaches and 6 peppers) (8 pears and 6 plums) (and 6 prunes with some apples)))
 -> list: ( 6 and )
 ```
+
+### 46. a-pair?
+```scheme
+(define a-pair?
+    (lambda (x)
+        (cond
+            ((atom? x) #f)
+            ((null? x) #f)
+            ((null? (cdr x)) #f)
+            ((null? (cdr (cdr x))) #t)
+            (else #f)
+        )
+    )
+)
+```
+```text
+# test cases
+(a-pair? (pear pear))
+-> bool: #t
+
+(a-pair? (3 7))
+-> bool: #t
+
+(a-pair? ((2) (pair)))
+-> bool: #t
+
+(a-pair? (full house))
+-> bool: #t
+
+(a-pair? (a))
+-> bool: #f
+
+(a-pair? (a b c))
+-> bool: #f
+```

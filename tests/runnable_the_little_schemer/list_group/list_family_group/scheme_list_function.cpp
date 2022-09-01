@@ -398,3 +398,24 @@ TEST_P(IntersectAllGroupTest, should_return_expected_intersectall_list_res_from_
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class IsAPairGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsAPairGroup,
+                         IsAPairGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(a-pair? (pear pear))", "#t"),
+                                 UseCase<boolean>("(a-pair? (3 7))", "#t"),
+                                 UseCase<boolean>("(a-pair? ((2) (pair)))", "#t"),
+                                 UseCase<boolean>("(a-pair? (full (house)))", "#t"),
+                                 UseCase<boolean>("(a-pair? (a))", "#f"),
+                                 UseCase<boolean>("(a-pair? (a b c))", "#f")
+                         ));
+
+TEST_P(IsAPairGroupTest, should_return_expected_isapair_boolean_res_from_scheme_interpreter) {
+    function_define("a-pair?", "(define a-pair? (lambda (x) (cond ((atom? x) #f) ((null? x) #f) ((null? (cdr x)) #f) ((null? (cdr (cdr x))) #t) (else #f))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
