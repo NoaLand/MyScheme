@@ -737,3 +737,20 @@ integer: 8
 (eqset? (6 large chickens with wings) (6 chickens with large wings))
 -> bool: #t
 ```
+
+### 41. intersect?
+```scheme
+(define intersect?
+    (lambda (set1 set2)
+        (cond
+            ((null? set1) #f)
+            (else (or? (member? (car set1) set2) (intersect? (cdr set1) set2)))
+        )
+    )
+)
+```
+```text
+# test cases
+(intersect? (stewed tomatos and macaroni) (macaroni and cheese))
+-> bool: #t
+```
