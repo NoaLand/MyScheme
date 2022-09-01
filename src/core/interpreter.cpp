@@ -25,21 +25,18 @@ auto interpreter::scheme() -> void {
     auto token = ts.get();
     switch (token.type) {
         case 'A': {
-            s_expression* s_exp;
-            s_exp = new atom{token.value};
-            s_exp->print(os);
+            auto s_exp = atom{token.value};
+            s_exp.print(os);
             break;
         }
         case 'B': {
-            s_expression* s_exp;
-            s_exp = new boolean{token.value};
-            s_exp->print(os);
+            auto s_exp = boolean{token.value};
+            s_exp.print(os);
             break;
         }
         case 'N': {
-            s_expression* s_exp;
-            s_exp = new integer{token.integer_value};
-            s_exp->print(os);
+            auto s_exp = integer{token.integer_value};
+            s_exp.print(os);
             break;
         }
         case '(': {
@@ -212,7 +209,7 @@ auto interpreter::get_input_param() -> list<s_expression>* {
 auto interpreter::get_param_val(const Token &t) -> s_expression * {
     auto instance = call_stack.top();
     auto map_result = instance.param_hashmap.find(t.value);
-    
+
     return map_result->second;
 }
 
