@@ -1,5 +1,3 @@
-#include "preload_libs/preload_libs.h"
-
 #include "core/interpreter.h"
 
 int main() {
@@ -7,8 +5,6 @@ int main() {
     std::ostream& os{std::cout};
     function_context context;
     Token_stream ts{is, os, &context};
-
-//    preload_libs(context);
 
     ts.get_ostream() << "Let's start!" << std::endl;
 

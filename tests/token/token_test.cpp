@@ -59,26 +59,6 @@ TEST_F(BaseTokenTest, should_return_L_type_when_getting_input_is_lambda) {
     ASSERT_EQ(token.value, "");
 }
 
-class DISABLED_PrimitiveAndFuncTokenTest: public BaseTest,
-                                          public testing::WithParamInterface<std::string> {};
-
-INSTANTIATE_TEST_SUITE_P(PreloadFunc,
-                         DISABLED_PrimitiveAndFuncTokenTest,
-                         testing::Values("quote", "car", "cdr", "cons", "null?", "addtup", "atom?", "eq?", "number?",
-                                         "cond", "or?","and?", "zero?", "add1", "sub1", "lat?", "length", "member?",
-                                         "rember", "pick", "rempick", "+", "-", "*", "/", ">", "<", "=", "^"));
-
-TEST_P(DISABLED_PrimitiveAndFuncTokenTest, should_return_F_type_when_token_is_stored) {
-    preload_libs(context);
-    std::string func_name = GetParam();
-    is.str(func_name + "\n");
-
-    const Token &token = ts.get();
-
-    ASSERT_EQ(token.type, 'F');
-    ASSERT_EQ(token.value, func_name);
-}
-
 class BooleanTokenTest: public BaseTest,
                         public testing::WithParamInterface<std::string> {};
 
@@ -87,7 +67,6 @@ INSTANTIATE_TEST_SUITE_P(BooleanKeyword,
                          testing::Values("#t", "else", "#f"));
 
 TEST_P(BooleanTokenTest, should_return_B_type_when_token_is_stored) {
-    preload_libs(context);
     std::string func_name = GetParam();
     is.str(func_name + "\n");
 
