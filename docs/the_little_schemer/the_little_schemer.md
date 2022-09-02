@@ -896,7 +896,20 @@ integer: 8
 -> list: ( c d )
 ```
 
-### 49. build
+### 49. third
+```scheme
+(define third (lambda (l) (car (cdr (cdr l)))))
+```
+```text
+# test cases
+(third (a b c))
+-> atom: c
+
+(third (a b (c d)))
+-> list: ( c d )
+```
+
+### 50. build
 ```scheme
 (define build (lambda (s1 s2) (cons s1 (cons s2 ()))))
 ```

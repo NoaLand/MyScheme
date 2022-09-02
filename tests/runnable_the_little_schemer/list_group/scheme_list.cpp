@@ -78,6 +78,23 @@ TEST_P(PairSecondGroupTest, should_return_pair_second_s_expression_in_list_from_
     scheme(use_case);
 }
 
+class ThirdGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(ThirdPairGroup,
+                         ThirdGroupTest,
+                         testing::Values(
+                                 UseCase<atom>("(third (a b c))", "c"),
+                                 UseCase<list<atom>>("(third (a b (c d)))", "( c d )")
+                         ));
+
+TEST_P(ThirdGroupTest, should_return_third_res_in_list_from_scheme_interpreter) {
+    function_define("third", "(define third (lambda (l) (car (cdr (cdr l)))))");
+    UseCase<s_expression> use_case = GetParam();
+
+    scheme(use_case);
+}
+
 class BuildPairGroupTest: public SchemeUseCaseBaseTest {
 };
 
