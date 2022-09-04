@@ -30,8 +30,12 @@ passing function as param:
           )
        )
     )
-    # and then, pass a function into test? param
+    # 1. and then, pass a function into test? param
     (rember-f = 5 (6 2 5 3))
+    
+    # 2. or, you can do something like this
+    (rember-f (function = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m)))))) 5 (6 2 5 3))
+    
 customized function:
     # I do not care about customized function's return type
     (define atom
