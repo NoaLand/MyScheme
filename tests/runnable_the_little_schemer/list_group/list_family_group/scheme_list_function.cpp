@@ -469,3 +469,31 @@ TEST_P(RevrelGroupTest, should_return_expected_revrel_pair_with_revpair_set_res_
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class OneToOneGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(OneToOneGroup,
+                         OneToOneGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(one-to-one? ((8 3) (4 2) (7 6) (6 2) (3 4)))", "#f"),
+                                 UseCase<boolean>("(one-to-one? ((8 3) (4 8) (7 6) (6 2) (3 4)))", "#t"),
+                                 UseCase<boolean>("(one-to-one? ((grape raisin) (plum prune) (stewed prune)))", "#f"),
+                                 UseCase<boolean>("(one-to-one? ((grape raisin) (plum prune) (stewed grape)))", "#t")
+                         ));
+
+TEST_P(OneToOneGroupTest, should_return_expected_onetoone_boolean_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("set?", "(define set? (lambda (lat) (cond ((null? lat) #t) ((member? (car lat) (cdr lat)) #f) (else (set? (cdr lat))))))");
+    function_define("firsts", "(define firsts (lambda (l) (cond ((null? l) ()) (else (cons (car (car l)) (firsts (cdr l)))))))");
+    function_define("fun?", "(define fun? (lambda (rel) (set? (firsts rel))))");
+
+    function_define("first", "(define first (lambda (p) (car p)))");
+    function_define("second", "(define second (lambda (p) (car (cdr p))))");
+    function_define("build", "(define build (lambda (s1 s2) (cons s1 (cons s2 ()))))");
+    function_define("revrel", "(define revrel (lambda (rel) (cond ((null? rel) ()) (else (cons (build (second (car rel)) (first (car rel))) (revrel (cdr rel)))))))");
+    function_define("one-to-one?", "(define one-to-one? (lambda (fun) (fun? (revrel fun))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}

@@ -979,3 +979,32 @@ integer: 8
 (revrel ((8 a)(pumpkin pie)(got sick)))
 -> list: ( ( a 8 ) ( pie pumpkin ) ( sick got ) )
 ```
+
+### 53. one-to-one?
+You can then use functions defined above to write a more complicated function -- one-to-one?
+```scheme
+(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))
+(define set? (lambda (lat) (cond ((null? lat) #t) ((member? (car lat) (cdr lat)) #f) (else (set? (cdr lat))))))
+(define firsts (lambda (l) (cond ((null? l) ()) (else (cons (car (car l)) (firsts (cdr l)))))))
+(define fun? (lambda (rel) (set? (firsts rel))))
+(define first (lambda (p) (car p)))
+(define second (lambda (p) (car (cdr p))))
+(define build (lambda (s1 s2) (cons s1 (cons s2 ()))))
+(define revrel (lambda (rel) (cond ((null? rel) ()) (else (cons (build (second (car rel)) (first (car rel))) (revrel (cdr rel)))))))
+
+(define one-to-one? (lambda (fun) (fun? (revrel fun))))
+```
+```text
+# test cases
+(one-to-one? ((8 3) (4 2) (7 6) (6 2) (3 4)))
+-> bool: #f
+
+(one-to-one? ((8 3) (4 8) (7 6) (6 2) (3 4)))
+-> bool: #t
+
+(one-to-one? ((grape raisin) (plum prune) (stewed prune)))
+-> bool: #f
+
+(one-to-one? ((grape raisin) (plum prune) (stewed grape)))
+-> bool: #t
+```
