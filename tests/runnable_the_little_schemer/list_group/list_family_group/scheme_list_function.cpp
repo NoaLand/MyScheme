@@ -479,7 +479,8 @@ INSTANTIATE_TEST_SUITE_P(OneToOneGroup,
                                  UseCase<boolean>("(one-to-one? ((8 3) (4 2) (7 6) (6 2) (3 4)))", "#f"),
                                  UseCase<boolean>("(one-to-one? ((8 3) (4 8) (7 6) (6 2) (3 4)))", "#t"),
                                  UseCase<boolean>("(one-to-one? ((grape raisin) (plum prune) (stewed prune)))", "#f"),
-                                 UseCase<boolean>("(one-to-one? ((grape raisin) (plum prune) (stewed grape)))", "#t")
+                                 UseCase<boolean>("(one-to-one? ((grape raisin) (plum prune) (stewed grape)))", "#t"),
+                                 UseCase<boolean>("(one-to-one? ((chocolate chip) (doughy cookie)))", "#t")
                          ));
 
 TEST_P(OneToOneGroupTest, should_return_expected_onetoone_boolean_res_from_scheme_interpreter) {

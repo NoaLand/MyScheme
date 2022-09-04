@@ -1007,4 +1007,7 @@ You can then use functions defined above to write a more complicated function --
 
 (one-to-one? ((grape raisin) (plum prune) (stewed grape)))
 -> bool: #t
+
+(one-to-one? ((chocolate chip) (doughy cookie)))
+-> bool: #t
 ```
