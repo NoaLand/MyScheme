@@ -94,6 +94,13 @@ auto interpreter::closure() -> s_expression* {
         } else if(token.type == 'D') {
             ts.put_back(token);
             return function_define();
+        } else if(token.type == 'P') {
+            // TODO: refactor this, this token must be an anonymous function
+            auto instance = call_stack.top();
+            auto map_result = instance.param_hashmap.find(token.value);
+            auto func = dynamic_cast<anonymous_func*>(map_result->second);
+            ts.put_back(Token{'F', func->get_value()});
+            return call_function();
         }
     }
 
@@ -195,8 +202,13 @@ auto interpreter::get_input_param() -> list<s_expression>* {
     while(true) {
         const auto& token = ts.get();
         if(token.type != ')') {
-            ts.put_back(token);
-            const auto p = construct_from_token();
+            s_expression* p;
+            if(token.type == 'F') {
+                p = new anonymous_func{token.value};
+            } else {
+                ts.put_back(token);
+                p = construct_from_token();
+            }
             params->push_back(p);
         } else {
             break;

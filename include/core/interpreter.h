@@ -16,6 +16,8 @@
 #include "function/s_expression_family.h"
 #include "function/others.h"
 
+#include "s_expression/anonymous_func.h"
+
 class interpreter {
 public:
     explicit interpreter(Token_stream& t_stream): ts{t_stream}, context{t_stream.get_context()} {};
