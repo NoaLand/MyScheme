@@ -19,6 +19,19 @@ So we can just start from the begining of this book.
 
 ## Grammar
 ```
+passing function as param:
+    # you can define function like this:
+    (define rember-f
+       (lambda (test? a l)
+          (cond
+              ((null? l) ())
+              ((test? (car l) a) (cdr l))
+              (else (cons (car l) (rember-f test? a (cdr l))))
+          )
+       )
+    )
+    # and then, pass a function into test? param
+    (rember-f = 5 (6 2 5 3))
 customized function:
     # I do not care about customized function's return type
     (define atom
