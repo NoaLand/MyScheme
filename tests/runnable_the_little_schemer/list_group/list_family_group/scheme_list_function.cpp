@@ -439,3 +439,22 @@ TEST_P(IsFunGroupTest, should_return_expected_isfun_boolean_res_from_scheme_inte
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class RevrelGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(RevrelGroup,
+                         RevrelGroupTest,
+                         testing::Values(
+                                 UseCase<list<s_expression>>("(revrel ((8 a)(pumpkin pie)(got sick)))", "( ( a 8 ) ( pie pumpkin ) ( sick got ) )")
+                         ));
+
+TEST_P(RevrelGroupTest, should_return_expected_revrel_pair_set_res_from_scheme_interpreter) {
+    function_define("first", "(define first (lambda (p) (car p)))");
+    function_define("second", "(define second (lambda (p) (car (cdr p))))");
+    function_define("build", "(define build (lambda (s1 s2) (cons s1 (cons s2 ()))))");
+    function_define("revrel", "(define revrel (lambda (rel) (cond ((null? rel) ()) (else (cons (build (second (car rel)) (first (car rel))) (revrel (cdr rel)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}

@@ -937,3 +937,20 @@ integer: 8
 (fun? ((d 4) (b 0) (b 9) (e 5) (g 4)))
 -> bool: #f
 ```
+
+### 52. revrel
+```scheme
+(define revrel
+    (lambda (rel)
+        (cond
+            ((null? rel) ())
+            (else (cons (build (second (car rel)) (first (car rel))) (revrel (cdr rel))))
+        )
+    )
+)
+```
+```text
+# test cases
+(revrel ((8 a)(pumpkin pie)(got sick)))
+-> list: ( ( a 8 ) ( pie pumpkin ) ( sick got ) )
+```
