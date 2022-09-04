@@ -1011,3 +1011,29 @@ You can then use functions defined above to write a more complicated function --
 (one-to-one? ((chocolate chip) (doughy cookie)))
 -> bool: #t
 ```
+
+### 54. rember-f
+```scheme
+(define rember-f
+    (lambda (test? a l)
+        (cond
+            ((null? l) ())
+            (else (cond
+                ((test? (car l) a) (cdr l))
+                (else (cons (car l) (rember-f test? a (cdr l))))
+            ))
+        )
+    )
+)
+```
+```text
+# test cases
+(rember-f = 5 (6 2 5 3))
+-> tuple: ( 6 2 3 )
+
+(rember-f eq? jelly (jelly beans are good))
+-> list: ( beans are good )
+
+(rember-f eq? (pop corn) (lemonade (pop corn) and (cake)))
+-> list: ( lemonade and ( cake ) )
+```
