@@ -458,3 +458,14 @@ TEST_P(RevrelGroupTest, should_return_expected_revrel_pair_set_res_from_scheme_i
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+TEST_P(RevrelGroupTest, should_return_expected_revrel_pair_with_revpair_set_res_from_scheme_interpreter) {
+    function_define("first", "(define first (lambda (p) (car p)))");
+    function_define("second", "(define second (lambda (p) (car (cdr p))))");
+    function_define("build", "(define build (lambda (s1 s2) (cons s1 (cons s2 ()))))");
+    function_define("revpair", "(define revpair (lambda (pair) (build (second pair) (first pair))))");
+    function_define("revrel", "(define revrel (lambda (rel) (cond ((null? rel) ()) (else (cons (revpair (car rel)) (revrel (cdr rel)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}

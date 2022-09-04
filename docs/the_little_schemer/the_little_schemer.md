@@ -954,3 +954,28 @@ integer: 8
 (revrel ((8 a)(pumpkin pie)(got sick)))
 -> list: ( ( a 8 ) ( pie pumpkin ) ( sick got ) )
 ```
+
+### 52. revpair
+```scheme
+(define revpair
+    (lambda (pair)
+        (build (second pair) (first pair))
+    )
+)
+```
+#### we can then, use revpair to rewrite revrel, and now, revrel could be like this
+```scheme
+(define revrel
+    (lambda (rel)
+        (cond
+            ((null? rel) ())
+            (else (cons (revpair (car rel)) (revrel (cdr rel))))
+        )
+    )
+)
+```
+```text
+# test cases
+(revrel ((8 a)(pumpkin pie)(got sick)))
+-> list: ( ( a 8 ) ( pie pumpkin ) ( sick got ) )
+```
