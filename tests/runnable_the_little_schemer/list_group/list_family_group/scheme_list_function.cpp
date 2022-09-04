@@ -419,3 +419,23 @@ TEST_P(IsAPairGroupTest, should_return_expected_isapair_boolean_res_from_scheme_
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class IsFunGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(IsFunGroup,
+                         IsFunGroupTest,
+                         testing::Values(
+                                 UseCase<boolean>("(fun? ((8 3) (4 2) (7 6) (6 2) (3 4)))", "#t"),
+                                 UseCase<boolean>("(fun? ((d 4) (b 0) (b 9) (e 5) (g 4)))", "#f")
+                         ));
+
+TEST_P(IsFunGroupTest, should_return_expected_isfun_boolean_res_from_scheme_interpreter) {
+    function_define("member?", "(define member?  (lambda (a lat) (cond ((null? lat) #f) (else (or? (eq? (car lat) a) (member? a (cdr lat)))))))");
+    function_define("set?", "(define set? (lambda (lat) (cond ((null? lat) #t) ((member? (car lat) (cdr lat)) #f) (else (set? (cdr lat)))))) ");
+    function_define("firsts", "(define firsts (lambda (l) (cond ((null? l) ()) (else (cons (car (car l)) (firsts (cdr l)))))))");
+    function_define("fun?", "(define fun? (lambda (rel) (set? (firsts rel))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}

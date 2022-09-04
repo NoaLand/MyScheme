@@ -924,3 +924,16 @@ integer: 8
  (build (a b) (c d))
  -> list: ( ( a b ) ( c d ) )
 ```
+
+### 51. fun?
+```scheme
+(define fun? (lambda (rel) (set? (firsts rel))))
+```
+```text
+# test cases
+(fun? ((8 3) (4 2) (7 6) (6 2) (3 4)))
+-> bool: #t
+
+(fun? ((d 4) (b 0) (b 9) (e 5) (g 4)))
+-> bool: #f
+```
