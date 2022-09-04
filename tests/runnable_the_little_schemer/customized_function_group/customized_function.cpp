@@ -517,3 +517,19 @@ TEST_P(DISABLED_RememberFGroupTest, should_return_expected_remberf_list_from_sch
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class DISABLED_RememberFV2GroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(RememberFV2Group,
+                         DISABLED_RememberFV2GroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(rember-f (define = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m)))))) 5 (6 2 5 3))", "( 6 2 3 )")
+                         ));
+
+TEST_P(DISABLED_RememberFV2GroupTest, should_return_expected_remberf_v2_list_from_scheme_interpreter) {
+    function_define("rember-f", "(define rember-f (lambda (test? a l) (cond ((null? l) ()) (else (cond ((test? (car l) a) (cdr l)) (else (cons (car l) (rember-f test? a (cdr l)))))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
