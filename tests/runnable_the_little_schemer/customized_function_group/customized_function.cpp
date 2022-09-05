@@ -527,6 +527,7 @@ INSTANTIATE_TEST_SUITE_P(RememberFV2Group,
                          RememberFV2GroupTest,
                          testing::Values(
                                  UseCase<list<integer>>("(rember-f (function = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m)))))) 5 (6 2 5 3))", "( 6 2 3 )"),
+                                 UseCase<list<atom>>("(rember-f (function e? (lambda (n m) (eq? n m))) jelly (jelly beans are good))", "( beans are good )"),
                                  UseCase<list<atom>>("(rember-f (function e? (lambda (n m) (eq? n m))) (pop corn) (lemonade (pop corn) and (cake)))", "( lemonade and ( cake ) )")
                          ));
 

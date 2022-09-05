@@ -1036,4 +1036,14 @@ You can then use functions defined above to write a more complicated function --
 
 (rember-f eq? (pop corn) (lemonade (pop corn) and (cake)))
 -> list: ( lemonade and ( cake ) )
+
+# you can also do something like below:
+(rember-f (function = (lambda (n m) (cond ((and? (zero? n) (zero? m)) #t) ((or? (zero? n) (zero? m)) #f) (else (= (sub1 n) (sub1 m)))))) 5 (6 2 5 3))
+-> tuple: ( 6 2 3 )
+
+(rember-f (function e? (lambda (n m) (eq? n m))) jelly (jelly beans are good))
+-> list: ( beans are good )
+
+(rember-f (function e? (lambda (n m) (eq? n m))) (pop corn) (lemonade (pop corn) and (cake)))
+-> list: ( lemonade and ( cake ) )
 ```
