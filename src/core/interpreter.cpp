@@ -192,26 +192,30 @@ auto interpreter::call_function() -> s_expression* {
         call_stack.pop();
         return res;
     } else if(!call_stack.empty()) {
-        auto functionInstance = call_stack.top();
-        if(!functionInstance.local_function_hashmap.empty() && functionInstance.local_function_hashmap.find(function_key) != functionInstance.local_function_hashmap.end()) {
+        auto func_instance = call_stack.top();
+        if(!func_instance.local_function_hashmap.empty() && func_instance.local_function_hashmap.find(function_key) != func_instance.local_function_hashmap.end()) {
+            // first call anonymous function
             auto params = get_input_param();
-            function_instance instance{functionInstance.local_function_hashmap.find(function_key)->second, params};
+            auto func_declaration = func_instance.local_function_hashmap.find(function_key)->second;
+
+            function_instance instance{func_declaration, params};
             call_stack.push(instance);
-            ts.push_back(functionInstance.local_function_hashmap.find(function_key)->second->get_body());
+            ts.push_back(func_declaration->get_body());
             s_expression* res = closure();
             call_stack.pop();
             return res;
-        } else if(functionInstance.func_name == function_key) {
-            auto params = get_input_param();
-
+        } else if(func_instance.func_name == function_key) {
+            // after calling(function has been on the top of the stack)
             auto func_params = new list<param>{};
-            for(int index = 0; index < functionInstance.param_list.size_of(); index++){
-                func_params->push_back(functionInstance.param_list.get(index));
+            for(int index = 0; index < func_instance.param_list.size_of(); index++){
+                func_params->push_back(func_instance.param_list.get(index));
             }
-            auto func_declaration = new function_declaration{functionInstance.func_name, func_params, functionInstance.body};
+            auto func_declaration = new function_declaration{func_instance.func_name, func_params, func_instance.body};
+
+            auto params = get_input_param();
             function_instance instance{func_declaration, params};
             call_stack.push(instance);
-            ts.push_back(functionInstance.body);
+            ts.push_back(func_instance.body);
             s_expression* res = closure();
             call_stack.pop();
             return res;
