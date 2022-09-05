@@ -192,6 +192,7 @@ auto interpreter::call_function() -> s_expression* {
         call_stack.pop();
         return res;
     } else if(!call_stack.empty()) {
+        // handle anonymous function
         auto func_instance = call_stack.top();
         if(!func_instance.local_function_hashmap.empty() && func_instance.local_function_hashmap.find(function_key) != func_instance.local_function_hashmap.end()) {
             // first call anonymous function
