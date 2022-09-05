@@ -15,7 +15,7 @@ So we can just start from the begining of this book.
   - [x] refactor to basic structure
   - [x] extract function out of repl
   - [ ] separate interpreter.cpp into several factories
-- [ ] refactor code smell -- 50%
+- [ ] refactor code smell -- 40%
 
 ## Grammar
 ```
