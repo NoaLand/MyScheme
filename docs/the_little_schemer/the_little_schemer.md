@@ -1079,3 +1079,37 @@ You can then use functions defined above to write a more complicated function --
 (insertR-f eq? e d (a b c d f g d h))
 -> list: ( a b c d e f g d h )
 ```
+
+### 57 - 59. seqL, seqR, insert-g
+```scheme
+(define seqL (lambda (new old l) (cons new (cons old l))))
+
+(define seqR (lambda (new old l) (cons old (cons new l))))
+
+(define insert-g (lambda (seq new old l) (cond ((null? l) ()) ((eq? (car l) old) (seq new old (cdr l))) (else (cons (car l) (insert-g seq new old (cdr l)))))))
+
+# TODO: after implement lambda anonymous function, you can write something like this:
+(define insertL (insert-g seqL))
+(define insertR (insert-g seqR))
+# but for now, it's not OK
+```
+```text
+# test cases
+(insert-g seqR topping fudge (ice cream with fudge for dessert))
+-> list: ( ice cream with fudge topping for dessert )
+
+(insert-g seqR jalapeno and (tacos tamales and salsa))
+-> list: ( tacos tamales and jalapeno salsa )
+
+(insert-g seqR e d (a b c d f g d h))
+-> list: ( a b c d e f g d h )
+
+(insert-g seqL topping fudge (ice cream with fudge for dessert))
+-> list: ( ice cream with topping fudge for dessert )
+
+(insert-g seqL jalapeno and (tacos tamales and salsa))
+-> list: ( tacos tamales jalapeno and salsa )
+
+(insert-g seqL e d (a b c d f g d h))
+-> list: ( a b c e d f g d h )
+```

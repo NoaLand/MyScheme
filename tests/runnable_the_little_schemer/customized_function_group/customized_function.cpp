@@ -574,3 +574,26 @@ TEST_P(RememberFV2GroupTest, should_return_expected_remberf_v2_list_from_scheme_
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class InsertGGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(InsertGGroup,
+                         InsertGGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(insert-g seqR topping fudge (ice cream with fudge for dessert))", "( ice cream with fudge topping for dessert )"),
+                                 UseCase<list<atom>>("(insert-g seqR jalapeno and (tacos tamales and salsa))", "( tacos tamales and jalapeno salsa )"),
+                                 UseCase<list<atom>>("(insert-g seqR e d (a b c d f g d h))", "( a b c d e f g d h )"),
+                                 UseCase<list<atom>>("(insert-g seqL topping fudge (ice cream with fudge for dessert))", "( ice cream with topping fudge for dessert )"),
+                                 UseCase<list<atom>>("(insert-g seqL jalapeno and (tacos tamales and salsa))", "( tacos tamales jalapeno and salsa )"),
+                                 UseCase<list<atom>>("(insert-g seqL e d (a b c d f g d h))", "( a b c e d f g d h )")
+                         ));
+
+TEST_P(InsertGGroupTest, should_return_expected_insertG_res_from_scheme_interpreter) {
+    function_define("seqL", "(define seqL (lambda (new old l) (cons new (cons old l))))");
+    function_define("seqR", "(define seqR (lambda (new old l) (cons old (cons new l))))");
+    function_define("insert-g", "(define insert-g (lambda (seq new old l) (cond ((null? l) ()) ((eq? (car l) old) (seq new old (cdr l))) (else (cons (car l) (insert-g seq new old (cdr l)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}
