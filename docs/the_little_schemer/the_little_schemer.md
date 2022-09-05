@@ -1063,3 +1063,19 @@ You can then use functions defined above to write a more complicated function --
 (insertL-f eq? e d (a b c d f g d h))
 -> list: ( a b c e d f g d h )
 ```
+
+### 56. insertR-f
+```scheme
+(define insertR-f (lambda (test? new old lat) (cond ((null? lat) (())) ((test? old (car lat)) (cons old (cons new (cdr lat)))) (else (cons (car lat) (insertR-f test? new old (cdr lat)))))))
+```
+```text
+# test cases
+(insertR-f eq? topping fudge (ice cream with fudge for dessert))
+-> list: ( ice cream with fudge topping for dessert )
+
+(insertR-f eq? jalapeno and (tacos tamales and salsa))
+-> list: ( tacos tamales and jalapeno salsa )
+
+(insertR-f eq? e d (a b c d f g d h))
+-> list: ( a b c d e f g d h )
+```
