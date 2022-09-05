@@ -93,7 +93,9 @@ auto interpreter::closure() -> s_expression* {
             return call_function();
         } else if(token.type == 'D') {
             ts.put_back(token);
-            return function_define();
+            auto func = function_define();
+            context.store(func);
+            return func;
         } else if(token.type == 'P') {
             // TODO: refactor this, this token must be an anonymous function
             auto instance = call_stack.top();
@@ -242,9 +244,7 @@ auto interpreter::function_define() -> function_declaration* {
     auto params = collect_params();
     auto body = get_func_body(name.value, params);
 
-    auto func = new function_declaration{name.value, params, body};
-    context.store(func);
-    return func;
+    return new function_declaration{name.value, params, body};
 }
 
 auto interpreter::collect_params() -> list<param>* {

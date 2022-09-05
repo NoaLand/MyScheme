@@ -130,6 +130,7 @@ TEST_F(FunctionDefineTest, should_successfully_define_function_when_input_functi
     is.str("define one? (lambda (n) (= n 1)))\n");
 
     auto is_one = inter.function_define();
+    context.store(is_one);
 
     ASSERT_EQ(is_one->get_name(), "one?");
     ASSERT_EQ(is_one->get_indicator(), "customized_function");
