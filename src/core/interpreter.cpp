@@ -99,9 +99,14 @@ auto interpreter::closure() -> s_expression* {
         } else if(token.type == 'P') {
             // TODO: refactor this, this token must be an anonymous function
             auto instance = call_stack.top();
-            auto map_result = instance.param_hashmap.find(token.value);
-            auto func = dynamic_cast<anonymous_func*>(map_result->second);
-            ts.put_back(Token{'F', func->get_value()});
+            auto map_result = instance.param_hashmap.find(token.value)->second;
+            if(map_result->get_indicator() == "anonymous_func") {
+                auto func = dynamic_cast<anonymous_func*>(map_result);
+                ts.put_back(Token{'F', func->get_value()});
+            } else if(map_result->get_indicator() == "customized_function") {
+                auto func = dynamic_cast<function_declaration*>(map_result);
+                ts.put_back(Token{'F', func->get_name()});
+            }
             return call_function();
         }
     }
@@ -186,6 +191,31 @@ auto interpreter::call_function() -> s_expression* {
         s_expression* res = closure();
         call_stack.pop();
         return res;
+    } else if(!call_stack.empty()) {
+        auto functionInstance = call_stack.top();
+        if(!functionInstance.local_function_hashmap.empty() && functionInstance.local_function_hashmap.find(function_key) != functionInstance.local_function_hashmap.end()) {
+            auto params = get_input_param();
+            function_instance instance{functionInstance.local_function_hashmap.find(function_key)->second, params};
+            call_stack.push(instance);
+            ts.push_back(functionInstance.local_function_hashmap.find(function_key)->second->get_body());
+            s_expression* res = closure();
+            call_stack.pop();
+            return res;
+        } else if(functionInstance.func_name == function_key) {
+            auto params = get_input_param();
+
+            auto func_params = new list<param>{};
+            for(int index = 0; index < functionInstance.param_list.size_of(); index++){
+                func_params->push_back(functionInstance.param_list.get(index));
+            }
+            auto func_declaration = new function_declaration{functionInstance.func_name, func_params, functionInstance.body};
+            function_instance instance{func_declaration, params};
+            call_stack.push(instance);
+            ts.push_back(functionInstance.body);
+            s_expression* res = closure();
+            call_stack.pop();
+            return res;
+        }
     }
 
     const auto end = ts.get();
@@ -208,8 +238,16 @@ auto interpreter::get_input_param() -> list<s_expression>* {
             if(token.type == 'F') {
                 p = new anonymous_func{token.value};
             } else {
-                ts.put_back(token);
-                p = construct_from_token();
+                auto func = ts.get();
+                if(func.type == 'D') {
+                    ts.put_back(token);
+                    p = function_define();
+                    ts.get();
+                } else {
+                    ts.put_back(func);
+                    ts.put_back(token);
+                    p = construct_from_token();
+                }
             }
             params->push_back(p);
         } else {

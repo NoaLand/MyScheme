@@ -63,7 +63,7 @@ Token Token_stream::get() {
                     if(context.is_in(s)) {
                         return {'F', s};
                     }
-                    if(s == "define") {
+                    if(s == "define" || s == "function") {
                         return Token{'D'};
                     }
                     if(s == "lambda") {
