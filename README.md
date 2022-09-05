@@ -5,9 +5,10 @@ This is a project to implement my own Scheme compiler, since client network cann
 
 Basically, I'll define term according to 'The Little Schemer'.
 
-So we can just start from the begining of this book.
+So we can just start from the beginning of this book.
 
 ## TODO
+- [ ] feat: implement lambda in lambda in lambda
 - [x] refactor implementation of function instantiate -- use stack/list instead of string/replace
 - [x] add automation test according to docs
 - [ ] use **smart pointer** to refactor this codebase, since last 8 refactor commit introduce memory bugs when declare customized function
