@@ -1047,3 +1047,19 @@ You can then use functions defined above to write a more complicated function --
 (rember-f (function e? (lambda (n m) (eq? n m))) (pop corn) (lemonade (pop corn) and (cake)))
 -> list: ( lemonade and ( cake ) )
 ```
+
+### 55. insertL-f
+```scheme
+(define insertL-f (lambda (test? new old lat) (cond ((null? lat) (())) ((test? old (car lat)) (cons new lat)) (else (cons (car lat) (insertL-f test? new old (cdr lat)))))))
+```
+```text
+# test cases
+(insertL-f eq? topping fudge (ice cream with fudge for dessert))
+-> list: ( ice cream with topping fudge for dessert )
+
+(insertL-f eq? jalapeno and (tacos tamales and salsa))
+-> list: ( tacos tamales jalapeno and salsa )
+
+(insertL-f eq? e d (a b c d f g d h))
+-> list: ( a b c e d f g d h )
+```
