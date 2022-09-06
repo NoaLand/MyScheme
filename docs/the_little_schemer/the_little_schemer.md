@@ -1088,10 +1088,10 @@ You can then use functions defined above to write a more complicated function --
 
 (define insert-g (lambda (seq new old l) (cond ((null? l) ()) ((eq? (car l) old) (seq new old (cdr l))) (else (cons (car l) (insert-g seq new old (cdr l)))))))
 
-# TODO: after implement lambda anonymous function, you can write something like this:
+; TODO: after implement lambda anonymous function, you can write something like this:
 (define insertL (insert-g seqL))
 (define insertR (insert-g seqR))
-# but for now, it's not OK
+; but for now, it's not OK
 ```
 ```text
 # test cases
