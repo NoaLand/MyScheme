@@ -597,3 +597,22 @@ TEST_P(InsertGGroupTest, should_return_expected_insertG_res_from_scheme_interpre
     UseCase use_case = GetParam();
     scheme(use_case);
 }
+
+class SubstNewGroupTest: public SchemeUseCaseBaseTest {
+};
+
+INSTANTIATE_TEST_SUITE_P(SubstNewGroup,
+                         SubstNewGroupTest,
+                         testing::Values(
+                                 UseCase<list<atom>>("(insert-g seqS topping fudge (ice cream with fudge for dessert))", "( ice cream with topping for dessert )"),
+                                 UseCase<list<atom>>("(insert-g seqS jalapeno and (tacos tamales and salsa))", "( tacos tamales jalapeno salsa )"),
+                                 UseCase<list<atom>>("(insert-g seqS e d (a b c d f g d h))", "( a b c e f g d h )")
+                         ));
+
+TEST_P(SubstNewGroupTest, should_return_expected_insertG_res_from_scheme_interpreter) {
+    function_define("seqS", "(define seqS (lambda (new old l) (cons new l)))");
+    function_define("insert-g", "(define insert-g (lambda (seq new old l) (cond ((null? l) ()) ((eq? (car l) old) (seq new old (cdr l))) (else (cons (car l) (insert-g seq new old (cdr l)))))))");
+
+    UseCase use_case = GetParam();
+    scheme(use_case);
+}

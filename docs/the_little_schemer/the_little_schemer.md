@@ -1113,3 +1113,21 @@ You can then use functions defined above to write a more complicated function --
 (insert-g seqL e d (a b c d f g d h))
 -> list: ( a b c e d f g d h )
 ```
+
+### 60. subst in insert-g and seqS
+```scheme
+(define seqS (lambda (new old l) (cons new l)))
+
+(define insert-g (lambda (seq new old l) (cond ((null? l) ()) ((eq? (car l) old) (seq new old (cdr l))) (else (cons (car l) (insert-g seq new old (cdr l)))))))
+```
+```text
+# test cases
+(insert-g seqS topping fudge (ice cream with fudge for dessert))
+-> list: ( ice cream with topping for dessert )
+
+(insert-g seqS jalapeno and (tacos tamales and salsa))
+-> list: ( tacos tamales jalapeno salsa )
+
+(insert-g seqS e d (a b c d f g d h))
+-> list: ( a b c e f g d h )
+```
