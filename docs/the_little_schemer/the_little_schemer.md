@@ -1119,6 +1119,10 @@ You can then use functions defined above to write a more complicated function --
 (define seqS (lambda (new old l) (cons new l)))
 
 (define insert-g (lambda (seq new old l) (cond ((null? l) ()) ((eq? (car l) old) (seq new old (cdr l))) (else (cons (car l) (insert-g seq new old (cdr l)))))))
+
+; TODO: after implement lambda anonymous function, you can write something like this:
+(define subst (insert-g seqS))
+; but for now, it's not OK
 ```
 ```text
 # test cases
