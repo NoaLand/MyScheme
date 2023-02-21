@@ -3,6 +3,7 @@
 
 #include <concepts>
 #include <vector>
+#include <algorithm>
 
 #include "s_expression.h"
 
