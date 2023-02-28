@@ -1,0 +1,12 @@
+{
+  "name": "MyScheme",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	"extensions": [
+		"ms-vscode.cpptools"
+	],
+	"remoteUser": "vscode"
+}
