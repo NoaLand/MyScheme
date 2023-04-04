@@ -32,7 +32,7 @@ public:
         handle_throw = u.handle_throw;
         input = u.input;
         expected_output = u.expected_output;
-        mem = reinterpret_cast<T*>(u.mem);
+        mem = u.mem;
     }
 
     bool handle_throw;
