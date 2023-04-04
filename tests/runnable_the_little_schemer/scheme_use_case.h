@@ -8,8 +8,7 @@
 
 #include "core/interpreter.h"
 
-template <typename T>
-requires std::derived_from<T, s_expression>
+template <std::derived_from<s_expression> T>
 class UseCase {
 public:
     UseCase(std::string&& i, std::string&& e, bool exception = false): input(std::move(i) + "\n"), handle_throw(exception) {
