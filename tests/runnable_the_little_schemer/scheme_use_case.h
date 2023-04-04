@@ -15,7 +15,7 @@ public:
     UseCase(std::string&& i, std::string&& e, bool exception = false): input(std::move(i) + "\n"), handle_throw(exception) {
         // TODO: ugly code, this is solve list<X> is list and list<integer> is tuple, this condition indicates that list implementation needs to be improved
         if(!std::is_abstract_v<T>) {
-            if(std::is_same_v<T, list<atom>>
+            if constexpr (std::is_same_v<T, list<atom>>
                 || std::is_same_v<T, list<boolean>>
                 || std::is_same_v<T, list<function_declaration>>
                 || std::is_same_v<T, list<param>>
