@@ -12,10 +12,7 @@ template <typename T>
 requires std::derived_from<T, s_expression>
 class UseCase {
 public:
-    UseCase(std::string i, std::string e, bool exception = false):
-        input(std::move(i) + "\n"),
-        handle_throw(exception) {
-
+    UseCase(std::string&& i, std::string&& e, bool exception = false): input(std::move(i) + "\n"), handle_throw(exception) {
         // TODO: ugly code, this is solve list<X> is list and list<integer> is tuple, this condition indicates that list implementation needs to be improved
         if(!std::is_abstract_v<T>) {
             if(std::is_same_v<T, list<atom>>
