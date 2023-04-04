@@ -22,8 +22,8 @@ public:
                 || std::is_same_v<T, list<s_expression>>) {
                 expected_output = "list: " + std::move(e);
             } else {
-                mem = new T{};
-                expected_output = reinterpret_cast<s_expression*>(mem)->get_indicator() + ": " + std::move(e);
+                mem = std::make_shared<T>();
+                expected_output = reinterpret_cast<s_expression*>(mem.get())->get_indicator() + ": " + std::move(e);
             }
         }
     };
@@ -38,7 +38,7 @@ public:
     bool handle_throw;
     std::string input;
     std::string expected_output;
-    T* mem;
+    std::shared_ptr<T> mem;
 };
 
 class SchemeUseCaseBaseTest: public BaseTest,
