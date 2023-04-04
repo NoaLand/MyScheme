@@ -29,10 +29,10 @@ public:
     };
 
     template<typename D> explicit UseCase(const UseCase<D>& u) {
-        handle_throw = u.handle_throw;
-        input = u.input;
-        expected_output = u.expected_output;
-        mem = u.mem;
+        handle_throw = std::move(u.handle_throw);
+        input = std::move(u.input);
+        expected_output = std::move(u.expected_output);
+        mem = std::move(u.mem);
     }
 
     bool handle_throw;
