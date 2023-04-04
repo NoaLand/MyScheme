@@ -23,7 +23,7 @@ public:
                 expected_output = "list: " + std::move(e);
             } else {
                 mem = std::make_shared<T>();
-                expected_output = reinterpret_cast<s_expression*>(mem.get())->get_indicator() + ": " + std::move(e);
+                expected_output = std::dynamic_pointer_cast<s_expression>(mem)->get_indicator() + ": " + std::move(e);
             }
         }
     };
