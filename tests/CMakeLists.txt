@@ -26,7 +26,7 @@ add_executable(
         runnable_the_little_schemer/customized_function_group/customized_function.cpp
         runnable_the_little_schemer/math_group/scheme_math.cpp runnable_the_little_schemer/sad_path/sad_path.cpp)
 
-target_include_directories(SchemeCore PUBLIC ./)
+include_directories(./)
 target_link_libraries(
         SchemeCoreTest
         SchemeCore
