@@ -1,7 +1,7 @@
 # My Scheme -- A Runnable The Little Schemer
 [![My-Scheme-CI](https://github.com/NoaLand/MyScheme/actions/workflows/build_and_test.yml/badge.svg?branch=master)](https://github.com/NoaLand/MyScheme/actions/workflows/build_and_test.yml)
 
-This is a project to implement my own Scheme compiler, since client network cannot work.
+This is a project to implement my own Scheme compiler.
 
 Basically, I'll define term according to 'The Little Schemer'.
 
