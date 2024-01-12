@@ -96,7 +96,11 @@ public:
     std::string return_type() override { return "integer"; }
     std::string name() override { return "addtup"; }
     std::string family() override { return "list"; }
+    ~add_tuple() override {
+        delete execute_res;
+    }
 private:
     list<integer>* tup_list;
+    integer* execute_res{};
 };
 #endif //MYSCHEME_LIST_FAMILY_H
