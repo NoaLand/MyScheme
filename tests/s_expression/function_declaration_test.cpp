@@ -11,7 +11,8 @@ protected:
 protected:
     void SetUp() override {
         my_lambda_params = new list<param>();
-        my_lambda_params->push_back(new param{"l"});
+        p = new param{"l"};
+        my_lambda_params->push_back(p);
         my_lambda = std::make_shared<function_declaration>(
                 "my_lambda",
                 my_lambda_params,
@@ -22,10 +23,12 @@ protected:
 
     void TearDown() override {
         delete my_lambda_params;
+        delete p;
     }
 
 private:
     list<param>* my_lambda_params;
+    param* p;
 };
 
 TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_successfully_after_init_function) {
