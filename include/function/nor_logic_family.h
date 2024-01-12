@@ -42,8 +42,14 @@ public:
     std::string return_type() override { return "bool"; }
     std::string name() override { return "and?"; }
     std::string family() override { return "nor_logic"; }
+
+    ~and_logic() override {
+        delete execute_res;
+    }
 private:
     boolean* left;
     boolean* right;
+
+    boolean* execute_res{};
 };
 #endif //MYSCHEME_NOR_LOGIC_FAMILY_H

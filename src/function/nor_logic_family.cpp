@@ -11,5 +11,7 @@ boolean* or_logic::execute() {
 }
 
 boolean* and_logic::execute() {
-    return new boolean(left->val() && right->val());
+    execute_res = new boolean(left->val() && right->val());
+
+    return execute_res;
 }
