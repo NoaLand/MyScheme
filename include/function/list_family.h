@@ -35,8 +35,12 @@ public:
     std::string return_type() override { return "list"; }
     std::string name() override { return "cdr"; }
     std::string family() override { return "list"; }
+    ~cdr() override {
+        delete execute_res;
+    }
 private:
     list<s_expression>* s_exp;
+    list<s_expression>* execute_res{};
 };
 
 class cons: public function {
@@ -51,9 +55,13 @@ public:
     std::string return_type() override { return "list"; }
     std::string name() override { return "cons"; }
     std::string family() override { return "list"; }
+    ~cons() override {
+        delete execute_res;
+    }
 private:
     s_expression* left;
     list<s_expression>* right;
+    list<s_expression>* execute_res{};
 };
 
 class is_null: public function {
@@ -68,8 +76,12 @@ public:
     std::string return_type() override { return "bool"; }
     std::string name() override { return "null?"; }
     std::string family() override { return "list"; }
+    ~is_null() override {
+        delete execute_res;
+    }
 private:
     list<s_expression>* s_exp;
+    boolean* execute_res{};
 };
 
 class add_tuple: public function {

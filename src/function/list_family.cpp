@@ -14,21 +14,25 @@ list<s_expression>* cdr::execute() {
     }
 
     auto iter = s_exp->get_iterator();
-    return new list<s_expression>(iter.begin() + 1, iter.end());
+    execute_res = new list<s_expression>(iter.begin() + 1, iter.end());
+
+    return execute_res;
 }
 
 list<s_expression>* cons::execute() {
-    auto res = new list<s_expression>();
-    res->push_back(left);
+    execute_res = new list<s_expression>();
+    execute_res->push_back(left);
     for(int index = 0; index < right->size_of(); ++index) {
-        res->push_back(right->get(index));
+        execute_res->push_back(right->get(index));
     }
 
-    return res;
+    return execute_res;
 }
 
 boolean* is_null::execute() {
-    return new boolean{s_exp->empty()};
+    execute_res = new boolean{s_exp->empty()};
+
+    return execute_res;
 }
 
 integer* add_tuple::execute() {
