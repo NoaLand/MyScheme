@@ -36,8 +36,7 @@ TEST(BooleanTest, should_set_false_successfully_when_pass_bool_false) {
 }
 
 TEST(BooleanTest, should_set_true_when_pass_string_t) {
-    const std::string true_string = "#t";
-    auto b = boolean{true_string};
+    auto b = boolean{"#t"};
 
     ASSERT_TRUE(b.val());
     ASSERT_EQ(b.get_value(), "#t");
@@ -45,8 +44,7 @@ TEST(BooleanTest, should_set_true_when_pass_string_t) {
 }
 
 TEST(BooleanTest, should_set_true_when_pass_else) {
-    const std::string else_string = "else";
-    auto b = boolean{else_string};
+    auto b = boolean{"else"};
 
     ASSERT_TRUE(b.val());
     ASSERT_EQ(b.get_value(), "#t");
@@ -54,8 +52,7 @@ TEST(BooleanTest, should_set_true_when_pass_else) {
 }
 
 TEST(BooleanTest, should_set_false_when_pass_string_f) {
-    const std::string false_string = "#f";
-    auto b = boolean{false_string};
+    auto b = boolean{"#f"};
 
     ASSERT_FALSE(b.val());
     ASSERT_EQ(b.get_value(), "#f");
@@ -63,8 +60,7 @@ TEST(BooleanTest, should_set_false_when_pass_string_f) {
 }
 
 TEST(BooleanTest, should_throw_exception_when_input_is_not_t_or_else_or_f) {
-    const std::string err_string = "err";
-    ASSERT_ANY_THROW(boolean{err_string});
+    ASSERT_ANY_THROW(boolean{"err"});
 }
 
 TEST(IntegerTest, should_set_10_to_integer_when_passing_10) {

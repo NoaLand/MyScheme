@@ -31,6 +31,8 @@ public:
 
         value = b;
     }
+    explicit boolean(const char* b) : boolean(std::string(b)) {}
+
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override;
