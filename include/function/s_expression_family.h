@@ -11,8 +11,10 @@ public:
     std::string return_type() override { return "bool"; }
     std::string name() override { return "atom?"; }
     std::string family() override { return "s_expression"; }
+    ~is_atom() override { delete execute_res; }
 private:
     s_expression* s_exp;
+    boolean* execute_res{};
 };
 
 class is_eq: public function {
@@ -22,9 +24,11 @@ public:
     std::string return_type() override { return "bool"; }
     std::string name() override { return "eq?"; }
     std::string family() override { return "s_expression"; }
+    ~is_eq() override { delete execute_res; }
 private:
     s_expression* left;
     s_expression* right;
+    boolean* execute_res{};
 };
 
 class is_number: public function {
@@ -34,7 +38,9 @@ public:
     std::string return_type() override { return "bool"; }
     std::string name() override { return "number?"; }
     std::string family() override { return "s_expression"; }
+    ~is_number() override { delete execute_res; }
 private:
     s_expression* s_exp;
+    boolean* execute_res{};
 };
 #endif //MYSCHEME_S_EXPRESSION_FAMILY_H
