@@ -16,8 +16,14 @@ public:
     std::string return_type() override { return "integer"; }
     std::string name() override { return "add1"; }
     std::string family() override { return "math"; }
+
+    ~self_add() override {
+        delete execute_res;
+    }
 private:
     integer* number;
+
+    integer* execute_res{};
 };
 
 class self_sub: public function {
@@ -32,8 +38,13 @@ public:
     std::string return_type() override { return "integer"; }
     std::string name() override { return "sub1"; }
     std::string family() override { return "math"; }
+    ~self_sub() override {
+        delete execute_res;
+    }
 private:
     integer* number;
+
+    integer* execute_res{};
 };
 
 class is_zero: public function {
@@ -48,7 +59,12 @@ public:
     std::string return_type() override { return "bool"; }
     std::string name() override { return "zero?"; }
     std::string family() override { return "math"; }
+    ~is_zero() override {
+        delete execute_res;
+    }
 private:
     integer* number;
+
+    boolean* execute_res{};
 };
 #endif //MYSCHEME_MATH_FAMILY_H
