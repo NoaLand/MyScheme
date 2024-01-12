@@ -77,10 +77,10 @@ auto interpreter::closure() -> s_expression* {
             auto a = new atom(token.value);
             l->push_back(a);
         } else if(token.type == 'B') {
-            auto* b = new boolean(token.value == "#t" || token.value == "else");
+            auto b = new boolean(token.value == "#t" || token.value == "else");
             l->push_back(b);
         } else if(token.type == 'N') {
-            auto* i = new integer(token.integer_value);
+            auto i = new integer(token.integer_value);
             l->push_back(i);
         } else if(token.type == ')') {
             break;
