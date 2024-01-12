@@ -1,5 +1,7 @@
 #include "function/others.h"
 
 atom* quote::execute() {
-    return new atom{exp->get_value()};
+    execute_res = new atom{exp->get_value()};
+
+    return execute_res;
 }

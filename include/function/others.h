@@ -13,8 +13,11 @@ public:
     std::string return_type() override { return "atom"; }
     std::string name() override { return "quote"; }
     std::string family() override { return "other"; }
+    ~quote() override { delete execute_res; }
 private:
     s_expression* exp;
+
+    atom* execute_res{};
 };
 
 #endif //MYSCHEME_OTHERS_H
