@@ -9,5 +9,6 @@ public:
     virtual std::string return_type() = 0;
     virtual std::string name() = 0;
     virtual std::string family() = 0;
+    virtual ~function() = default;
 };
 #endif //MYSCHEME_FUNCTION_H

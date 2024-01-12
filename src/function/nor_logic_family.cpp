@@ -2,9 +2,12 @@
 
 boolean* or_logic::execute() {
     if(left->val()) {
-        return new boolean{true};
+        execute_res = new boolean{true};
+    } else {
+        execute_res = new boolean{right->val()};
     }
-    return new boolean{right->val()};
+
+    return execute_res;
 }
 
 boolean* and_logic::execute() {
