@@ -263,7 +263,7 @@ auto interpreter::get_input_param() -> list<s_expression>* {
     return params;
 }
 
-auto interpreter::get_param_val(const Token &t) -> s_expression * {
+auto interpreter::get_param_val(const Token &t) -> s_expression* {
     auto instance = call_stack.top();
     auto map_result = instance.param_hashmap.find(t.value);
 
