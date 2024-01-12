@@ -25,18 +25,18 @@ auto interpreter::scheme() -> void {
     auto token = ts.get();
     switch (token.type) {
         case 'A': {
-            auto s_exp = new atom{token.value};
-            s_exp->print(os);
+            auto s_exp = atom{token.value};
+            s_exp.print(os);
             break;
         }
         case 'B': {
-            auto s_exp = new boolean{token.value};
-            s_exp->print(os);
+            auto s_exp = boolean{token.value};
+            s_exp.print(os);
             break;
         }
         case 'N': {
-            auto s_exp = new integer{token.integer_value};
-            s_exp->print(os);
+            auto s_exp = integer{token.integer_value};
+            s_exp.print(os);
             break;
         }
         case '(': {
