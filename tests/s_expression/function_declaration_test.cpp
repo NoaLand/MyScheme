@@ -8,8 +8,9 @@ protected:
     std::shared_ptr<function_declaration> my_lambda{};
     std::vector<Token> my_lambda_body_token_list{{'(', "("}, {'F', "car"}, {'P', "l"}, {')', ")"}};
 
+protected:
     void SetUp() override {
-        auto my_lambda_params = new list<param>();
+        my_lambda_params = new list<param>();
         my_lambda_params->push_back(new param{"l"});
         my_lambda = std::make_shared<function_declaration>(
                 "my_lambda",
@@ -18,6 +19,13 @@ protected:
         );
         context.store(my_lambda.get());
     }
+
+    void TearDown() override {
+        delete my_lambda_params;
+    }
+
+private:
+    list<param>* my_lambda_params;
 };
 
 TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_successfully_after_init_function) {
