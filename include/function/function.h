@@ -1,6 +1,8 @@
 #ifndef MYSCHEME_FUNCTION_H
 #define MYSCHEME_FUNCTION_H
 
+#include <memory>
+
 #include "s_expression/s_expression.h"
 
 class function {
