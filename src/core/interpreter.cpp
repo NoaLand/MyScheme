@@ -285,7 +285,7 @@ auto interpreter::function_define() -> std::shared_ptr<function_declaration> {
     }
 
     auto params = collect_params();
-    auto body = get_func_body(name.value, params.get());
+    auto body = get_func_body(name.value, params);
 
     return std::make_shared<function_declaration>(name.value, params, body);
 }
@@ -312,7 +312,7 @@ auto interpreter::collect_params() -> std::shared_ptr<list<param>> {
     return l;
 }
 
-auto interpreter::get_func_body(const std::string& func_name, list<param>* params) -> std::vector<Token> {
+auto interpreter::get_func_body(const std::string& func_name, std::shared_ptr<list<param>> params) -> std::vector<Token> {
     auto body = std::vector<Token>();
     const auto& left_bracket = ts.get();
     if(left_bracket.type != '(') {

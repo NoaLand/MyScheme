@@ -33,7 +33,7 @@ public:
 
     auto function_define() -> std::shared_ptr<function_declaration>;
     auto collect_params() -> std::shared_ptr<list<param>>;
-    auto get_func_body(const std::string& func_name, list<param>* params) -> std::vector<Token>;
+    auto get_func_body(const std::string& func_name, std::shared_ptr<list<param>> params) -> std::vector<Token>;
 private:
     function_context& context;
     Token_stream& ts;
