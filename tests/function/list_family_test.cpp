@@ -93,9 +93,9 @@ TEST(CdrTest, should_return_a2_a3_when_cdr_get_a1_a2_a3_list) {
     auto res = f.execute();
 
     ASSERT_EQ(res->get_indicator(), "list");
-    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(res)->size_of(), 2);
-    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(res)->get(0)->get_value(), "a2");
-    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(res)->get(1)->get_value(), "a3");
+    ASSERT_EQ(static_pointer_cast<list<atom>>(res)->size_of(), 2);
+    ASSERT_EQ(static_pointer_cast<list<atom>>(res)->get(0)->get_value(), "a2");
+    ASSERT_EQ(static_pointer_cast<list<atom>>(res)->get(1)->get_value(), "a3");
 }
 
 TEST(CdrTest, should_return_2_3_when_cdr_get_1_2_3_tuple) {
@@ -108,9 +108,9 @@ TEST(CdrTest, should_return_2_3_when_cdr_get_1_2_3_tuple) {
     auto res = f.execute();
 
     ASSERT_EQ(res->get_indicator(), "tuple");
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(res)->size_of(), 2);
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(res)->get(0)->val(), 2);
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(res)->get(1)->val(), 3);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(res)->size_of(), 2);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(res)->get(0)->val(), 2);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(res)->get(1)->val(), 3);
 }
 
 TEST(CdrTest, should_return_a2_a3_list_and_a4_when_cdr_get_a1_and_a2_a3_list_a4) {
@@ -132,13 +132,13 @@ TEST(CdrTest, should_return_a2_a3_list_and_a4_when_cdr_get_a1_and_a2_a3_list_a4)
     auto res = f.execute();
 
     ASSERT_EQ(res->get_indicator(), "list");
-    ASSERT_EQ(reinterpret_pointer_cast<list<s_expression>>(res)->size_of(), 2);
+    ASSERT_EQ(static_pointer_cast<list<s_expression>>(res)->size_of(), 2);
 
     auto first_s_exp_in_res = dynamic_pointer_cast<list<s_expression>>(res)->get(0);
     ASSERT_EQ(first_s_exp_in_res->get_indicator(), "list");
-    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(first_s_exp_in_res)->size_of(), 2);
-    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(first_s_exp_in_res)->get(0)->get_value(), "a2");
-    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(first_s_exp_in_res)->get(1)->get_value(), "a3");
+    ASSERT_EQ(static_pointer_cast<list<atom>>(first_s_exp_in_res)->size_of(), 2);
+    ASSERT_EQ(static_pointer_cast<list<atom>>(first_s_exp_in_res)->get(0)->get_value(), "a2");
+    ASSERT_EQ(static_pointer_cast<list<atom>>(first_s_exp_in_res)->get(1)->get_value(), "a3");
 
     auto second_s_exp_in_res = dynamic_pointer_cast<list<s_expression>>(res)->get(1);
     ASSERT_EQ(second_s_exp_in_res->get_value(), "a4");
@@ -179,7 +179,7 @@ TEST(ConsTest, should_return_a1_a2_list_when_cons_a1_to_a2_list) {
     auto res = f.execute();
     ASSERT_EQ(res->get_indicator(), "list");
 
-    auto res_to_list = reinterpret_pointer_cast<list<atom>>(res);
+    auto res_to_list = static_pointer_cast<list<atom>>(res);
     ASSERT_EQ(res_to_list->size_of(), 2);
     ASSERT_EQ(res_to_list->get(0)->get_value(), "a1");
     ASSERT_EQ(res_to_list->get(1)->get_value(), "a2");
@@ -196,7 +196,7 @@ TEST(ConsTest, should_return_1_2_tuple_when_cons_1_to_2_tuple) {
     auto res = f.execute();
     ASSERT_EQ(res->get_indicator(), "tuple");
 
-    auto res_to_list = reinterpret_pointer_cast<list<integer>>(res);
+    auto res_to_list = static_pointer_cast<list<integer>>(res);
     ASSERT_EQ(res_to_list->size_of(), 2);
     ASSERT_EQ(dynamic_pointer_cast<integer>(res_to_list->get(0))->val(), 1);
     ASSERT_EQ(dynamic_pointer_cast<integer>(res_to_list->get(1))->val(), 2);

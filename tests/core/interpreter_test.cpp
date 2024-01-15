@@ -63,10 +63,10 @@ TEST_F(ClosureTest, should_return_boolean_list_when_getting_true_true_and_false)
     auto boolean_list = inter.closure();
 
     ASSERT_EQ(boolean_list->get_indicator(), "list");
-    ASSERT_EQ(reinterpret_pointer_cast<list<boolean>>(boolean_list)->size_of(), 3);
-    ASSERT_TRUE(reinterpret_pointer_cast<list<boolean>>(boolean_list)->get(0)->val());
-    ASSERT_TRUE(reinterpret_pointer_cast<list<boolean>>(boolean_list)->get(1)->val());
-    ASSERT_FALSE(reinterpret_pointer_cast<list<boolean>>(boolean_list)->get(2)->val());
+    ASSERT_EQ(static_pointer_cast<list<boolean>>(boolean_list)->size_of(), 3);
+    ASSERT_TRUE(static_pointer_cast<list<boolean>>(boolean_list)->get(0)->val());
+    ASSERT_TRUE(static_pointer_cast<list<boolean>>(boolean_list)->get(1)->val());
+    ASSERT_FALSE(static_pointer_cast<list<boolean>>(boolean_list)->get(2)->val());
 }
 
 TEST_F(ClosureTest, should_return_tuple_when_getting_list_of_integer) {
@@ -74,11 +74,11 @@ TEST_F(ClosureTest, should_return_tuple_when_getting_list_of_integer) {
     auto tuple = inter.closure();
 
     ASSERT_EQ(tuple->get_indicator(), "tuple");
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->size_of(), 4);
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(0)->val(), 1);
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(1)->val(), 2);
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(2)->val(), 3);
-    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(3)->val(), 4);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(tuple)->size_of(), 4);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(tuple)->get(0)->val(), 1);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(tuple)->get(1)->val(), 2);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(tuple)->get(2)->val(), 3);
+    ASSERT_EQ(static_pointer_cast<list<integer>>(tuple)->get(3)->val(), 4);
 }
 
 TEST_F(ClosureTest, should_define_and_store_lambda_successfully_when_calling_with_closure) {
@@ -120,7 +120,7 @@ TEST_F(GetInputParamTest, should_return_params_when_input_has_expression) {
     ASSERT_EQ(inputs->get(1)->get_value(), "b");
 
     ASSERT_EQ(inputs->get(2)->get_indicator(), "list");
-    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(inputs->get(2))->get_value(), "( a b c )");
+    ASSERT_EQ(static_pointer_cast<list<atom>>(inputs->get(2))->get_value(), "( a b c )");
 }
 
 class FunctionDefineTest: public InterpreterTest {

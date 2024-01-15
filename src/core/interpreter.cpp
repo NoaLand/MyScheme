@@ -86,7 +86,7 @@ auto interpreter::closure() -> std::shared_ptr<s_expression> {
             break;
         } else if(token.type == '(') {
             ts.put_back(token);
-            auto pList = reinterpret_pointer_cast<list<s_expression>>(closure());
+            auto pList = static_pointer_cast<list<s_expression>>(closure());
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);

@@ -14,7 +14,7 @@ public:
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, car can only get list.");
         }
-        s_exp = reinterpret_pointer_cast<list<s_expression>>(exp);
+        s_exp = static_pointer_cast<list<s_expression>>(exp);
     }
     std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "s_expression"; }
@@ -30,7 +30,7 @@ public:
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, cdr can only get list.");
         }
-        s_exp = reinterpret_pointer_cast<list<s_expression>>(exp);
+        s_exp = static_pointer_cast<list<s_expression>>(exp);
     }
     std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "list"; }
@@ -46,7 +46,7 @@ public:
         if(r->get_indicator() != "list" && r->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, the second argument to cons must be a list.");
         }
-        right = reinterpret_pointer_cast<list<s_expression>>(r);
+        right = static_pointer_cast<list<s_expression>>(r);
     }
     std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "list"; }
@@ -63,7 +63,7 @@ public:
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
-        s_exp = reinterpret_pointer_cast<list<s_expression>>(exp);
+        s_exp = static_pointer_cast<list<s_expression>>(exp);
     }
     std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "bool"; }
@@ -79,7 +79,7 @@ public:
         if(tp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
-        tup_list = reinterpret_pointer_cast<list<integer>>(tp);
+        tup_list = static_pointer_cast<list<integer>>(tp);
     }
     std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "integer"; }
