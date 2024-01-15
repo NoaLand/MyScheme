@@ -24,8 +24,8 @@ TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_
     auto t = inter.construct_from_token();
 
     ASSERT_EQ(t->get_indicator(), "bool");
-    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
-    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
+    ASSERT_EQ(dynamic_pointer_cast<boolean>(t)->get_value(), "#t");
+    ASSERT_TRUE(dynamic_pointer_cast<boolean>(t)->val());
 }
 
 TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_else) {
@@ -33,8 +33,8 @@ TEST_F(ConstructFromTokenTest, should_construct_true_when_getting_is_buf_has_is_
     auto t = inter.construct_from_token();
 
     ASSERT_EQ(t->get_indicator(), "bool");
-    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#t");
-    ASSERT_TRUE(dynamic_cast<boolean*>(t)->val());
+    ASSERT_EQ(dynamic_pointer_cast<boolean>(t)->get_value(), "#t");
+    ASSERT_TRUE(dynamic_pointer_cast<boolean>(t)->val());
 }
 
 TEST_F(ConstructFromTokenTest, should_construct_false_when_getting_is_buf_has_is_false) {
@@ -42,8 +42,8 @@ TEST_F(ConstructFromTokenTest, should_construct_false_when_getting_is_buf_has_is
     auto t = inter.construct_from_token();
 
     ASSERT_EQ(t->get_indicator(), "bool");
-    ASSERT_EQ(dynamic_cast<boolean*>(t)->get_value(), "#f");
-    ASSERT_FALSE(dynamic_cast<boolean*>(t)->val());
+    ASSERT_EQ(dynamic_pointer_cast<boolean>(t)->get_value(), "#f");
+    ASSERT_FALSE(dynamic_pointer_cast<boolean>(t)->val());
 }
 
 TEST_F(ConstructFromTokenTest, should_construct_integer_10_when_getting_is_buf_has_10) {
@@ -51,8 +51,8 @@ TEST_F(ConstructFromTokenTest, should_construct_integer_10_when_getting_is_buf_h
     auto t = inter.construct_from_token();
 
     ASSERT_EQ(t->get_indicator(), "integer");
-    ASSERT_EQ(dynamic_cast<integer*>(t)->get_value(), "10");
-    ASSERT_EQ(dynamic_cast<integer*>(t)->val(), 10);
+    ASSERT_EQ(dynamic_pointer_cast<integer>(t)->get_value(), "10");
+    ASSERT_EQ(dynamic_pointer_cast<integer>(t)->val(), 10);
 }
 
 class ClosureTest: public InterpreterTest {
@@ -63,10 +63,10 @@ TEST_F(ClosureTest, should_return_boolean_list_when_getting_true_true_and_false)
     auto boolean_list = inter.closure();
 
     ASSERT_EQ(boolean_list->get_indicator(), "list");
-    ASSERT_EQ(reinterpret_cast<list<boolean>*>(boolean_list)->size_of(), 3);
-    ASSERT_TRUE(reinterpret_cast<list<boolean>*>(boolean_list)->get(0)->val());
-    ASSERT_TRUE(reinterpret_cast<list<boolean>*>(boolean_list)->get(1)->val());
-    ASSERT_FALSE(reinterpret_cast<list<boolean>*>(boolean_list)->get(2)->val());
+    ASSERT_EQ(reinterpret_pointer_cast<list<boolean>>(boolean_list)->size_of(), 3);
+    ASSERT_TRUE(reinterpret_pointer_cast<list<boolean>>(boolean_list)->get(0)->val());
+    ASSERT_TRUE(reinterpret_pointer_cast<list<boolean>>(boolean_list)->get(1)->val());
+    ASSERT_FALSE(reinterpret_pointer_cast<list<boolean>>(boolean_list)->get(2)->val());
 }
 
 TEST_F(ClosureTest, should_return_tuple_when_getting_list_of_integer) {
@@ -74,11 +74,11 @@ TEST_F(ClosureTest, should_return_tuple_when_getting_list_of_integer) {
     auto tuple = inter.closure();
 
     ASSERT_EQ(tuple->get_indicator(), "tuple");
-    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->size_of(), 4);
-    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(0)->val(), 1);
-    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(1)->val(), 2);
-    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(2)->val(), 3);
-    ASSERT_EQ(reinterpret_cast<list<integer>*>(tuple)->get(3)->val(), 4);
+    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->size_of(), 4);
+    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(0)->val(), 1);
+    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(1)->val(), 2);
+    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(2)->val(), 3);
+    ASSERT_EQ(reinterpret_pointer_cast<list<integer>>(tuple)->get(3)->val(), 4);
 }
 
 TEST_F(ClosureTest, should_define_and_store_lambda_successfully_when_calling_with_closure) {
@@ -87,7 +87,7 @@ TEST_F(ClosureTest, should_define_and_store_lambda_successfully_when_calling_wit
     auto is_one = inter.closure();
 
     ASSERT_EQ(is_one->get_indicator(), "customized_function");
-    ASSERT_EQ(dynamic_cast<function_declaration*>(is_one)->get_name(), "one?");
+    ASSERT_EQ(dynamic_pointer_cast<function_declaration>(is_one)->get_name(), "one?");
     ASSERT_TRUE(context.is_in("one?"));
 
 }
@@ -120,7 +120,7 @@ TEST_F(GetInputParamTest, should_return_params_when_input_has_expression) {
     ASSERT_EQ(inputs->get(1)->get_value(), "b");
 
     ASSERT_EQ(inputs->get(2)->get_indicator(), "list");
-    ASSERT_EQ(reinterpret_cast<list<atom>*>(inputs->get(2))->get_value(), "( a b c )");
+    ASSERT_EQ(reinterpret_pointer_cast<list<atom>>(inputs->get(2))->get_value(), "( a b c )");
 }
 
 class FunctionDefineTest: public InterpreterTest {
@@ -192,7 +192,7 @@ TEST_F(GetFuncBodyTest, should_get_function_body_successfully_when_passing_corre
     auto params = inter.collect_params();
 
     is.str("(cond ((sero? m) n) (else (edd1 (p+ n (zub1 m))))))\n");
-    auto body = inter.get_func_body("func", params);
+    auto body = inter.get_func_body("func", params.get());
 
     std::string deserialized_body = serialize_token_list(body);
     ASSERT_EQ(deserialized_body, "( cond ( ( sero? m ) n ) ( else ( edd1 ( p+ n ( zub1 m ) ) ) ) ) ");
@@ -203,7 +203,7 @@ TEST_F(GetFuncBodyTest, should_get_function_body_successfully_when_function_body
     auto params = inter.collect_params();
 
     is.str("(cond ((zero? m) 1) (else (* n (^ n (sub1 m)))))))\n");
-    auto body = inter.get_func_body("func", params);
+    auto body = inter.get_func_body("func", params.get());
 
     std::string deserialized_body = serialize_token_list(body);
     ASSERT_EQ(deserialized_body, "( cond ( ( zero? m ) 1 ) ( else ( * n ( ^ n ( sub1 m ) ) ) ) ) ");
@@ -215,7 +215,7 @@ TEST_F(GetFuncBodyTest, should_throw_exception_when_parsing_body_is_not_start_wi
 
     is.str("error function body\n");
 
-    ASSERT_ANY_THROW(inter.get_func_body("func", params));
+    ASSERT_ANY_THROW(inter.get_func_body("func", params.get()));
 }
 
 TEST_F(GetFuncBodyTest, should_throw_exception_when_parsing_body_is_not_start_with_right_parentheses) {
@@ -224,5 +224,5 @@ TEST_F(GetFuncBodyTest, should_throw_exception_when_parsing_body_is_not_start_wi
 
     is.str("(error function) body\n");
 
-    ASSERT_ANY_THROW(inter.get_func_body("func", params));
+    ASSERT_ANY_THROW(inter.get_func_body("func", params.get()));
 }

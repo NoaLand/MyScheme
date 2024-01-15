@@ -1,17 +1,13 @@
 #include "function/nor_logic_family.h"
 
-boolean* or_logic::execute() {
+std::shared_ptr<s_expression> or_logic::execute() {
     if(left->val()) {
-        execute_res = new boolean{true};
+        return std::make_shared<boolean>(true);
     } else {
-        execute_res = new boolean{right->val()};
+        return std::make_shared<boolean>(right->val());
     }
-
-    return execute_res;
 }
 
-boolean* and_logic::execute() {
-    execute_res = new boolean(left->val() && right->val());
-
-    return execute_res;
+std::shared_ptr<s_expression> and_logic::execute() {
+    return std::make_shared<boolean>(left->val() && right->val());
 }

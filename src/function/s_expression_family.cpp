@@ -1,34 +1,28 @@
 #include "function/s_expression_family.h"
 
-boolean* is_atom::execute() {
+std::shared_ptr<s_expression> is_atom::execute() {
     const auto& type_info = s_exp->get_indicator();
     if(type_info == "atom" || type_info == "bool" || type_info == "integer") {
-        execute_res = new boolean{true};
+        return std::make_shared<boolean>(true);
     } else {
-        execute_res = new boolean{false};
+        return std::make_shared<boolean>(false);
     }
-
-    return execute_res;
 }
 
-boolean* is_eq::execute() {
+std::shared_ptr<s_expression> is_eq::execute() {
     if(left->get_indicator() == right->get_indicator()
         && left->get_value() == right->get_value()) {
-        execute_res = new boolean{true};
+        return std::make_shared<boolean>(true);
     } else {
-        execute_res = new boolean{false};
+        return std::make_shared<boolean>(false);
     }
-
-    return execute_res;
 }
 
-boolean* is_number::execute() {
+std::shared_ptr<s_expression> is_number::execute() {
     const auto& type_info = s_exp->get_indicator();
     if(type_info == "integer") {
-        execute_res = new boolean{true};
+        return std::make_shared<boolean>(true);
     } else {
-        execute_res = new boolean{false};
+        return std::make_shared<boolean>(false);
     }
-
-    return execute_res;
 }

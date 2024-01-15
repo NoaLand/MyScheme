@@ -1,16 +1,16 @@
 #include "core/interpreter.h"
 
-auto interpreter::construct_from_token() -> s_expression* {
+auto interpreter::construct_from_token() -> std::shared_ptr<s_expression> {
     auto token = ts.get();
-    s_expression* s_exp;
+    std::shared_ptr<s_expression> s_exp;
     if(token.type == 'A') {
-        s_exp = new atom{token.value};
+        s_exp = std::make_shared<atom>(token.value);
     } else if(token.type == 'B') {
-        s_exp = new boolean{token.value == "#t" || token.value == "else" };
+        s_exp = std::make_shared<boolean>(token.value == "#t" || token.value == "else");
     } else if(token.type == 'N') {
-        s_exp = new integer{ token.integer_value };
+        s_exp = std::make_shared<integer>(token.integer_value);
     } else if(token.type == 'P') {
-        return get_param_val(token);
+        return std::shared_ptr<s_expression>(get_param_val(token));
     }  else {
         ts.put_back(token);
         s_exp = closure();
@@ -59,34 +59,34 @@ auto interpreter::scheme() -> void {
     }
 }
 
-auto interpreter::closure() -> s_expression* {
+auto interpreter::closure() -> std::shared_ptr<s_expression> {
     const Token& left = ts.get();
 
     if(left.type == 'P') {
-        return get_param_val(left);
+        return std::shared_ptr<s_expression>(get_param_val(left));
     }
 
     if(left.type != '(') {
         throw std::runtime_error("wrong syntax: " + left.value);
     }
 
-    auto l = new list<s_expression>();
+    auto l = std::make_shared<list<s_expression>>();
     while(true) {
         auto token = ts.get();
         if(token.type == 'A') {
-            auto a = new atom(token.value);
+            auto a = std::make_shared<atom>(token.value);
             l->push_back(a);
         } else if(token.type == 'B') {
-            auto b = new boolean(token.value == "#t" || token.value == "else");
+            auto b = std::make_shared<boolean>(token.value == "#t" || token.value == "else");
             l->push_back(b);
         } else if(token.type == 'N') {
-            auto i = new integer(token.integer_value);
+            auto i = std::make_shared<integer>(token.integer_value);
             l->push_back(i);
         } else if(token.type == ')') {
             break;
         } else if(token.type == '(') {
             ts.put_back(token);
-            auto pList = dynamic_cast<list<s_expression>*>(closure());
+            auto pList = reinterpret_pointer_cast<list<s_expression>>(closure());
             l->push_back(pList);
         } else if(token.type == 'F') {
             ts.put_back(token);
@@ -101,10 +101,10 @@ auto interpreter::closure() -> s_expression* {
             auto instance = call_stack.top();
             auto map_result = instance.param_hashmap.find(token.value)->second;
             if(map_result->get_indicator() == "anonymous_func") {
-                auto func = dynamic_cast<anonymous_func*>(map_result);
+                auto func = dynamic_pointer_cast<anonymous_func>(map_result);
                 ts.put_back(Token{'F', func->get_value()});
             } else if(map_result->get_indicator() == "customized_function") {
-                auto func = dynamic_cast<function_declaration*>(map_result);
+                auto func = dynamic_pointer_cast<function_declaration>(map_result);
                 ts.put_back(Token{'F', func->get_name()});
             }
             return call_function();
@@ -114,47 +114,47 @@ auto interpreter::closure() -> s_expression* {
     return l;
 }
 
-auto interpreter::call_function() -> s_expression* {
+auto interpreter::call_function() -> std::shared_ptr<s_expression> {
     auto func = ts.get();
     auto& function_key = func.value;
-    function* f;
+    std::shared_ptr<function> f;
     if(function_key == "quote") {
         auto any = construct_from_token();
-        f = new quote{any};
+        f = std::make_shared<quote>(any);
     } else if(function_key == "car") {
         auto s_exp = closure();
-        f = new car{s_exp};
+        f = std::make_shared<car>(s_exp);
     } else if(function_key == "cdr") {
         auto s_exp = closure();
-        f = new cdr{s_exp};
+        f = std::make_shared<cdr>(s_exp);
     } else if(function_key == "cons") {
         auto left = construct_from_token();
         auto right = closure();
-        f = new cons{left, right};
+        f = std::make_shared<cons>(left, right);
     } else if(function_key == "null?") {
         auto s_exp = closure();
-        f = new is_null{s_exp};
+        f = std::make_shared<is_null>(s_exp);
     } else if(function_key == "addtup") {
         auto s_exp = construct_from_token();
-        f = new add_tuple{s_exp};
+        f = std::make_shared<add_tuple>(s_exp);
     } else if(function_key == "atom?") {
         auto s_exp = construct_from_token();
-        f = new is_atom{s_exp};
+        f = std::make_shared<is_atom>(s_exp);
     } else if(function_key == "eq?") {
         auto left = construct_from_token();
         auto right = construct_from_token();
-        f = new is_eq{left, right};
+        f = std::make_shared<is_eq>(left, right);
     } else if(function_key == "number?") {
         auto s_exp = construct_from_token();
-        f = new is_number{s_exp};
+        f = std::make_shared<is_number>(s_exp);
     } else if(function_key == "or?") {
         auto left = construct_from_token();
         auto right = construct_from_token();
-        f = new or_logic{left, right};
+        f = std::make_shared<or_logic>(left, right);
     } else if(function_key == "and?") {
         auto left = construct_from_token();
         auto right = construct_from_token();
-        f = new and_logic{left, right};
+        f = std::make_shared<and_logic>(left, right);
     } else if(function_key == "cond") {
         while(true) {
             auto condition_start = ts.get();
@@ -165,7 +165,7 @@ auto interpreter::call_function() -> s_expression* {
             if(assertion->get_indicator() != "bool") {
                 throw std::runtime_error("wrong syntax! assertion need to return bool!");
             }
-            if(dynamic_cast<boolean*>(assertion)->val()) {
+            if(dynamic_pointer_cast<boolean>(assertion)->val()) {
                 auto res = construct_from_token();
                 ts.get();
                 ignore_else();
@@ -176,19 +176,19 @@ auto interpreter::call_function() -> s_expression* {
         }
     } else if(function_key == "zero?") {
         auto number = construct_from_token();
-        f = new is_zero{number};
+        f = std::make_shared<is_zero>(number);
     } else if(function_key == "add1") {
         auto number = construct_from_token();
-        f = new self_add{number};
+        f = std::make_shared<self_add>(number);
     } else if(function_key == "sub1") {
         auto number = construct_from_token();
-        f = new self_sub{number};
+        f = std::make_shared<self_sub>(number);
     } else if(context.is_in(function_key, true)) {
         auto params = get_input_param();
         function_instance instance{context.load(params), params};
         call_stack.push(instance);
         ts.push_back(instance.body);
-        s_expression* res = closure();
+        auto res = closure();
         call_stack.pop();
         return res;
     } else if(!call_stack.empty()) {
@@ -202,22 +202,22 @@ auto interpreter::call_function() -> s_expression* {
             function_instance instance{func_declaration, params};
             call_stack.push(instance);
             ts.push_back(func_declaration->get_body());
-            s_expression* res = closure();
+            auto res = closure();
             call_stack.pop();
             return res;
         } else if(func_instance.func_name == function_key) {
             // after calling(function has been on the top of the stack)
-            auto func_params = new list<param>{};
+            auto func_params = std::make_shared<list<param>>();
             for(int index = 0; index < func_instance.param_list.size_of(); index++){
                 func_params->push_back(func_instance.param_list.get(index));
             }
-            auto func_declaration = new function_declaration{func_instance.func_name, func_params, func_instance.body};
+            auto func_declaration = std::make_shared<function_declaration>(func_instance.func_name, func_params, func_instance.body);
 
             auto params = get_input_param();
             function_instance instance{func_declaration, params};
             call_stack.push(instance);
             ts.push_back(func_instance.body);
-            s_expression* res = closure();
+            auto res = closure();
             call_stack.pop();
             return res;
         }
@@ -230,18 +230,18 @@ auto interpreter::call_function() -> s_expression* {
 
     auto pExpression = f->execute();
     ts.get_ostream() << "-> " << f->name() << " -> " << f->return_type() << " [" << pExpression->get_value() << "]" << std::endl;
-    return pExpression;
+    return std::shared_ptr<s_expression>(pExpression);
 }
 
-auto interpreter::get_input_param() -> list<s_expression>* {
-    auto params = new list<s_expression>();
+auto interpreter::get_input_param() -> std::shared_ptr<list<s_expression>> {
+    auto params = std::make_shared<list<s_expression>>();
 
     while(true) {
         const auto& token = ts.get();
         if(token.type != ')') {
-            s_expression* p;
+            std::shared_ptr<s_expression> p;
             if(token.type == 'F') {
-                p = new anonymous_func{token.value};
+                p = std::make_shared<anonymous_func>(token.value);
             } else {
                 auto func = ts.get();
                 if(func.type == 'D') {
@@ -263,14 +263,14 @@ auto interpreter::get_input_param() -> list<s_expression>* {
     return params;
 }
 
-auto interpreter::get_param_val(const Token &t) -> s_expression* {
+auto interpreter::get_param_val(const Token &t) -> std::shared_ptr<s_expression> {
     auto instance = call_stack.top();
     auto map_result = instance.param_hashmap.find(t.value);
 
     return map_result->second;
 }
 
-auto interpreter::function_define() -> function_declaration* {
+auto interpreter::function_define() -> std::shared_ptr<function_declaration> {
     auto define_keyword = ts.get();
     auto name = ts.get();
     if(name.type != 'A') {
@@ -285,22 +285,22 @@ auto interpreter::function_define() -> function_declaration* {
     }
 
     auto params = collect_params();
-    auto body = get_func_body(name.value, params);
+    auto body = get_func_body(name.value, params.get());
 
-    return new function_declaration{name.value, params, body};
+    return std::make_shared<function_declaration>(name.value, params, body);
 }
 
-auto interpreter::collect_params() -> list<param>* {
+auto interpreter::collect_params() -> std::shared_ptr<list<param>> {
     const auto& left_bracket = ts.get();
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare parameters");
     }
 
-    auto l = new list<param>();
+    auto l = std::make_shared<list<param>>();
     while(true) {
         auto token = ts.get();
         if(token.type == 'A') {
-            auto p = new param(token.value);
+            auto p = std::make_shared<param>(token.value);
             l->push_back(p);
         } else if(token.type == ')') {
             break;

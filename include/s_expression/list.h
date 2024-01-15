@@ -9,13 +9,13 @@
 
 template <typename T>
 requires std::derived_from<T, s_expression>
-class list: public s_expression{
+class list: public s_expression {
 public:
     list() = default;
-    list(const std::vector<s_expression*>::iterator& begin, const std::vector<s_expression*>::iterator& end) {
+    list(const std::vector<std::shared_ptr<s_expression>>::iterator& begin, const std::vector<std::shared_ptr<s_expression>>::iterator& end) {
         l = {begin, end};
     }
-    T* get(const int& index) {
+    std::shared_ptr<T> get(const int& index) {
         return l.at(index);
     }
     size_t size_of() {
@@ -47,14 +47,14 @@ public:
     void print(std::ostream& os) override {
         os << get_indicator() << ": " << get_value() << std::endl;
     }
-    std::vector<T*> get_iterator() {
+    std::vector<std::shared_ptr<T>> get_iterator() {
         return l;
     }
-    void push_back(T* s_exp) {
+    void push_back(const std::shared_ptr<T>& s_exp) {
         l.push_back(s_exp);
     }
 private:
     std::string indicator;
-    std::vector<T*> l{};
+    std::vector<std::shared_ptr<T>> l{};
 };
 #endif //MYSCHEME_LIST_H

@@ -6,65 +6,49 @@
 
 class self_add: public function {
 public:
-    explicit self_add(s_expression* n) {
+    explicit self_add(std::shared_ptr<s_expression> n) {
         if(n->get_indicator() != "integer") {
             throw std::runtime_error("wrong syntax: add1 need integer as param!");
         }
-        number = dynamic_cast<integer*>(n);
+        number = dynamic_pointer_cast<integer>(n);
     }
-    integer* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "add1"; }
     std::string family() override { return "math"; }
-
-    ~self_add() override {
-        delete execute_res;
-    }
 private:
-    integer* number;
-
-    integer* execute_res{};
+    std::shared_ptr<integer> number;
 };
 
 class self_sub: public function {
 public:
-    explicit self_sub(s_expression* n) {
+    explicit self_sub(std::shared_ptr<s_expression> n) {
         if(n->get_indicator() != "integer") {
             throw std::runtime_error("wrong syntax: sub1 need integer as param!");
         }
-        number = dynamic_cast<integer*>(n);
+        number = dynamic_pointer_cast<integer>(n);
     }
-    integer* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "sub1"; }
     std::string family() override { return "math"; }
-    ~self_sub() override {
-        delete execute_res;
-    }
 private:
-    integer* number;
-
-    integer* execute_res{};
+    std::shared_ptr<integer> number;
 };
 
 class is_zero: public function {
 public:
-    explicit is_zero(s_expression* n) {
+    explicit is_zero(std::shared_ptr<s_expression> n) {
         if(n->get_indicator() != "integer") {
             throw std::runtime_error("wrong syntax: zero? need integer as param!");
         }
-        number = dynamic_cast<integer*>(n);
+        number = dynamic_pointer_cast<integer>(n);
     }
-    boolean* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "zero?"; }
     std::string family() override { return "math"; }
-    ~is_zero() override {
-        delete execute_res;
-    }
 private:
-    integer* number;
-
-    boolean* execute_res{};
+    std::shared_ptr<integer> number;
 };
 #endif //MYSCHEME_MATH_FAMILY_H

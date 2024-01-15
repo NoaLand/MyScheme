@@ -2,6 +2,7 @@
 #define MYSCHEME_LIST_FAMILY_H
 
 #include <numeric>
+#include <utility>
 
 #include "function.h"
 #include "s_expression/atom.h"
@@ -9,98 +10,82 @@
 
 class car: public function {
 public:
-    explicit car(s_expression* exp) {
+    explicit car(std::shared_ptr<s_expression> exp) {
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, car can only get list.");
         }
-        s_exp = reinterpret_cast<list<s_expression>*>(exp);
+        s_exp = reinterpret_pointer_cast<list<s_expression>>(exp);
     }
-    s_expression* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "s_expression"; }
     std::string name() override { return "car"; }
     std::string family() override { return "list"; }
 private:
-    list<s_expression>* s_exp;
+    std::shared_ptr<list<s_expression>> s_exp{};
 };
 
 class cdr: public function {
 public:
-    explicit cdr(s_expression* exp) {
+    explicit cdr(std::shared_ptr<s_expression> exp) {
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, cdr can only get list.");
         }
-        s_exp = reinterpret_cast<list<s_expression>*>(exp);
+        s_exp = reinterpret_pointer_cast<list<s_expression>>(exp);
     }
-    list<s_expression>* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "list"; }
     std::string name() override { return "cdr"; }
     std::string family() override { return "list"; }
-    ~cdr() override {
-        delete execute_res;
-    }
 private:
-    list<s_expression>* s_exp;
-    list<s_expression>* execute_res{};
+    std::shared_ptr<list<s_expression>> s_exp;
 };
 
 class cons: public function {
 public:
-    cons(s_expression* l, s_expression* r): left(l) {
+    cons(std::shared_ptr<s_expression> l, std::shared_ptr<s_expression> r): left(std::move(l)) {
         if(r->get_indicator() != "list" && r->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, the second argument to cons must be a list.");
         }
-        right = reinterpret_cast<list<s_expression>*>(r);
+        right = reinterpret_pointer_cast<list<s_expression>>(r);
     }
-    list<s_expression>* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "list"; }
     std::string name() override { return "cons"; }
     std::string family() override { return "list"; }
-    ~cons() override {
-        delete execute_res;
-    }
 private:
-    s_expression* left;
-    list<s_expression>* right;
-    list<s_expression>* execute_res{};
+    std::shared_ptr<s_expression> left;
+    std::shared_ptr<list<s_expression>> right;
 };
 
 class is_null: public function {
 public:
-    explicit is_null(s_expression* exp) {
+    explicit is_null(std::shared_ptr<s_expression> exp) {
         if(exp->get_indicator() != "list" && exp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
-        s_exp = reinterpret_cast<list<s_expression>*>(exp);
+        s_exp = reinterpret_pointer_cast<list<s_expression>>(exp);
     }
-    boolean* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "null?"; }
     std::string family() override { return "list"; }
-    ~is_null() override {
-        delete execute_res;
-    }
 private:
-    list<s_expression>* s_exp;
-    boolean* execute_res{};
+    std::shared_ptr<list<s_expression>> s_exp;
 };
 
 class add_tuple: public function {
 public:
-    explicit add_tuple(s_expression* tp) {
+    explicit add_tuple(std::shared_ptr<s_expression> tp) {
         if(tp->get_indicator() != "tuple") {
             throw std::runtime_error("wrong syntax, null? is defined only for lists.");
         }
-        tup_list = reinterpret_cast<list<integer>*>(tp);
+        tup_list = reinterpret_pointer_cast<list<integer>>(tp);
     }
-    integer* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "integer"; }
     std::string name() override { return "addtup"; }
     std::string family() override { return "list"; }
-    ~add_tuple() override {
-        delete execute_res;
-    }
 private:
-    list<integer>* tup_list;
-    integer* execute_res{};
+    std::shared_ptr<list<integer>> tup_list;
 };
 #endif //MYSCHEME_LIST_FAMILY_H

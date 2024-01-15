@@ -22,17 +22,17 @@ class interpreter {
 public:
     explicit interpreter(Token_stream& t_stream): ts{t_stream}, context{t_stream.get_context()} {};
     
-    auto construct_from_token() -> s_expression*;
+    auto construct_from_token() -> std::shared_ptr<s_expression>;
 
     auto scheme() -> void;
-    auto closure() -> s_expression*;
+    auto closure() -> std::shared_ptr<s_expression>;
 
-    auto call_function() -> s_expression*;
-    auto get_input_param() -> list<s_expression>*;
-    auto get_param_val(const Token& t) -> s_expression*;
+    auto call_function() -> std::shared_ptr<s_expression>;
+    auto get_input_param() -> std::shared_ptr<list<s_expression>>;
+    auto get_param_val(const Token& t) -> std::shared_ptr<s_expression>;
 
-    auto function_define() -> function_declaration*;
-    auto collect_params() -> list<param>*;
+    auto function_define() -> std::shared_ptr<function_declaration>;
+    auto collect_params() -> std::shared_ptr<list<param>>;
     auto get_func_body(const std::string& func_name, list<param>* params) -> std::vector<Token>;
 private:
     function_context& context;

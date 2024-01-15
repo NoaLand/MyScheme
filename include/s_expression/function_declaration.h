@@ -11,10 +11,10 @@ class function_declaration: public s_expression {
 public:
     function_declaration() = default;
 
-    function_declaration(std::string n, list<param>* p, std::vector<Token> b): name(std::move(n)), params(p), body(std::move(b)) {}
+    function_declaration(std::string n, std::shared_ptr<list<param>> p, std::vector<Token> b): name(std::move(n)), params(p), body(std::move(b)) {}
 
     std::string get_name() { return name; }
-    list<param>* get_params() { return params; }
+    std::shared_ptr<list<param>> get_params() { return params; }
     std::vector<Token> get_body() { return body; }
     std::string get_value() override;
     std::string get_indicator() override { return indicator; }
@@ -22,7 +22,7 @@ public:
 private:
     std::string indicator{"customized_function"};
     std::string name;
-    list<param>* params{};
+    std::shared_ptr<list<param>> params{};
     std::vector<Token> body;
 };
 

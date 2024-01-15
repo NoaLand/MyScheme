@@ -10,25 +10,16 @@ protected:
 
 protected:
     void SetUp() override {
-        my_lambda_params = new list<param>();
-        p = new param{"l"};
+        auto my_lambda_params = std::make_shared<list<param>>();
+        auto p = std::make_shared<param>("l");
         my_lambda_params->push_back(p);
         my_lambda = std::make_shared<function_declaration>(
                 "my_lambda",
                 my_lambda_params,
                 my_lambda_body_token_list
         );
-        context.store(my_lambda.get());
+        context.store(my_lambda);
     }
-
-    void TearDown() override {
-        delete my_lambda_params;
-        delete p;
-    }
-
-private:
-    list<param>* my_lambda_params;
-    param* p;
 };
 
 TEST_F(FunctionDeclarationAndContextTest, should_get_info_of_lat_function_successfully_after_init_function) {
@@ -54,5 +45,5 @@ TEST_F(FunctionDeclarationAndContextTest, should_return_false_when_function_is_n
 }
 
 TEST_F(FunctionDeclarationAndContextTest, should_throw_exception_when_store_function_already_exist) {
-    ASSERT_ANY_THROW(context.store(my_lambda.get()));
+    ASSERT_ANY_THROW(context.store(my_lambda));
 }

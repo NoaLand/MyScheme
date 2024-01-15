@@ -5,7 +5,7 @@
 
 class function {
 public:
-    virtual s_expression* execute() = 0;
+    virtual std::shared_ptr<s_expression> execute() = 0;
     virtual std::string return_type() = 0;
     virtual std::string name() = 0;
     virtual std::string family() = 0;

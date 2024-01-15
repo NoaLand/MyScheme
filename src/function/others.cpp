@@ -1,7 +1,5 @@
 #include "function/others.h"
 
-atom* quote::execute() {
-    execute_res = new atom{exp->get_value()};
-
-    return execute_res;
+std::shared_ptr<s_expression> quote::execute() {
+    return std::make_shared<atom>(exp->get_value());
 }

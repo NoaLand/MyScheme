@@ -1,19 +1,13 @@
 #include "function/math_family.h"
 
-integer* self_add::execute() {
-    execute_res = new integer(number->val() + 1);
-
-    return execute_res;
+std::shared_ptr<s_expression> self_add::execute() {
+    return std::make_shared<integer>(number->val() + 1);
 }
 
-integer* self_sub::execute() {
-    execute_res = new integer(number->val() - 1);
-
-    return execute_res;
+std::shared_ptr<s_expression> self_sub::execute() {
+    return std::make_shared<integer>(number->val() - 1);
 }
 
-boolean *is_zero::execute() {
-    execute_res =  new boolean{number->val() == 0};
-
-    return execute_res;
+std::shared_ptr<s_expression> is_zero::execute() {
+    return std::make_shared<boolean>(number->val() == 0);
 }

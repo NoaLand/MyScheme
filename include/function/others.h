@@ -8,16 +8,13 @@
 
 class quote: public function {
 public:
-    explicit quote(s_expression* any): exp(any) {}
-    atom* execute() override;
+    explicit quote(std::shared_ptr<s_expression> any): exp(std::move(any)) {}
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "atom"; }
     std::string name() override { return "quote"; }
     std::string family() override { return "other"; }
-    ~quote() override { delete execute_res; }
 private:
-    s_expression* exp;
-
-    atom* execute_res{};
+    std::shared_ptr<s_expression> exp;
 };
 
 #endif //MYSCHEME_OTHERS_H

@@ -6,50 +6,38 @@
 
 class or_logic: public function {
 public:
-    or_logic(s_expression* l, s_expression* r) {
+    or_logic(std::shared_ptr<s_expression> l, std::shared_ptr<s_expression> r) {
         if(l->get_indicator() != "bool" || r->get_indicator() != "bool") {
             throw std::runtime_error("wrong syntax: or need take bool as input");
         }
-        left = dynamic_cast<boolean*>(l);
-        right = dynamic_cast<boolean*>(r);
+        left = dynamic_pointer_cast<boolean>(l);
+        right = dynamic_pointer_cast<boolean>(r);
     }
-    boolean* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "or?"; }
     std::string family() override { return "nor_logic"; }
-
-    ~or_logic() override {
-        delete execute_res;
-    }
 private:
-    boolean* left;
-    boolean* right;
-
-    boolean* execute_res{};
+    std::shared_ptr<boolean> left;
+    std::shared_ptr<boolean> right;
 };
 
 
 class and_logic: public function {
 public:
-    and_logic(s_expression* l, s_expression* r) {
+    and_logic(std::shared_ptr<s_expression> l, std::shared_ptr<s_expression> r) {
         if(l->get_indicator() != "bool" || r->get_indicator() != "bool") {
             throw std::runtime_error("wrong syntax: function and need take bool as input");
         }
-        left = dynamic_cast<boolean*>(l);
-        right = dynamic_cast<boolean*>(r);
+        left = dynamic_pointer_cast<boolean>(l);
+        right = dynamic_pointer_cast<boolean>(r);
     }
-    boolean* execute() override;
+    std::shared_ptr<s_expression> execute() override;
     std::string return_type() override { return "bool"; }
     std::string name() override { return "and?"; }
     std::string family() override { return "nor_logic"; }
-
-    ~and_logic() override {
-        delete execute_res;
-    }
 private:
-    boolean* left;
-    boolean* right;
-
-    boolean* execute_res{};
+    std::shared_ptr<boolean> left;
+    std::shared_ptr<boolean> right;
 };
 #endif //MYSCHEME_NOR_LOGIC_FAMILY_H
