@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 // for Tokens, every single word in Scheme can be a token, which means. it can be every single element it has, so token can represent for its type, value in string
 // type means the basic type for token, such as: atom -> A, () -> (), and car -> F
@@ -18,7 +19,7 @@ public:
 
 class Error_Token : public Token {
 public:
-    explicit Error_Token(const std::string &desc) : Token('E') {
+    explicit Error_Token(const std::string& desc) : Token('E') {
         throw std::runtime_error(desc);
     }
 };
