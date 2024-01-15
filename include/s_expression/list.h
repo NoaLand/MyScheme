@@ -4,6 +4,7 @@
 #include <concepts>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 #include "s_expression.h"
 

@@ -2,6 +2,7 @@
 #define MYSCHEME_FUNCTION_DECLARATION_H
 #include <string>
 #include <utility>
+#include <memory>
 
 #include "core/token.h"
 #include "list.h"
