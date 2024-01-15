@@ -208,8 +208,8 @@ auto interpreter::call_function() -> std::shared_ptr<s_expression> {
         } else if(func_instance.func_name == function_key) {
             // after calling(function has been on the top of the stack)
             auto func_params = std::make_shared<list<param>>();
-            for(int index = 0; index < func_instance.param_list.size_of(); index++){
-                func_params->push_back(func_instance.param_list.get(index));
+            for(int index = 0; index < func_instance.param_list->size_of(); index++){
+                func_params->push_back(func_instance.param_list->get(index));
             }
             auto func_declaration = std::make_shared<function_declaration>(func_instance.func_name, func_params, func_instance.body);
 
