@@ -11,7 +11,7 @@ So we can just start from the beginning of this book.
 - [ ] feat: implement lambda in lambda in lambda
 - [x] refactor implementation of function instantiate -- use stack/list instead of string/replace
 - [x] add automation test according to docs
-- [ ] use **smart pointer** to refactor this codebase, since last 8 refactor commit introduce memory bugs when declare customized function
+- [x] use **smart pointer** to refactor this codebase, since last 8 refactor commit introduce memory bugs when declare customized function
 - [ ] refactor architecture
   - [x] refactor to basic structure
   - [x] extract function out of repl
