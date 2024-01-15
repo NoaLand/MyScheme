@@ -7,6 +7,7 @@ class anonymous_func: public s_expression {
 public:
     anonymous_func() = default;
     explicit anonymous_func(std::string a): alias(std::move(a)) {}
+
     std::string get_value() override { return alias; }
     std::string get_indicator() override { return indicator; }
     void print(std::ostream& os) override { os << "anonymous func: " << get_value() << std::endl; }

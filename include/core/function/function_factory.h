@@ -8,11 +8,11 @@
 
 class function_instance {
 public:
-    function_instance(std::shared_ptr<function_declaration> func, std::shared_ptr<list<s_expression>> input) {
+    function_instance(const std::shared_ptr<function_declaration>& func, const std::shared_ptr<list<s_expression>>& input) {
         func_name = func->get_name();
         body = func->get_body();
         param_list = func->get_params();
-        for(int index = 0; index < param_list->size_of(); index++) {
+        for(int index = 0; index < param_list->size_of(); ++index) {
             param_hashmap[param_list->get(index)->get_value()] = input->get(index);
             if(input->get(index)->get_indicator() == "customized_function") {
                 auto f = dynamic_pointer_cast<function_declaration>(input->get(index));

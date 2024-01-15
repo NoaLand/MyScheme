@@ -230,7 +230,7 @@ auto interpreter::call_function() -> std::shared_ptr<s_expression> {
 
     auto pExpression = f->execute();
     ts.get_ostream() << "-> " << f->name() << " -> " << f->return_type() << " [" << pExpression->get_value() << "]" << std::endl;
-    return std::shared_ptr<s_expression>(pExpression);
+    return pExpression;
 }
 
 auto interpreter::get_input_param() -> std::shared_ptr<list<s_expression>> {
