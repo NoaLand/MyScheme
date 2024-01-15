@@ -82,6 +82,7 @@ Token Token_stream::get() {
             }
         }
     }
+    return Error_Token("Unrecognized token type!\n");
 }
 
 std::istream& Token_stream::get_istream() {

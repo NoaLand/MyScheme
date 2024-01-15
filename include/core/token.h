@@ -16,5 +16,12 @@ public:
     int integer_value{0};
 };
 
+class Error_Token : public Token {
+public:
+    explicit Error_Token(const std::string &desc) : Token('E') {
+        throw std::runtime_error(desc);
+    }
+};
+
 std::string serialize_token_list(const std::vector<Token>& token_list);
 #endif //MYSCHEME_TOKEN_H
