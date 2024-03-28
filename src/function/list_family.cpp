@@ -15,11 +15,11 @@ std::shared_ptr<s_expression> cdr::execute() {
 
     auto iter = s_exp->get_iterator();
 
-    return std::make_shared<list<s_expression>>(iter.begin() + 1, iter.end());
+    return std::make_unique<list<s_expression>>(iter.begin() + 1, iter.end());
 }
 
 std::shared_ptr<s_expression> cons::execute() {
-    std::shared_ptr<list<s_expression>> res = std::make_shared<list<s_expression>>();
+    std::unique_ptr<list<s_expression>> res = std::make_unique<list<s_expression>>();
     res->push_back(left);
     for(int index = 0; index < right->size_of(); ++index) {
         res->push_back(right->get(index));
@@ -29,7 +29,7 @@ std::shared_ptr<s_expression> cons::execute() {
 }
 
 std::shared_ptr<s_expression> is_null::execute() {
-    return std::make_shared<boolean>(s_exp->empty());
+    return std::make_unique<boolean>(s_exp->empty());
 }
 
 std::shared_ptr<s_expression> add_tuple::execute() {
@@ -40,5 +40,5 @@ std::shared_ptr<s_expression> add_tuple::execute() {
         sum += dynamic_pointer_cast<integer>(e)->val();
     }
 
-    return std::make_shared<integer>(sum);
+    return std::make_unique<integer>(sum);
 }
