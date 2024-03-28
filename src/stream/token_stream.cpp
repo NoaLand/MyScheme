@@ -102,7 +102,7 @@ void Token_stream::put_back(const Token& t) {
 }
 
 void Token_stream::push_back(const std::vector<Token>& token_list) noexcept {
-    for(auto index = token_list.size() - 1; index >= 0; index--) {
+    for(long index = token_list.size() - 1; index >= 0; index--) {
         buffer_queue.push_front(token_list.at(index));
     }
 }
