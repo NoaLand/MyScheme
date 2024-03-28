@@ -15,7 +15,8 @@ public:
     std::ostream& get_ostream();
     function_context& get_context();
     void put_back(const Token&);
-    void push_back(const std::vector<Token> &token_list);
+
+    void push_back(const std::vector<Token> &token_list) noexcept;
 
 private:
     std::deque<Token> buffer_queue;
