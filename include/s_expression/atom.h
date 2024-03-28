@@ -10,9 +10,9 @@ class atom: public s_expression {
 public:
     atom() = default;
     explicit atom(std::string v): value(std::move(v)) {}
-    std::string get_value() override;
-    std::string get_indicator() override { return indicator; }
-    void print(std::ostream& os) override;
+    std::string get_value() noexcept override;
+    std::string get_indicator() noexcept override { return indicator; }
+    void print(std::ostream& os) noexcept override;
 private:
     std::string indicator{"atom"};
     std::string value;
@@ -33,9 +33,9 @@ public:
     }
     explicit boolean(const char* b) : boolean(std::string(b)) {}
 
-    std::string get_value() override;
-    std::string get_indicator() override { return indicator; }
-    void print(std::ostream& os) override;
+    std::string get_value() noexcept override;
+    std::string get_indicator() noexcept override { return indicator; }
+    void print(std::ostream& os) noexcept override;
     bool val();
 private:
     std::string indicator{"bool"};
@@ -46,9 +46,9 @@ class integer: public s_expression {
 public:
     integer() = default;
     explicit integer(int i): value(i) {}
-    std::string get_value() override;
-    std::string get_indicator() override { return indicator; }
-    void print(std::ostream& os) override;
+    std::string get_value() noexcept override;
+    std::string get_indicator() noexcept override { return indicator; }
+    void print(std::ostream& os) noexcept override;
     int val() const;
 private:
     std::string indicator{"integer"};

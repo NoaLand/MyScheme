@@ -8,9 +8,9 @@ public:
     anonymous_func() = default;
     explicit anonymous_func(std::string a): alias(std::move(a)) {}
 
-    std::string get_value() override { return alias; }
-    std::string get_indicator() override { return indicator; }
-    void print(std::ostream& os) override { os << "anonymous func: " << get_value() << std::endl; }
+    std::string get_value() noexcept override { return alias; }
+    std::string get_indicator() noexcept override { return indicator; }
+    void print(std::ostream& os) noexcept override { os << "anonymous func: " << get_value() << std::endl; }
 private:
     std::string indicator{"anonymous_func"};
     std::string alias;

@@ -1,6 +1,6 @@
 #include "s_expression/function_declaration.h"
 
-std::string function_declaration::get_value() {
+std::string function_declaration::get_value() noexcept {
     std::string func;
     func += "-> name: " + name + "\n";
     func += "-> var: " + params->get_value() + "\n";
@@ -9,7 +9,7 @@ std::string function_declaration::get_value() {
     return func;
 }
 
-void function_declaration::print(std::ostream &os) {
+void function_declaration::print(std::ostream &os) noexcept {
     os << "---- func ----" << std::endl
         << get_value() << std::endl;
 }

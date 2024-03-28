@@ -30,7 +30,7 @@ public:
                            l.end(),
                            [&value](auto e){ return e->get_value() == value; });
     }
-    std::string get_value() override {
+    std::string get_value() noexcept override {
         std::string res = "( ";
         for (auto atom : l) {
             res += atom->get_value();
@@ -40,12 +40,12 @@ public:
 
         return res;
     }
-    std::string get_indicator() override {
+    std::string get_indicator() noexcept override {
         return std::all_of(l.begin(),
                            l.end(),
                            [](auto e) { return e->get_indicator() == "integer"; }) ? "tuple" : "list";
     }
-    void print(std::ostream& os) override {
+    void print(std::ostream& os) noexcept override {
         os << get_indicator() << ": " << get_value() << std::endl;
     }
     std::vector<std::shared_ptr<T>> get_iterator() {

@@ -16,9 +16,9 @@ public:
     std::string get_name() { return name; }
     std::shared_ptr<list<param>> get_params() { return params; }
     std::vector<Token> get_body() { return body; }
-    std::string get_value() override;
-    std::string get_indicator() override { return indicator; }
-    void print(std::ostream& os) override;
+    std::string get_value() noexcept override;
+    std::string get_indicator() noexcept override { return indicator; }
+    void print(std::ostream& os) noexcept override;
 private:
     std::string indicator{"customized_function"};
     std::string name;
