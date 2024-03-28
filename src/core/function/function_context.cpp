@@ -10,17 +10,16 @@ void function_context::store(const std::shared_ptr<function_declaration>& func) 
     func_list.push_back(func);
 }
 
-bool function_context::is_in(const std::string& name, bool load_to_buffer) {
-    for(const auto& f: func_list) {
+bool function_context::is_in(const std::string& name, const bool& load_to_buffer) {
+    return std::any_of(func_list.begin(), func_list.end(), [&name, &load_to_buffer, this] (const auto& f) mutable {
         if(f->get_name() == name) {
-            if(load_to_buffer) {
+            if (load_to_buffer) {
                 buffer.push(f);
             }
             return true;
         }
-    }
-
-    return false;
+        return false;
+    });
 }
 
 std::shared_ptr<function_declaration> function_context::load(const std::shared_ptr<list<s_expression>>& input_params) {
