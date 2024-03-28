@@ -8,7 +8,7 @@
 
 class function_context {
 public:
-    void store(std::shared_ptr<function_declaration> func);
+    void store(const std::shared_ptr<function_declaration>& func);
     bool is_in(const std::string& name, bool load_to_buffer = false);
     std::shared_ptr<function_declaration> load(const std::shared_ptr<list<s_expression>>& p);
 private:

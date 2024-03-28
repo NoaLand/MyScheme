@@ -1,6 +1,6 @@
 #include "core/function/function_context.h"
 
-void function_context::store(std::shared_ptr<function_declaration> func) {
+void function_context::store(const std::shared_ptr<function_declaration>& func) {
     for(const auto& f: func_list) {
         if(f->get_name() == func->get_name()) {
             throw std::runtime_error("function has been declared!");
