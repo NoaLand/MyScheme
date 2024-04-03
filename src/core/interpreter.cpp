@@ -1,6 +1,6 @@
 #include "core/interpreter.h"
 
-auto interpreter::construct_from_token() -> std::shared_ptr<s_expression> {
+std::shared_ptr<s_expression> interpreter::construct_from_token() {
     auto token = ts.get();
     std::shared_ptr<s_expression> s_exp;
     if(token.type == 'A') {
@@ -19,7 +19,7 @@ auto interpreter::construct_from_token() -> std::shared_ptr<s_expression> {
     return s_exp;
 }
 
-auto interpreter::scheme() -> void {
+void interpreter::scheme() {
     std::ostream& os = ts.get_ostream();
     os << "> ";
     auto token = ts.get();
@@ -59,7 +59,7 @@ auto interpreter::scheme() -> void {
     }
 }
 
-auto interpreter::closure() -> std::shared_ptr<s_expression> {
+std::shared_ptr<s_expression> interpreter::closure() {
     const Token& left = ts.get();
 
     if(left.type == 'P') {
@@ -114,7 +114,7 @@ auto interpreter::closure() -> std::shared_ptr<s_expression> {
     return l;
 }
 
-auto interpreter::call_function() -> std::shared_ptr<s_expression> {
+std::shared_ptr<s_expression> interpreter::call_function() {
     auto func = ts.get();
     auto& function_key = func.value;
     std::shared_ptr<function> f;
@@ -233,7 +233,7 @@ auto interpreter::call_function() -> std::shared_ptr<s_expression> {
     return pExpression;
 }
 
-auto interpreter::get_input_param() -> std::shared_ptr<list<s_expression>> {
+std::shared_ptr<list<s_expression>> interpreter::get_input_param() {
     auto params = std::make_shared<list<s_expression>>();
 
     while(true) {
@@ -263,14 +263,14 @@ auto interpreter::get_input_param() -> std::shared_ptr<list<s_expression>> {
     return params;
 }
 
-auto interpreter::get_param_val(const Token &t) -> std::shared_ptr<s_expression> {
+std::shared_ptr<s_expression> interpreter::get_param_val(const Token &t) {
     auto instance = call_stack.top();
     auto map_result = instance.param_hashmap.find(t.value);
 
     return map_result->second;
 }
 
-auto interpreter::function_define() -> std::shared_ptr<function_declaration> {
+std::shared_ptr<function_declaration> interpreter::function_define() {
     auto define_keyword = ts.get();
     auto name = ts.get();
     if(name.type != 'A') {
@@ -290,7 +290,7 @@ auto interpreter::function_define() -> std::shared_ptr<function_declaration> {
     return std::make_shared<function_declaration>(name.value, params, body);
 }
 
-auto interpreter::collect_params() -> std::shared_ptr<list<param>> {
+std::shared_ptr<list<param>> interpreter::collect_params() {
     const auto& left_bracket = ts.get();
     if(left_bracket.type != '(') {
         throw std::runtime_error("wrong syntax when declare parameters");
@@ -312,7 +312,7 @@ auto interpreter::collect_params() -> std::shared_ptr<list<param>> {
     return l;
 }
 
-auto interpreter::get_func_body(const std::string& func_name, std::shared_ptr<list<param>> params) -> std::vector<Token> {
+std::vector<Token> interpreter::get_func_body(const std::string& func_name, std::shared_ptr<list<param>> params) {
     auto body = std::vector<Token>();
     const auto& left_bracket = ts.get();
     if(left_bracket.type != '(') {
@@ -351,7 +351,7 @@ auto interpreter::get_func_body(const std::string& func_name, std::shared_ptr<li
     return body;
 }
 
-auto interpreter::ignore_else() -> void {
+void interpreter::ignore_else() {
     auto brackets = 1;
     while(true) {
         const auto& token = ts.get();
