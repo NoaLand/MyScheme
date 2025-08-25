@@ -18,6 +18,7 @@ So we can just start from the beginning of this book.
   - [ ] separate interpreter.cpp into several factories
 - [ ] refactor code smell -- 40%
   - [ ] use unique_ptr, shared_ptr and weak_ptr instead of all shared_ptr
+  - [ ] refactor implement to modern C++
 
 ## Grammar
 ```
